@@ -1,0 +1,7 @@
+[2026/10/22 08:28:12.797 GMT+08:00] [INFO]  : finally param is{"timestamp":"20261022080013"}
+[2026/10/22 08:28:53.388 GMT+08:00] [INFO]  : Task execution completed.
+[2026/10/22 08:28:53.410 GMT+08:00] [INFO] [real_stage:official_devcloud_jenkins] : [frame] start to send status data to service.
+[2026/10/22 08:28:53.440 GMT+08:00] [INFO] [real_stage:official_devcloud_jenkins] : [frame] finish to save status data to service.
+[2026/10/22 08:28:53.615 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.
+[2026/10/22 08:28:53.615 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!
+[2026/10/22 08:28:53.675 GMT+08:00] [INFO] [real_stage:official_devcloud_jenkins] : 该步骤执行完成

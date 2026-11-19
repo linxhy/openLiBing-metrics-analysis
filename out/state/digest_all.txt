@@ -1,0 +1,83 @@
+# ===== 待 AI 根因分析 · 纯文本取证包 =====
+# 分析只做两件事：① 定位（哪一行原文是失败点，写进 cites）② 定性（分类 + 根因 + 建议）。
+# 结论写成纯文本块（比 JSON 省 token，不用转义换行），交给 write_analysis.py 写回：
+#
+#   === 组件|流水线#构建号
+#   分类: 十选一（见下）
+#   简述: 40 字以内「是什么坏了」
+#   错误: 最能说明问题的那行报错原文（必须能在「引用」那一行里找到）
+#   根因: 自由多行文本：在哪失败 → 为什么 → 所以谁去修
+#   建议: 动手做什么 + 空行 + 验证方式：复跑什么、通过标准是什么
+#   引用: job_logs/x.log:L902, job_logs/x.log:L910
+#
+#   python tools/write_analysis.py --file out/state/analysis_result.txt --dry-run
+#   python tools/write_analysis.py --file out/state/analysis_result.txt
+#   分类白名单：代码编译错误 / 单元测试失败 / 依赖/环境缺失 / 网络/下载失败 / 资源不足 /
+#               超时 / 权限问题 / 配置/参数错误 / 基础设施/平台 / 无法判定
+# ===========================================
+
+# 归档范围: 全部归档日 2026-09-15~2026-11-18   analysis.status=pending 的记录: 2 条（本次打印 2 条）
+────────────────────────────────────────────────────────────────────────────────────────────────────
+[1/2] Triton_Ascend|Ascend#82
+  组件/流水线: Triton_Ascend / Ascend（Nightly-CI-Version-pipeline_Triton_Ascend）
+  构建/状态  : #82 CANCELED · 失败任务类型=构建任务 · 归属日 2026-10-28
+  起止时间   : 2026-10-28T19:14:28 → 2026-10-28T19:35:33
+  影响维度   : bs（当日指标 版本可用度 93% / 构建成功率 100%，track=bs）
+  计数       : {"tasks": 5, "testTasks": 0, "logTasks": 5, "buildTasks": 4, "cases": 0, "errorMessages": 10, "evidenceFiles": 0}
+  规则分类   : cancelled（仅供参考，页面分类列读你写的 issueType）
+  失败任务   :
+    [log] Build_triton_ascend_x86_cp12_13 → --
+    [log] Build_shmem_arm_cp10_11 → --
+    [log] Build_shmem_arm_cp12_13 → --
+    [log] Build_triton_ascend_arm_cp12_13 → --
+    [log] Test_Triton_Ascend → --
+  报错点（原文见下，可直接写进 cites）:
+    · STEP               Build_triton_ascend_x86_cp12_13:-  由用户liangkun停止
+    · STEP               Build_shmem_arm_cp10_11:-  由用户liangkun停止
+    · STEP               Build_shmem_arm_cp12_13:-  由用户liangkun停止
+    · STEP               Build_triton_ascend_arm_cp12_13:-  由用户liangkun停止
+    · STEP               Test_Triton_Ascend:-  由用户liangkun停止
+    · JOB                Build_triton_ascend_x86_cp12_13:-  步骤Build_triton_ascend_x86_cp12_13执行失败，错误信息：由用户liangkun停止
+    · JOB                Build_shmem_arm_cp10_11:-  步骤Build_shmem_arm_cp10_11执行失败，错误信息：由用户liangkun停止
+  证据原文   : 本记录没有可读的证据文件（按记录里的任务清单与错误信息定性）
+  证据缺口   : Build_shmem_arm_cp10_11, Build_shmem_arm_cp12_13, Build_triton_ascend_arm_cp12_13, Build_triton_ascend_x86_cp12_13, Test_Triton_Ascend（取证不全，定性时说明证据不完整）
+  记录位置   : archive/2026/2026-10/2026-10-28/Triton_Ascend/Ascend/pipeline.json records[3]
+────────────────────────────────────────────────────────────────────────────────────────────────────
+[2/2] Triton_Ascend|Ascend#104
+  组件/流水线: Triton_Ascend / Ascend（Nightly-CI-Version-pipeline_Triton_Ascend）
+  构建/状态  : #104 FAILED · 失败任务类型=测试任务 · 归属日 2026-11-06
+  起止时间   : 2026-11-06T17:00:52 → 2026-11-06T17:27:26
+  影响维度   : va（当日指标 版本可用度 93% / 构建成功率 100%，track=va）
+  计数       : {"tasks": 3, "testTasks": 1, "logTasks": 2, "buildTasks": 0, "cases": 0, "errorMessages": 11, "evidenceFiles": 2}
+  规则分类   : env_not_ready（仅供参考，页面分类列读你写的 issueType）
+  失败任务   :
+    [test] Test_Triton_Ascend → --
+    [log] npu_ir流水线调用 → job_logs/49_Ascend_104_npu_ir流水线调用.log（抽取报错行 18 条）
+    [log] Test_Triton_Ascend → job_logs/61_Ascend_104_Test_Triton_Ascend.log（抽取报错行 3 条）
+  报错点（原文见下，可直接写进 cites）:
+    · LOG                job_logs/49_Ascend_104_npu_ir流水线调用.log:L144  [2026/11/06 17:17:46.045 GMT+08:00]     任务 [Build_a3a5_arm]: RUNNING(运行中) -> FAILED(失败)
+    · LOG                job_logs/49_Ascend_104_npu_ir流水线调用.log:L161  [2026/11/06 17:26:21.511 GMT+08:00] [17:26:18] run#516 | FAILED(失败) | 已等待 00:25:10
+    · LOG                job_logs/49_Ascend_104_npu_ir流水线调用.log:L162  [2026/11/06 17:26:21.511 GMT+08:00]   · 阶段 [阶段_1]: RUNNING(运行中) -> FAILED(失败)
+    · LOG                job_logs/49_Ascend_104_npu_ir流水线调用.log:L163  [2026/11/06 17:26:21.511 GMT+08:00]     任务 [Build_a3a5_x86]: RUNNING(运行中) -> FAILED(失败)
+    · LOG                job_logs/49_Ascend_104_npu_ir流水线调用.log:L182  [2026/11/06 17:26:21.511 GMT+08:00]       message: 步骤Build_a3a5_arm执行失败，错误信息：{"errorMessage":" 构建任务执行失败!","errorCode":"DEV-CODECI-35002"}
+    · LOG                job_logs/49_Ascend_104_npu_ir流水线调用.log:L183  [2026/11/06 17:26:21.511 GMT+08:00]       step [Build_a3a5_arm]: FAILED(失败)
+    · LOG                job_logs/49_Ascend_104_npu_ir流水线调用.log:L185  [2026/11/06 17:26:21.529 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed
+  证据原文（行号即原文行号，可直接写进 cites）:
+    · job_logs/49_Ascend_104_npu_ir流水线调用.log:L142~L146（该文件共 187 行）
+    L142   | [2026/11/06 17:17:13.794 GMT+08:00] [17:17:13] run#516 | RUNNING(运行中) | 已等待 00:16:06
+    L143   | [2026/11/06 17:17:46.045 GMT+08:00] [17:17:43] run#516 | RUNNING(运行中) | 已等待 00:16:36
+    L144   | [2026/11/06 17:17:46.045 GMT+08:00]     任务 [Build_a3a5_arm]: RUNNING(运行中) -> FAILED(失败)
+    L145   | [2026/11/06 17:18:18.304 GMT+08:00] [17:18:13] run#516 | RUNNING(运行中) | 已等待 00:17:06
+    L146   | [2026/11/06 17:18:45.012 GMT+08:00] [17:18:44] run#516 | RUNNING(运行中) | 已等待 00:17:37
+    · job_logs/49_Ascend_104_npu_ir流水线调用.log:L159~L165（该文件共 187 行）
+    L159   | [2026/11/06 17:25:22.535 GMT+08:00] [17:25:17] run#516 | RUNNING(运行中) | 已等待 00:24:10
+    L160   | [2026/11/06 17:25:49.251 GMT+08:00] [17:25:47] run#516 | RUNNING(运行中) | 已等待 00:24:40
+    L161   | [2026/11/06 17:26:21.511 GMT+08:00] [17:26:18] run#516 | FAILED(失败) | 已等待 00:25:10
+    L162   | [2026/11/06 17:26:21.511 GMT+08:00]   · 阶段 [阶段_1]: RUNNING(运行中) -> FAILED(失败)
+    L163   | [2026/11/06 17:26:21.511 GMT+08:00]     任务 [Build_a3a5_x86]: RUNNING(运行中) -> FAILED(失败)
+    L164   | [2026/11/06 17:26:21.511 GMT+08:00] 
+    L165   | [2026/11/06 17:26:21.511 GMT+08:00] ================ 执行结果 ================
+    … 本记录证据行已达上限 12 行（深挖用 --record + tools/read_evidence.py）
+  证据缺口   : Test_Triton_Ascend（取证不全，定性时说明证据不完整）
+  记录位置   : archive/2026/2026-11/2026-11-06/Triton_Ascend/Ascend/pipeline.json records[1]
+────────────────────────────────────────────────────────────────────────────────────────────────────

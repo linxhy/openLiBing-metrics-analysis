@@ -1,0 +1,262 @@
+{
+ "_doc": {
+  "step": "step_7_archive",
+  "title": "流水线归档（单文件）",
+  "source": "第 1~6 步中间产物（out/work/）",
+  "criteria": "同一条流水线在同一个归档日的全部内容装进两份文件：每步正文见 steps，逐条执行记录见 records，证据原文见同目录 pipeline.evidence.json 的 files（键=相对本目录的路径，行号 1 起）",
+  "dateField": "buildEndtime",
+  "generatedAt": null,
+  "component": "openEuler",
+  "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+  "date": "2026-10-25",
+  "recordCount": 1
+ },
+ "schema": "pipeline/1",
+ "date": "2026-10-25",
+ "component": "openEuler",
+ "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+ "pipelineName": "openEuler 24.03 LTS SP5",
+ "platform": "jenkins",
+ "key": "openEuler|EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+ "dateBasis": {
+  "field": "buildEndtime",
+  "value": "2026-10-25",
+  "rule": "按构建结束时间归属北京自然日",
+  "runs": [
+   {
+    "rn": 19,
+    "status": "SUCCESS",
+    "endedAt": "2026-10-25T10:30:35"
+   }
+  ]
+ },
+ "counts": {
+  "records": 1,
+  "tasks": 0,
+  "cases": 0,
+  "errorMessages": 0
+ },
+ "evidence": {
+  "pathBase": "证据正文在 pipeline.evidence.json 的 files（键=相对本目录路径），行号 1 起",
+  "rule": "控制台日志逐行内嵌，bytes/sha1/eol 可无损还原"
+ },
+ "source": {
+  "step": "tools/collect_community_nightly.py",
+  "generatedAt": "2026-11-19 17:47:24",
+  "note": "数据来源: ci.openeuler.openatom.cn EBS-OS-build/view/dailybuild 视图的 EBS dailybuild 版本级任务（作业级 api/json，HTML 页面对匿名访问返回 403）。参考 pr-ci-board 的 openeuler_version_tasks.json：原 SP3 / LTS-Next 两条旧流水线已于 2026-10-30 停用，不再纳入统计，仅保留 SP5 一条。"
+ },
+ "steps": {
+  "step_1_lights": {
+   "_doc": {
+    "step": "step_1_lights",
+    "title": "第 1 步 夜间统计与待分析圈定",
+    "source": "openLiBing 夜间统计看板（产品维度指标）",
+    "criteria": "社区 Nightly 流水线点灯依据（口径参考 pr-ci-board）",
+    "dateField": "统计区间（start~end，含端点）",
+    "generatedAt": "2026-11-19 17:47:24",
+    "component": "openEuler",
+    "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+    "date": "2026-10-25"
+   },
+   "pipeline": {
+    "product": "openEuler",
+    "pipelineShortName": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+    "pipelineName": "openEuler 24.03 LTS SP5",
+    "platform": "jenkins",
+    "dims": [
+     "va",
+     "bs"
+    ],
+    "pipelineId": "jenkins:openEuler:EBS-OS-build/job/Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+    "scheduledOnly": false
+   },
+   "selection": {
+    "inBadPipelines": true,
+    "dims": [
+     "va",
+     "bs"
+    ],
+    "rateRule": "days",
+    "reason": "社区 Nightly 采集：当日 1 次构建（成功 1、失败 0、aborted 0），版本可用度按「成功天数÷有执行天数」、编译成功率按「成功次数÷构建次数」统计"
+   }
+  },
+  "step_2_runs": {
+   "_doc": {
+    "step": "step_2_runs",
+    "title": "第 2 步 执行记录圈定（N2）",
+    "source": "openLiBing 流水线 N2 执行列表",
+    "criteria": "当日构建清单（按构建结束时间归属北京自然日）",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:47:24",
+    "component": "openEuler",
+    "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+    "date": "2026-10-25"
+   },
+   "date": "2026-10-25",
+   "runHistory": [
+    {
+     "rn": 19,
+     "rid": "jenkins:openEuler:EBS-OS-build/job/Main-openEuler-24.03-LTS-SP5-EBS-dailybuild:19",
+     "status": "SUCCESS",
+     "start": "2026-10-25T00:06:00",
+     "end": "2026-10-25T10:30:35",
+     "iva": true,
+     "bc": 1,
+     "bpc": 1
+    }
+   ],
+   "runs": [
+    {
+     "rn": 19,
+     "status": "SUCCESS",
+     "start": "2026-10-25T00:06:00",
+     "end": "2026-10-25T10:30:35",
+     "included": true,
+     "reason": "结束时间在归档日内"
+    }
+   ],
+   "failedRuns": [],
+   "keptRuns": 1,
+   "keptFailedRuns": 0
+  },
+  "step_5_logs": {
+   "_doc": {
+    "step": "step_5_logs",
+    "title": "第 5 步 任务日志取证（T5）",
+    "source": "openLiBing 任务日志导出/分页接口",
+    "criteria": "失败构建控制台日志取证（consoleText 整份内嵌）",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:47:24",
+    "component": "openEuler",
+    "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+    "date": "2026-10-25"
+   },
+   "results": [],
+   "errors": [],
+   "counts": {
+    "tasks": 0,
+    "logFiles": 0,
+    "errorLines": 0
+   }
+  },
+  "step_6_records": {
+   "_doc": {
+    "step": "step_6_records",
+    "title": "第 6 步 证据合并与执行记录",
+    "source": "第 2~5c 步归档产物",
+    "criteria": "以「一次构建」为最小单位合并记录（社区 Nightly）",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:47:24",
+    "component": "openEuler",
+    "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+    "date": "2026-10-25"
+   },
+   "date": "2026-10-25",
+   "component": "openEuler",
+   "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+   "counts": {
+    "records": 1,
+    "tasks": 0,
+    "cases": 0,
+    "errorMessages": 0
+   },
+   "pathBase": "记录正文在本文件顶层 records[]（不再拆 records/run_<构建号>.json）",
+   "recordDoc": "单条执行记录：任务/用例/错误信息/证据/定性/置信度/构建编号（每条记录不再单独带 _doc，题头见本字段）"
+  }
+ },
+ "stepIndex": [
+  {
+   "step": "step_1_lights",
+   "bytes": 1075,
+   "title": "第 1 步 夜间统计与待分析圈定",
+   "source": "openLiBing 夜间统计看板（产品维度指标）",
+   "criteria": "社区 Nightly 流水线点灯依据（口径参考 pr-ci-board）",
+   "dateField": "统计区间（start~end，含端点）"
+  },
+  {
+   "step": "step_2_runs",
+   "bytes": 886,
+   "title": "第 2 步 执行记录圈定（N2）",
+   "source": "openLiBing 流水线 N2 执行列表",
+   "criteria": "当日构建清单（按构建结束时间归属北京自然日）",
+   "dateField": "pipelineRunEndtime"
+  },
+  {
+   "step": "step_5_logs",
+   "bytes": 499,
+   "title": "第 5 步 任务日志取证（T5）",
+   "source": "openLiBing 任务日志导出/分页接口",
+   "criteria": "失败构建控制台日志取证（consoleText 整份内嵌）",
+   "dateField": "pipelineRunEndtime"
+  },
+  {
+   "step": "step_6_records",
+   "bytes": 859,
+   "title": "第 6 步 证据合并与执行记录",
+   "source": "第 2~5c 步归档产物",
+   "criteria": "以「一次构建」为最小单位合并记录（社区 Nightly）",
+   "dateField": "pipelineRunEndtime"
+  }
+ ],
+ "records": [
+  {
+   "recordId": "openEuler|EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild#19",
+   "date": "2026-10-25",
+   "component": "openEuler",
+   "pipeline": "EBS-OS-build_job_Main-openEuler-24.03-LTS-SP5-EBS-dailybuild",
+   "pipelineName": "openEuler 24.03 LTS SP5",
+   "platform": "jenkins",
+   "buildNumber": 19,
+   "pipelineRunId": "jenkins:openEuler:EBS-OS-build/job/Main-openEuler-24.03-LTS-SP5-EBS-dailybuild:19",
+   "status": "SUCCESS",
+   "failedTaskType": null,
+   "startedAt": "2026-10-25T00:06:00",
+   "endedAt": "2026-10-25T10:30:35",
+   "dateBasis": {
+    "field": "buildEndtime",
+    "value": "2026-10-25T10:30:35",
+    "rule": "按构建结束时间（开始时间+耗时）归属北京自然日"
+   },
+   "links": {
+    "jenkins": "https://ci.openeuler.openatom.cn/job/EBS-OS-build/job/Main-openEuler-24.03-LTS-SP5-EBS-dailybuild/19/",
+    "detail": null,
+    "openlibing": null,
+    "github": null
+   },
+   "tasks": [],
+   "cases": [],
+   "errorMessages": [],
+   "verdict": {
+    "category": "na",
+    "text": "",
+    "confidence": null,
+    "basis": []
+   },
+   "suggestions": [],
+   "analysis": {
+    "status": "na"
+   },
+   "counts": {
+    "tasks": 0,
+    "testTasks": 0,
+    "logTasks": 0,
+    "buildTasks": 0,
+    "cases": 0,
+    "errorMessages": 0,
+    "evidenceFiles": 0
+   },
+   "light": {
+    "vaRate": 1.0,
+    "bsRate": null,
+    "dims": [
+     "va",
+     "bs"
+    ],
+    "track": "va",
+    "affects": []
+   }
+  }
+ ],
+ "pathBase": "steps.* / records[] 相对本文件；证据正文见 pipeline.evidence.json 的 files（键=相对本目录的路径）",
+ "channel": "community"
+}

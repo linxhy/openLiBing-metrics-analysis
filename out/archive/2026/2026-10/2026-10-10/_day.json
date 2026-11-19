@@ -1,0 +1,168 @@
+{
+ "_doc": {
+  "step": "step_7_archive",
+  "title": "归档日汇总",
+  "source": "第 1~6 步中间产物（out/work/）",
+  "criteria": "当日（按执行结束时间）全部被点灯流水线的执行记录索引",
+  "dateField": "pipelineRunEndtime",
+  "generatedAt": "2026-11-19 17:35:20",
+  "date": "2026-10-10",
+  "dayType": "day"
+ },
+ "date": "2026-10-10",
+ "dateBasis": {
+  "field": "pipelineRunEndtime",
+  "rule": "按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）",
+  "value": "2026-10-10"
+ },
+ "dateRange": {
+  "start": "2026-09-01",
+  "end": "2026-11-18"
+ },
+ "products": [
+  {
+   "product": "Triton_Ascend",
+   "projectId": 300130,
+   "versionAvailabilityRate": 0.9302325581395349,
+   "buildSuccessRate": 0.9953271028037384,
+   "pipelineCount": 1,
+   "badPipelineCount": 1,
+   "badPipelineCountVA": 1,
+   "badPipelineCountBS": 1,
+   "analyze": true,
+   "collectedPipelineCount": 1,
+   "rateRule": "runs",
+   "recompute": true,
+   "scheduledOnly": false,
+   "versionAvailabilityDetail": {
+    "pipelineCount": 1,
+    "sumRate": 0.9302325581395349,
+    "avgRate": 0.9302325581395349,
+    "workdayCount": 53,
+    "rule": "组件级 = 各流水线版本可用度之和 / 流水线条数（流水线级 = 可用日 / 该流水线有执行记录的天数；当天有运行开始或结束才算「有执行记录」，跨午夜运行的开始日也进分母；当日有 iva=true 的运行结束才算可用日；当天完全没启动、没跑过的日子不进分母；区间内无运行记录的流水线不参与均值）"
+   },
+   "buildSuccessDetail": {
+    "buildPassCount": 852,
+    "buildCount": 856,
+    "rule": "按采集到的全部运行重算：Σ编译通过 / Σ编译次数（不看板 buildSuccess；github 平台无该口径不参与）"
+   }
+  }
+ ],
+ "productsAnalyzed": [
+  "Triton_Ascend"
+ ],
+ "workdays": [
+  "2026-09-01",
+  "2026-09-02",
+  "2026-09-03",
+  "2026-09-04",
+  "2026-09-07",
+  "2026-09-08",
+  "2026-09-09",
+  "2026-09-10",
+  "2026-09-11",
+  "2026-09-14",
+  "2026-09-15",
+  "2026-09-16",
+  "2026-09-17",
+  "2026-09-18",
+  "2026-09-20",
+  "2026-09-21",
+  "2026-09-22",
+  "2026-09-23",
+  "2026-09-24",
+  "2026-09-28",
+  "2026-09-29",
+  "2026-09-30",
+  "2026-10-08",
+  "2026-10-09",
+  "2026-10-10",
+  "2026-10-12",
+  "2026-10-13",
+  "2026-10-14",
+  "2026-10-15",
+  "2026-10-16",
+  "2026-10-19",
+  "2026-10-20",
+  "2026-10-21",
+  "2026-10-22",
+  "2026-10-23",
+  "2026-10-26",
+  "2026-10-27",
+  "2026-10-28",
+  "2026-10-29",
+  "2026-10-30",
+  "2026-11-02",
+  "2026-11-03",
+  "2026-11-04",
+  "2026-11-05",
+  "2026-11-06",
+  "2026-11-09",
+  "2026-11-10",
+  "2026-11-11",
+  "2026-11-12",
+  "2026-11-13",
+  "2026-11-16",
+  "2026-11-17",
+  "2026-11-18"
+ ],
+ "workdayCount": 53,
+ "pipelines": [
+  {
+   "component": "Triton_Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "platform": "codearts",
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "key": "Triton_Ascend|Ascend",
+   "dims": [
+    "va",
+    "bs"
+   ],
+   "vaRate": 0.9302325581395349,
+   "bsRate": 0.9953271028037384,
+   "rateRule": "runs",
+   "vaDetail": {
+    "availDays": 1,
+    "daysInPeriod": 1
+   },
+   "bsDetail": {
+    "buildPassCount": 20,
+    "buildCount": 20
+   },
+   "runsInPeriod": 101,
+   "runsToday": 2,
+   "failedRunsToday": 0,
+   "path": "archive/2026/2026-10/2026-10-10/Triton_Ascend/Ascend",
+   "manifest": "archive/2026/2026-10/2026-10-10/Triton_Ascend/Ascend/pipeline.json",
+   "file": "archive/2026/2026-10/2026-10-10/Triton_Ascend/Ascend/pipeline.json",
+   "layout": "pipeline/1",
+   "records": 2,
+   "runNumbers": [
+    34,
+    35
+   ],
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0,
+   "evidenceFiles": 0,
+   "byCategory": {
+    "success": 2
+   },
+   "note": null
+  }
+ ],
+ "counts": {
+  "components": 1,
+  "pipelines": 1,
+  "records": 2,
+  "tasks": 0,
+  "cases": 0,
+  "errorMessages": 0,
+  "evidenceFiles": 0,
+  "byCategory": {
+   "success": 2
+  }
+ },
+ "generatedAt": "2026-11-19 17:35:20"
+}

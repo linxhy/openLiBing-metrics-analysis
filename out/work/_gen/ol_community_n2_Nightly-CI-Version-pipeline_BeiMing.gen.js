@@ -1,5 +1,5 @@
 (async () => {
-const PARAMS = {"startDate": "2026-11-18", "endDate": "2026-11-18", "pageSize": 100, "delay": 250, "conc": 4, "maxTry": 3, "retryBackoffMs": [1000, 2000], "pipelines": [{"key": "UBS Core|Nightly-CI-Version-pipeline_BeiMing", "pipelineId": "b51d159e1b9d4c6798dcda723e1876db", "projectId": "300122"}]};
+const PARAMS = {"startDate": "2026-09-01", "endDate": "2026-11-18", "pageSize": 100, "delay": 250, "conc": 4, "maxTry": 3, "retryBackoffMs": [1000, 2000], "pipelines": [{"key": "UBS Core|Nightly-CI-Version-pipeline_BeiMing", "pipelineId": "b51d159e1b9d4c6798dcda723e1876db", "projectId": "300122"}]};
 return (async () => {
   // 【N2】POST /gateway/openlibing-ops/manage/common/detail  category=nightly-dashboard-detail
   // 返回每流水线逐运行看板明细（即执行记录来源）：pipelineRunNumber/Id/Status/起止时间 +

@@ -5,9 +5,9 @@
   "source": "第 1~6 步中间产物（out/work/）",
   "criteria": "看板产品发现接口返回的全部开源组件（含当日无待分析流水线的产品），跨次运行累加、只增不删",
   "dateField": "pipelineRunEndtime",
-  "generatedAt": "2026-11-19 05:02:01"
+  "generatedAt": "2026-11-19 17:35:20"
  },
- "generatedAt": "2026-11-19 05:02:01",
+ "generatedAt": "2026-11-19 17:35:20",
  "count": 16,
  "source": {
   "step": "step_1_nightly",
@@ -191,15 +191,15 @@
   {
    "name": "Triton_Ascend",
    "projectId": 300130,
-   "versionAvailabilityRate": 1.0,
-   "buildSuccessRate": 1.0,
+   "versionAvailabilityRate": 0.9302325581395349,
+   "buildSuccessRate": 0.9953271028037384,
    "pipelineCount": 1,
-   "badPipelineCount": 0,
+   "badPipelineCount": 1,
    "analyze": true,
    "rateRule": "runs",
    "recompute": true,
    "firstSeen": "2026-11-12 19:18:39",
-   "lastSeen": "2026-11-19 05:02:01"
+   "lastSeen": "2026-11-19 17:35:20"
   },
   {
    "name": "UBS Core",

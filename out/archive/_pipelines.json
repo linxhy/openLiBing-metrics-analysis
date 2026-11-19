@@ -3,10 +3,10 @@
     "step": "step_1_nightly",
     "title": "流水线身份注册表",
     "criteria": "每个开源组件下 pipelineId -> 唯一短名的持久映射（跨次运行累积、只增不删）：短名同时是归档目录名与页面聚合键的一半，已登记的一律沿用，保证同一条流水线跨日不会换目录 / 换 key",
-    "generatedAt": "2026-11-19 05:01:31",
+    "generatedAt": "2026-11-19 17:33:21",
     "pathBase": "products.<开源组件名>.<pipelineId> = {pipelineName, platform, short, firstSeen, lastSeen}"
   },
-  "generatedAt": "2026-11-19 05:01:31",
+  "generatedAt": "2026-11-19 17:33:21",
   "productCount": 12,
   "pipelineCount": 55,
   "products": {
@@ -326,7 +326,7 @@
         "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
         "platform": "codearts",
         "firstSeen": "2026-11-16 2026-11-16",
-        "lastSeen": "2026-11-18 2026-11-18"
+        "lastSeen": "2026-09-01 2026-11-18"
       }
     },
     "boostkit": {

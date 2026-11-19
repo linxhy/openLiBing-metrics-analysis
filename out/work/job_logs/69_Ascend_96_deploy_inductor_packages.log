@@ -1,0 +1,6 @@
+[2026/11/03 08:21:41.447 GMT+08:00] [INFO]  : Task execution completed.
+[2026/11/03 08:21:41.475 GMT+08:00] [INFO] [real_stage:official_devcloud_jenkins] : [frame] start to send status data to service.
+[2026/11/03 08:21:41.506 GMT+08:00] [INFO] [real_stage:official_devcloud_jenkins] : [frame] finish to save status data to service.
+[2026/11/03 08:21:41.668 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.
+[2026/11/03 08:21:41.668 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!
+[2026/11/03 08:21:41.740 GMT+08:00] [INFO] [real_stage:official_devcloud_jenkins] : 该步骤执行完成

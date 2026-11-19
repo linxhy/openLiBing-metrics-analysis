@@ -1,0 +1,3226 @@
+{
+ "_doc": {
+  "step": "step_7_archive",
+  "title": "流水线归档（单文件）",
+  "source": "第 1~6 步中间产物（out/work/）",
+  "criteria": "同一条流水线在同一个归档日的全部内容装进两份文件：每步正文见 steps，逐条执行记录见 records，证据原文见同目录 pipeline.evidence.json 的 files（键=相对本目录的路径，行号 1 起）",
+  "dateField": "pipelineRunEndtime",
+  "generatedAt": "2026-11-19 17:35:20",
+  "component": "Triton_Ascend",
+  "pipeline": "Ascend",
+  "date": "2026-09-20",
+  "recordCount": 2
+ },
+ "schema": "pipeline/1",
+ "date": "2026-09-20",
+ "component": "Triton_Ascend",
+ "pipeline": "Ascend",
+ "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+ "platform": "codearts",
+ "key": "Triton_Ascend|Ascend",
+ "dateBasis": {
+  "field": "pipelineRunEndtime",
+  "rule": "按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）",
+  "value": "2026-09-20",
+  "runs": [
+   {
+    "rn": 9,
+    "status": "COMPLETED",
+    "endedAt": "2026-09-20 17:16:40"
+   },
+   {
+    "rn": 8,
+    "status": "FAILED",
+    "endedAt": "2026-09-20 08:09:18"
+   }
+  ]
+ },
+ "counts": {
+  "records": 2,
+  "tasks": 3,
+  "cases": 0,
+  "errorMessages": 11
+ },
+ "evidence": {
+  "files": 2,
+  "bytes": 27553,
+  "lines": 278,
+  "missing": [],
+  "pathBase": "证据正文在 pipeline.evidence.json 的 files，键 = 相对本目录的证据路径（与 steps/records 里 logFile / cites 的写法完全一致），行号 1 起与原文件相同",
+  "rule": "证据原文逐行内嵌（lines[] + eol + sha1 可无损还原）；只增不删：重跑不会删掉已归档的历史证据；files/bytes/lines 是本目录累积全量，不是本次新增"
+ },
+ "source": {
+  "workDir": "work",
+  "generatedAt": "2026-11-19 17:35:20",
+  "note": "由 steps/step_7_archive.py 从第 1~6 步产物逐层归档"
+ },
+ "pathBase": "steps[].正文 / records[] 均在本文件；证据正文见同目录 pipeline.evidence.json 的 files；本目录路径见 _day.json 与 _index.json",
+ "steps": {
+  "step_1_lights": {
+   "_doc": {
+    "step": "step_1_lights",
+    "title": "第 1 步 夜间统计与待分析圈定",
+    "source": "openLiBing 夜间统计看板（产品维度指标）",
+    "criteria": "默认取「前一个工作日」单日（跳过周末与法定节假日，config.date_range 留空时生效）：取 config.products 指定的开源组件在该日的版本可用度/编译成功率，比率按我们采集到的执行记录重算（归档只存数值，不存黄/绿/红）；本产品下任一指标未达 100%（或版本不可用）的流水线进入待分析集合",
+    "dateField": "统计区间（start~end，含端点）",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20"
+   },
+   "dateRange": {
+    "start": "2026-09-01",
+    "end": "2026-11-18"
+   },
+   "product": {
+    "product": "Triton_Ascend",
+    "projectId": 300130,
+    "versionAvailabilityRate": 0.9302325581395349,
+    "buildSuccessRate": 0.9953271028037384,
+    "pipelineCount": 1,
+    "badPipelineCount": 1,
+    "badPipelineCountVA": 1,
+    "badPipelineCountBS": 1,
+    "analyze": true,
+    "collectedPipelineCount": 1,
+    "rateRule": "runs",
+    "recompute": true,
+    "scheduledOnly": false,
+    "versionAvailabilityDetail": {
+     "pipelineCount": 1,
+     "sumRate": 0.9302325581395349,
+     "avgRate": 0.9302325581395349,
+     "workdayCount": 53,
+     "rule": "组件级 = 各流水线版本可用度之和 / 流水线条数（流水线级 = 可用日 / 该流水线有执行记录的天数；当天有运行开始或结束才算「有执行记录」，跨午夜运行的开始日也进分母；当日有 iva=true 的运行结束才算可用日；当天完全没启动、没跑过的日子不进分母；区间内无运行记录的流水线不参与均值）"
+    },
+    "buildSuccessDetail": {
+     "buildPassCount": 852,
+     "buildCount": 856,
+     "rule": "按采集到的全部运行重算：Σ编译通过 / Σ编译次数（不看板 buildSuccess；github 平台无该口径不参与）"
+    }
+   },
+   "pipeline": {
+    "key": "Triton_Ascend|Ascend",
+    "product": "Triton_Ascend",
+    "projectId": 300130,
+    "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+    "pipelineShortName": "Ascend",
+    "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+    "platform": "codearts",
+    "versionAvailabilityRate": 0.9302,
+    "buildSuccessRate": 0.9953,
+    "dims": [
+     "va",
+     "bs"
+    ],
+    "rateRule": "runs",
+    "recompute": true,
+    "scheduledOnly": false
+   },
+   "selection": {
+    "inBadPipelines": true,
+    "dims": [
+     "va",
+     "bs"
+    ],
+    "rateRule": "runs",
+    "reason": "全量采集：该流水线区间内共 101 次运行（当日 2 次），其中 1 次失败/取消进入根因取证；版本可用度与编译成功率一律按全部运行逐日重算（不看板返回值）"
+   }
+  },
+  "step_2_runs": {
+   "_doc": {
+    "step": "step_2_runs",
+    "title": "第 2 步 执行记录圈定（N2）",
+    "source": "openLiBing 流水线 N2 执行列表",
+    "criteria": "按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）；仅保留工作日；VA 轨道=当日无 isVersionAvailable=true 的待查运行，BS 轨道=豁免日补圈的 Build* 失败运行",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20"
+   },
+   "dateRange": {
+    "start": "2026-09-01",
+    "end": "2026-11-18"
+   },
+   "date": "2026-09-20",
+   "dateBasis": {
+    "field": "pipelineRunEndtime",
+    "rule": "按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）"
+   },
+   "failedRuns": [
+    {
+     "rn": 8,
+     "rid": "715bbcb41c6c481f98864ad495d60043",
+     "status": "FAILED",
+     "start": "09-20 08:00",
+     "startISO": "2026-09-20T08:00:14",
+     "endISO": "2026-09-20T08:09:18",
+     "detailUrl": null,
+     "openlibingUrl": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=715bbcb41c6c481f98864ad495d60043",
+     "dims": [
+      "bs"
+     ],
+     "track": "bs",
+     "ftt": "测试任务",
+     "cached": false
+    }
+   ],
+   "days": {
+    "09-20": [
+     "COMPLETED",
+     "FAILED"
+    ]
+   },
+   "runs": [
+    {
+     "rn": 3,
+     "pipelineRunId": "8ef48e6a83754c328915c04d01543bdb",
+     "start": "2026-09-15 20:43:15",
+     "end": "2026-09-15 21:28:18",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-15",
+     "included": false,
+     "reason": "结束时间属 2026-09-15，已归档到该日期目录"
+    },
+    {
+     "rn": 2,
+     "pipelineRunId": "464ac8d5cbe246d68d01df22948f747a",
+     "start": "2026-09-15 19:19:50",
+     "end": "2026-09-15 20:06:34",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-15",
+     "included": false,
+     "reason": "结束时间属 2026-09-15，已归档到该日期目录"
+    },
+    {
+     "rn": 1,
+     "pipelineRunId": "d90b59eb5a0d4b0c8b92f4850dcb302c",
+     "start": "2026-09-15 16:37:39",
+     "end": "2026-09-15 17:33:03",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-15",
+     "included": false,
+     "reason": "结束时间属 2026-09-15，已归档到该日期目录"
+    },
+    {
+     "rn": 4,
+     "pipelineRunId": "57c557e7f84e4641a0fc9f28741c822f",
+     "start": "2026-09-16 08:00:24",
+     "end": "2026-09-16 08:58:44",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-16",
+     "included": false,
+     "reason": "结束时间属 2026-09-16，已归档到该日期目录"
+    },
+    {
+     "rn": 5,
+     "pipelineRunId": "f2cefb28cfd14df099c981e370cb3cb1",
+     "start": "2026-09-17 08:00:24",
+     "end": "2026-09-17 12:03:26",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-17",
+     "included": false,
+     "reason": "结束时间属 2026-09-17，已归档到该日期目录"
+    },
+    {
+     "rn": 6,
+     "pipelineRunId": "28b0552470f74f3ea4f14f3dc1b351ad",
+     "start": "2026-09-18 08:00:14",
+     "end": "2026-09-18 08:58:21",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-18",
+     "included": false,
+     "reason": "结束时间属 2026-09-18，已归档到该日期目录"
+    },
+    {
+     "rn": 9,
+     "pipelineRunId": "cdef4b3129144f2bac5406b1e37b56e5",
+     "start": "2026-09-20 16:04:58",
+     "end": "2026-09-20 17:16:40",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-20",
+     "included": true,
+     "reason": "结束时间在归档日内，纳入当日归档记录（成功运行，只记录不取证）"
+    },
+    {
+     "rn": 8,
+     "pipelineRunId": "715bbcb41c6c481f98864ad495d60043",
+     "start": "2026-09-20 08:00:14",
+     "end": "2026-09-20 08:09:18",
+     "status": "FAILED",
+     "endedDate": "2026-09-20",
+     "included": true,
+     "reason": "结束时间在归档日内，纳入当日待分析（失败/取消，取证）"
+    },
+    {
+     "rn": 12,
+     "pipelineRunId": "764d7cab19dd475cbcc95ce601cca295",
+     "start": "2026-09-21 19:47:44",
+     "end": "2026-09-21 20:47:13",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-21",
+     "included": false,
+     "reason": "结束时间属 2026-09-21，已归档到该日期目录"
+    },
+    {
+     "rn": 11,
+     "pipelineRunId": "a6c245b94b79488188857ec1d6557002",
+     "start": "2026-09-21 14:07:10",
+     "end": "2026-09-21 15:05:29",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-21",
+     "included": false,
+     "reason": "结束时间属 2026-09-21，已归档到该日期目录"
+    },
+    {
+     "rn": 10,
+     "pipelineRunId": "9621685de7fe40d4a7ed613d8d12a845",
+     "start": "2026-09-21 08:00:14",
+     "end": "2026-09-21 08:57:32",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-21",
+     "included": false,
+     "reason": "结束时间属 2026-09-21，已归档到该日期目录"
+    },
+    {
+     "rn": 13,
+     "pipelineRunId": "a82fb424c5174e0bbc5a66c42644bbcd",
+     "start": "2026-09-22 08:00:14",
+     "end": "2026-09-22 09:11:39",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-22",
+     "included": false,
+     "reason": "结束时间属 2026-09-22，已归档到该日期目录"
+    },
+    {
+     "rn": 14,
+     "pipelineRunId": "c8df1f6c6ef344978345d2061a256c96",
+     "start": "2026-09-23 08:00:14",
+     "end": "2026-09-23 09:01:10",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-23",
+     "included": false,
+     "reason": "结束时间属 2026-09-23，已归档到该日期目录"
+    },
+    {
+     "rn": 15,
+     "pipelineRunId": "9376b66cb0f1401abe70cd439b91b294",
+     "start": "2026-09-24 08:00:13",
+     "end": "2026-09-24 09:02:41",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-24",
+     "included": false,
+     "reason": "结束时间属 2026-09-24，已归档到该日期目录"
+    },
+    {
+     "rn": 19,
+     "pipelineRunId": "8b0addf4ac5d44f09a73ca1394374a92",
+     "start": "2026-09-28 08:00:55",
+     "end": "2026-09-28 08:57:38",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-28",
+     "included": false,
+     "reason": "结束时间属 2026-09-28，已归档到该日期目录"
+    },
+    {
+     "rn": 20,
+     "pipelineRunId": "eaa3a30605544cb09a1984e4c7177a71",
+     "start": "2026-09-29 08:00:55",
+     "end": "2026-09-29 09:01:09",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-29",
+     "included": false,
+     "reason": "结束时间属 2026-09-29，已归档到该日期目录"
+    },
+    {
+     "rn": 21,
+     "pipelineRunId": "2f3950c984cc4df89c9eed9c23008a97",
+     "start": "2026-09-30 08:00:55",
+     "end": "2026-09-30 08:58:58",
+     "status": "COMPLETED",
+     "endedDate": "2026-09-30",
+     "included": false,
+     "reason": "结束时间属 2026-09-30，已归档到该日期目录"
+    },
+    {
+     "rn": 30,
+     "pipelineRunId": "026dae19434249b5850762f335982eed",
+     "start": "2026-10-08 16:57:24",
+     "end": "2026-10-08 18:17:27",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-08",
+     "included": false,
+     "reason": "结束时间属 2026-10-08，已归档到该日期目录"
+    },
+    {
+     "rn": 29,
+     "pipelineRunId": "b79b09e4f9c84aa9bb826da843e2e16d",
+     "start": "2026-10-08 08:00:54",
+     "end": "2026-10-08 08:56:03",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-08",
+     "included": false,
+     "reason": "结束时间属 2026-10-08，已归档到该日期目录"
+    },
+    {
+     "rn": 33,
+     "pipelineRunId": "715b06b6a32548399e0ef7758ca970f3",
+     "start": "2026-10-09 17:00:33",
+     "end": "2026-10-09 17:56:49",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-09",
+     "included": false,
+     "reason": "结束时间属 2026-10-09，已归档到该日期目录"
+    },
+    {
+     "rn": 32,
+     "pipelineRunId": "0a1da7cf3dde4ff29d6fc4e7d6259cd5",
+     "start": "2026-10-09 12:01:57",
+     "end": "2026-10-09 12:56:45",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-09",
+     "included": false,
+     "reason": "结束时间属 2026-10-09，已归档到该日期目录"
+    },
+    {
+     "rn": 31,
+     "pipelineRunId": "f93aa4e5078f41e097b2d9783d01273d",
+     "start": "2026-10-09 08:00:42",
+     "end": "2026-10-09 08:54:39",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-09",
+     "included": false,
+     "reason": "结束时间属 2026-10-09，已归档到该日期目录"
+    },
+    {
+     "rn": 35,
+     "pipelineRunId": "d57fd094071149dcb21719806fddd6a8",
+     "start": "2026-10-10 17:00:32",
+     "end": "2026-10-10 18:05:59",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-10",
+     "included": false,
+     "reason": "结束时间属 2026-10-10，已归档到该日期目录"
+    },
+    {
+     "rn": 34,
+     "pipelineRunId": "5633fa40b59a4430acd8776bf0826ef4",
+     "start": "2026-10-10 08:00:34",
+     "end": "2026-10-10 08:57:26",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-10",
+     "included": false,
+     "reason": "结束时间属 2026-10-10，已归档到该日期目录"
+    },
+    {
+     "rn": 39,
+     "pipelineRunId": "01b27745650f4ff68fd4c1dd12c0997d",
+     "start": "2026-10-12 17:00:32",
+     "end": "2026-10-12 18:19:26",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-12",
+     "included": false,
+     "reason": "结束时间属 2026-10-12，已归档到该日期目录"
+    },
+    {
+     "rn": 38,
+     "pipelineRunId": "33a196f0ca78408486a13441fcf89b93",
+     "start": "2026-10-12 08:00:32",
+     "end": "2026-10-12 08:55:21",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-12",
+     "included": false,
+     "reason": "结束时间属 2026-10-12，已归档到该日期目录"
+    },
+    {
+     "rn": 41,
+     "pipelineRunId": "461d9a13f36142b3a2e6fa60d9d06c54",
+     "start": "2026-10-13 17:00:32",
+     "end": "2026-10-13 18:01:46",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-13",
+     "included": false,
+     "reason": "结束时间属 2026-10-13，已归档到该日期目录"
+    },
+    {
+     "rn": 40,
+     "pipelineRunId": "ed5544be900f417baa88b08a04460ac5",
+     "start": "2026-10-13 08:00:32",
+     "end": "2026-10-13 09:00:42",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-13",
+     "included": false,
+     "reason": "结束时间属 2026-10-13，已归档到该日期目录"
+    },
+    {
+     "rn": 43,
+     "pipelineRunId": "c29011bd5abf4412837c8141d851148b",
+     "start": "2026-10-14 17:00:24",
+     "end": "2026-10-14 17:59:37",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-14",
+     "included": false,
+     "reason": "结束时间属 2026-10-14，已归档到该日期目录"
+    },
+    {
+     "rn": 42,
+     "pipelineRunId": "a7de26370d0047589427bfa343eafb28",
+     "start": "2026-10-14 08:00:33",
+     "end": "2026-10-14 08:55:50",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-14",
+     "included": false,
+     "reason": "结束时间属 2026-10-14，已归档到该日期目录"
+    },
+    {
+     "rn": 45,
+     "pipelineRunId": "43e567f2cb9b49a989edade14fcb0db3",
+     "start": "2026-10-15 17:00:45",
+     "end": "2026-10-15 17:57:45",
+     "status": "FAILED",
+     "endedDate": "2026-10-15",
+     "included": false,
+     "reason": "结束时间属 2026-10-15，已归档到该日期目录"
+    },
+    {
+     "rn": 44,
+     "pipelineRunId": "c56a6272b8024ae59a9d8e6d3c1eb4f6",
+     "start": "2026-10-15 08:00:32",
+     "end": "2026-10-15 09:01:14",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-15",
+     "included": false,
+     "reason": "结束时间属 2026-10-15，已归档到该日期目录"
+    },
+    {
+     "rn": 48,
+     "pipelineRunId": "455f07704dd443a78f434bd07b39dd56",
+     "start": "2026-10-16 17:00:39",
+     "end": "2026-10-16 19:48:31",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-16",
+     "included": false,
+     "reason": "结束时间属 2026-10-16，已归档到该日期目录"
+    },
+    {
+     "rn": 47,
+     "pipelineRunId": "a0422ac945024a748a23c587e2307c3e",
+     "start": "2026-10-16 16:28:32",
+     "end": "2026-10-16 19:06:54",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-16",
+     "included": false,
+     "reason": "结束时间属 2026-10-16，已归档到该日期目录"
+    },
+    {
+     "rn": 46,
+     "pipelineRunId": "9166e9c2a1dd4c68be1ddd22f7e2d5c2",
+     "start": "2026-10-16 08:00:07",
+     "end": "2026-10-16 08:54:48",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-16",
+     "included": false,
+     "reason": "结束时间属 2026-10-16，已归档到该日期目录"
+    },
+    {
+     "rn": 57,
+     "pipelineRunId": "1f55d7a72035486e818f5f88ee30acc8",
+     "start": "2026-10-19 20:59:39",
+     "end": "2026-10-19 21:17:49",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-19",
+     "included": false,
+     "reason": "结束时间属 2026-10-19，已归档到该日期目录"
+    },
+    {
+     "rn": 56,
+     "pipelineRunId": "b105d11cfb2f45f28be630e424f50332",
+     "start": "2026-10-19 17:00:13",
+     "end": "2026-10-19 18:01:17",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-19",
+     "included": false,
+     "reason": "结束时间属 2026-10-19，已归档到该日期目录"
+    },
+    {
+     "rn": 55,
+     "pipelineRunId": "ea4f6f517d87443bbe7768fed9081c06",
+     "start": "2026-10-19 13:30:04",
+     "end": "2026-10-19 14:20:58",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-19",
+     "included": false,
+     "reason": "结束时间属 2026-10-19，已归档到该日期目录"
+    },
+    {
+     "rn": 54,
+     "pipelineRunId": "1457be210c4e4db7a84d769a819ab524",
+     "start": "2026-10-19 10:33:15",
+     "end": "2026-10-19 11:25:44",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-19",
+     "included": false,
+     "reason": "结束时间属 2026-10-19，已归档到该日期目录"
+    },
+    {
+     "rn": 53,
+     "pipelineRunId": "40cc715e4db149508392c097b0cad206",
+     "start": "2026-10-19 08:00:13",
+     "end": "2026-10-19 10:21:09",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-19",
+     "included": false,
+     "reason": "结束时间属 2026-10-19，已归档到该日期目录"
+    },
+    {
+     "rn": 59,
+     "pipelineRunId": "3d6917bee87f423b9588283280669075",
+     "start": "2026-10-20 17:00:12",
+     "end": "2026-10-20 18:05:05",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-20",
+     "included": false,
+     "reason": "结束时间属 2026-10-20，已归档到该日期目录"
+    },
+    {
+     "rn": 58,
+     "pipelineRunId": "a1408112eac846abbead310ac1484314",
+     "start": "2026-10-20 08:00:12",
+     "end": "2026-10-20 09:00:29",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-20",
+     "included": false,
+     "reason": "结束时间属 2026-10-20，已归档到该日期目录"
+    },
+    {
+     "rn": 62,
+     "pipelineRunId": "21c9685b6f28421a8580088a01f78469",
+     "start": "2026-10-21 17:00:11",
+     "end": "2026-10-21 18:13:05",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-21",
+     "included": false,
+     "reason": "结束时间属 2026-10-21，已归档到该日期目录"
+    },
+    {
+     "rn": 61,
+     "pipelineRunId": "5d02d9db5b29454cbb02013383c13a42",
+     "start": "2026-10-21 13:07:21",
+     "end": "2026-10-21 14:18:55",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-21",
+     "included": false,
+     "reason": "结束时间属 2026-10-21，已归档到该日期目录"
+    },
+    {
+     "rn": 60,
+     "pipelineRunId": "7c201c05c5f84ddcaee0b88f4961adec",
+     "start": "2026-10-21 08:00:12",
+     "end": "2026-10-21 09:01:59",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-21",
+     "included": false,
+     "reason": "结束时间属 2026-10-21，已归档到该日期目录"
+    },
+    {
+     "rn": 68,
+     "pipelineRunId": "d21e487a0e2541b7a90f2c4643de6b86",
+     "start": "2026-10-22 17:00:13",
+     "end": "2026-10-22 18:11:35",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-22",
+     "included": false,
+     "reason": "结束时间属 2026-10-22，已归档到该日期目录"
+    },
+    {
+     "rn": 67,
+     "pipelineRunId": "c96e209b878343bf9d32177a7f27cac9",
+     "start": "2026-10-22 11:59:27",
+     "end": "2026-10-22 13:07:53",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-22",
+     "included": false,
+     "reason": "结束时间属 2026-10-22，已归档到该日期目录"
+    },
+    {
+     "rn": 66,
+     "pipelineRunId": "ed92b97215654b95af9b079f555fefe1",
+     "start": "2026-10-22 10:16:16",
+     "end": "2026-10-22 11:41:20",
+     "status": "FAILED",
+     "endedDate": "2026-10-22",
+     "included": false,
+     "reason": "结束时间属 2026-10-22，已归档到该日期目录"
+    },
+    {
+     "rn": 65,
+     "pipelineRunId": "4a2cffa668d24bd58966aa414069ebd5",
+     "start": "2026-10-22 09:48:49",
+     "end": "2026-10-22 10:14:29",
+     "status": "FAILED",
+     "endedDate": "2026-10-22",
+     "included": false,
+     "reason": "结束时间属 2026-10-22，已归档到该日期目录"
+    },
+    {
+     "rn": 64,
+     "pipelineRunId": "ef918397deef43d9a00d457ca3ca8fe1",
+     "start": "2026-10-22 09:16:36",
+     "end": "2026-10-22 09:40:33",
+     "status": "FAILED",
+     "endedDate": "2026-10-22",
+     "included": false,
+     "reason": "结束时间属 2026-10-22，已归档到该日期目录"
+    },
+    {
+     "rn": 63,
+     "pipelineRunId": "fdcb33bb6928404f9465de1854ff5829",
+     "start": "2026-10-22 08:00:13",
+     "end": "2026-10-22 08:30:55",
+     "status": "FAILED",
+     "endedDate": "2026-10-22",
+     "included": false,
+     "reason": "结束时间属 2026-10-22，已归档到该日期目录"
+    },
+    {
+     "rn": 70,
+     "pipelineRunId": "a811076814564a7794b113d85ad2334d",
+     "start": "2026-10-23 17:00:09",
+     "end": "2026-10-23 18:15:04",
+     "status": "FAILED",
+     "endedDate": "2026-10-23",
+     "included": false,
+     "reason": "结束时间属 2026-10-23，已归档到该日期目录"
+    },
+    {
+     "rn": 69,
+     "pipelineRunId": "59e9a375816b4fd3a68af10e8226b4f4",
+     "start": "2026-10-23 08:00:12",
+     "end": "2026-10-23 09:04:50",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-23",
+     "included": false,
+     "reason": "结束时间属 2026-10-23，已归档到该日期目录"
+    },
+    {
+     "rn": 76,
+     "pipelineRunId": "ccd5d0134b3d4b7c8f978bf0680a2e14",
+     "start": "2026-10-26 17:00:12",
+     "end": "2026-10-26 18:10:23",
+     "status": "FAILED",
+     "endedDate": "2026-10-26",
+     "included": false,
+     "reason": "结束时间属 2026-10-26，已归档到该日期目录"
+    },
+    {
+     "rn": 75,
+     "pipelineRunId": "56893ed27ec04519ae20ccacf752a64b",
+     "start": "2026-10-26 08:00:13",
+     "end": "2026-10-26 09:04:18",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-26",
+     "included": false,
+     "reason": "结束时间属 2026-10-26，已归档到该日期目录"
+    },
+    {
+     "rn": 78,
+     "pipelineRunId": "80acf126e66147c9820e901335b7f8d2",
+     "start": "2026-10-27 17:00:10",
+     "end": "2026-10-27 18:26:58",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-27",
+     "included": false,
+     "reason": "结束时间属 2026-10-27，已归档到该日期目录"
+    },
+    {
+     "rn": 77,
+     "pipelineRunId": "374729cdae614058880e27a186786fa4",
+     "start": "2026-10-27 08:00:12",
+     "end": "2026-10-27 09:07:32",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-27",
+     "included": false,
+     "reason": "结束时间属 2026-10-27，已归档到该日期目录"
+    },
+    {
+     "rn": 83,
+     "pipelineRunId": "63dd87ed4b7d43f691e3b55536271bbe",
+     "start": "2026-10-28 20:04:28",
+     "end": "2026-10-28 21:14:20",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-28",
+     "included": false,
+     "reason": "结束时间属 2026-10-28，已归档到该日期目录"
+    },
+    {
+     "rn": 82,
+     "pipelineRunId": "199ba2c5c4534de3a0ac8a1197cab9c5",
+     "start": "2026-10-28 19:14:28",
+     "end": "2026-10-28 19:35:33",
+     "status": "CANCELED",
+     "endedDate": "2026-10-28",
+     "included": false,
+     "reason": "结束时间属 2026-10-28，已归档到该日期目录"
+    },
+    {
+     "rn": 81,
+     "pipelineRunId": "cae26fe3388f433393581c7d8e26fb0f",
+     "start": "2026-10-28 17:00:11",
+     "end": "2026-10-28 18:06:49",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-28",
+     "included": false,
+     "reason": "结束时间属 2026-10-28，已归档到该日期目录"
+    },
+    {
+     "rn": 80,
+     "pipelineRunId": "02d2bbcea128413d910e2a2155ee84fa",
+     "start": "2026-10-28 16:25:49",
+     "end": "2026-10-28 17:41:48",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-28",
+     "included": false,
+     "reason": "结束时间属 2026-10-28，已归档到该日期目录"
+    },
+    {
+     "rn": 79,
+     "pipelineRunId": "457b49eedcb0402bb9508b04fbe4c6e2",
+     "start": "2026-10-28 08:00:12",
+     "end": "2026-10-28 09:10:45",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-28",
+     "included": false,
+     "reason": "结束时间属 2026-10-28，已归档到该日期目录"
+    },
+    {
+     "rn": 85,
+     "pipelineRunId": "45ea34302079437f83a77ec7e44fe2c0",
+     "start": "2026-10-29 17:00:09",
+     "end": "2026-10-29 18:20:42",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-29",
+     "included": false,
+     "reason": "结束时间属 2026-10-29，已归档到该日期目录"
+    },
+    {
+     "rn": 84,
+     "pipelineRunId": "a0d95825c61b43ba99c9cf5fde29dea5",
+     "start": "2026-10-29 08:00:12",
+     "end": "2026-10-29 09:18:58",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-29",
+     "included": false,
+     "reason": "结束时间属 2026-10-29，已归档到该日期目录"
+    },
+    {
+     "rn": 87,
+     "pipelineRunId": "b6ec92d275884799b300834c3340f70b",
+     "start": "2026-10-30 17:00:09",
+     "end": "2026-10-30 18:14:24",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-30",
+     "included": false,
+     "reason": "结束时间属 2026-10-30，已归档到该日期目录"
+    },
+    {
+     "rn": 86,
+     "pipelineRunId": "8f36bd86f1294300b4f6c6849bec3dcb",
+     "start": "2026-10-30 08:00:12",
+     "end": "2026-10-30 09:13:31",
+     "status": "COMPLETED",
+     "endedDate": "2026-10-30",
+     "included": false,
+     "reason": "结束时间属 2026-10-30，已归档到该日期目录"
+    },
+    {
+     "rn": 95,
+     "pipelineRunId": "2efaf22aa9854735bac94a677b9c47c6",
+     "start": "2026-11-02 17:00:10",
+     "end": "2026-11-02 19:21:13",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-02",
+     "included": false,
+     "reason": "结束时间属 2026-11-02，已归档到该日期目录"
+    },
+    {
+     "rn": 94,
+     "pipelineRunId": "5c1ce1884c304ec5a06e012530d86747",
+     "start": "2026-11-02 15:44:29",
+     "end": "2026-11-02 17:18:06",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-02",
+     "included": false,
+     "reason": "结束时间属 2026-11-02，已归档到该日期目录"
+    },
+    {
+     "rn": 93,
+     "pipelineRunId": "39bac8cda1db43be93bc10f862cf398a",
+     "start": "2026-11-02 14:56:19",
+     "end": "2026-11-02 15:54:43",
+     "status": "FAILED",
+     "endedDate": "2026-11-02",
+     "included": false,
+     "reason": "结束时间属 2026-11-02，已归档到该日期目录"
+    },
+    {
+     "rn": 92,
+     "pipelineRunId": "683e0a99287844b189c34642fd251077",
+     "start": "2026-11-02 08:00:11",
+     "end": "2026-11-02 08:37:22",
+     "status": "FAILED",
+     "endedDate": "2026-11-02",
+     "included": false,
+     "reason": "结束时间属 2026-11-02，已归档到该日期目录"
+    },
+    {
+     "rn": 98,
+     "pipelineRunId": "cc6048d1f95241968f3bbc2380878a1a",
+     "start": "2026-11-03 17:00:52",
+     "end": "2026-11-03 18:22:44",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-03",
+     "included": false,
+     "reason": "结束时间属 2026-11-03，已归档到该日期目录"
+    },
+    {
+     "rn": 97,
+     "pipelineRunId": "4134231b8bbd4c168eed79de5953f0ac",
+     "start": "2026-11-03 08:48:28",
+     "end": "2026-11-03 10:07:21",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-03",
+     "included": false,
+     "reason": "结束时间属 2026-11-03，已归档到该日期目录"
+    },
+    {
+     "rn": 96,
+     "pipelineRunId": "088cb5b9423049699078f30afe0bdf58",
+     "start": "2026-11-03 08:00:12",
+     "end": "2026-11-03 08:28:21",
+     "status": "FAILED",
+     "endedDate": "2026-11-03",
+     "included": false,
+     "reason": "结束时间属 2026-11-03，已归档到该日期目录"
+    },
+    {
+     "rn": 100,
+     "pipelineRunId": "257a604e6cde47f7a497195f8ec6717d",
+     "start": "2026-11-04 17:00:52",
+     "end": "2026-11-04 18:57:00",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-04",
+     "included": false,
+     "reason": "结束时间属 2026-11-04，已归档到该日期目录"
+    },
+    {
+     "rn": 99,
+     "pipelineRunId": "1d4797d4bb404342a34f8b617e75e2f4",
+     "start": "2026-11-04 08:00:07",
+     "end": "2026-11-04 09:12:23",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-04",
+     "included": false,
+     "reason": "结束时间属 2026-11-04，已归档到该日期目录"
+    },
+    {
+     "rn": 102,
+     "pipelineRunId": "4b843d6e055a4661ae1c621354afb817",
+     "start": "2026-11-05 17:00:52",
+     "end": "2026-11-05 18:32:50",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-05",
+     "included": false,
+     "reason": "结束时间属 2026-11-05，已归档到该日期目录"
+    },
+    {
+     "rn": 101,
+     "pipelineRunId": "d9843e001af7450caeda2017e000c27f",
+     "start": "2026-11-05 08:00:05",
+     "end": "2026-11-05 09:15:03",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-05",
+     "included": false,
+     "reason": "结束时间属 2026-11-05，已归档到该日期目录"
+    },
+    {
+     "rn": 104,
+     "pipelineRunId": "9ae1e7dda41c4a78957a5ba09d2e5b3c",
+     "start": "2026-11-06 17:00:52",
+     "end": "2026-11-06 17:27:26",
+     "status": "FAILED",
+     "endedDate": "2026-11-06",
+     "included": false,
+     "reason": "结束时间属 2026-11-06，已归档到该日期目录"
+    },
+    {
+     "rn": 103,
+     "pipelineRunId": "a96339ef2f4c462ab2c26dc9e62e6978",
+     "start": "2026-11-06 08:00:06",
+     "end": "2026-11-06 09:14:37",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-06",
+     "included": false,
+     "reason": "结束时间属 2026-11-06，已归档到该日期目录"
+    },
+    {
+     "rn": 112,
+     "pipelineRunId": "96a087f10810405698c122a664133624",
+     "start": "2026-11-09 20:14:30",
+     "end": "2026-11-09 23:18:49",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-09",
+     "included": false,
+     "reason": "结束时间属 2026-11-09，已归档到该日期目录"
+    },
+    {
+     "rn": 111,
+     "pipelineRunId": "62cc944395914c9abb782d42f0da826c",
+     "start": "2026-11-09 17:00:54",
+     "end": "2026-11-09 21:50:27",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-09",
+     "included": false,
+     "reason": "结束时间属 2026-11-09，已归档到该日期目录"
+    },
+    {
+     "rn": 110,
+     "pipelineRunId": "24cb84933b7b4b82909be4c0a3db5f1e",
+     "start": "2026-11-09 11:26:58",
+     "end": "2026-11-09 12:50:39",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-09",
+     "included": false,
+     "reason": "结束时间属 2026-11-09，已归档到该日期目录"
+    },
+    {
+     "rn": 109,
+     "pipelineRunId": "9648b52e519e48dfb11a9450b10a1667",
+     "start": "2026-11-09 08:00:05",
+     "end": "2026-11-09 09:11:40",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-09",
+     "included": false,
+     "reason": "结束时间属 2026-11-09，已归档到该日期目录"
+    },
+    {
+     "rn": 114,
+     "pipelineRunId": "cc7bde6ed1ae490692ed9b6a4b9b082a",
+     "start": "2026-11-10 17:00:51",
+     "end": "2026-11-10 18:12:02",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-10",
+     "included": false,
+     "reason": "结束时间属 2026-11-10，已归档到该日期目录"
+    },
+    {
+     "rn": 113,
+     "pipelineRunId": "d28ef926e3ed4cdd886abc4b362619aa",
+     "start": "2026-11-10 08:00:07",
+     "end": "2026-11-10 09:12:36",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-10",
+     "included": false,
+     "reason": "结束时间属 2026-11-10，已归档到该日期目录"
+    },
+    {
+     "rn": 118,
+     "pipelineRunId": "0cc080b4aa024c8e9529cbf27e94e418",
+     "start": "2026-11-11 19:36:58",
+     "end": "2026-11-11 20:54:10",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-11",
+     "included": false,
+     "reason": "结束时间属 2026-11-11，已归档到该日期目录"
+    },
+    {
+     "rn": 117,
+     "pipelineRunId": "862af792224a42839122e1eb06bc30e3",
+     "start": "2026-11-11 17:00:52",
+     "end": "2026-11-11 18:23:31",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-11",
+     "included": false,
+     "reason": "结束时间属 2026-11-11，已归档到该日期目录"
+    },
+    {
+     "rn": 116,
+     "pipelineRunId": "739d3bc4900149c694e94e5ca7bf5e5a",
+     "start": "2026-11-11 14:17:28",
+     "end": "2026-11-11 16:01:21",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-11",
+     "included": false,
+     "reason": "结束时间属 2026-11-11，已归档到该日期目录"
+    },
+    {
+     "rn": 115,
+     "pipelineRunId": "f17c826d95f64914806779e0d8c35e58",
+     "start": "2026-11-11 08:00:06",
+     "end": "2026-11-11 09:11:15",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-11",
+     "included": false,
+     "reason": "结束时间属 2026-11-11，已归档到该日期目录"
+    },
+    {
+     "rn": 122,
+     "pipelineRunId": "e4a39d42e3a24deabf46a7b9271a3353",
+     "start": "2026-11-12 17:00:27",
+     "end": "2026-11-12 18:38:08",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-12",
+     "included": false,
+     "reason": "结束时间属 2026-11-12，已归档到该日期目录"
+    },
+    {
+     "rn": 121,
+     "pipelineRunId": "f67dde5e646642e3b26e1757d8a44591",
+     "start": "2026-11-12 16:26:17",
+     "end": "2026-11-12 17:58:36",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-12",
+     "included": false,
+     "reason": "结束时间属 2026-11-12，已归档到该日期目录"
+    },
+    {
+     "rn": 120,
+     "pipelineRunId": "38aec4bb4bec4689a685d8a067e26ab2",
+     "start": "2026-11-12 14:24:14",
+     "end": "2026-11-12 15:57:15",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-12",
+     "included": false,
+     "reason": "结束时间属 2026-11-12，已归档到该日期目录"
+    },
+    {
+     "rn": 119,
+     "pipelineRunId": "5a14f06d31694274b982f8a2264335d4",
+     "start": "2026-11-12 08:00:07",
+     "end": "2026-11-12 09:19:14",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-12",
+     "included": false,
+     "reason": "结束时间属 2026-11-12，已归档到该日期目录"
+    },
+    {
+     "rn": 124,
+     "pipelineRunId": "c15fd515715742b79cb75a732efaf59b",
+     "start": "2026-11-13 17:00:26",
+     "end": "2026-11-13 21:04:51",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-13",
+     "included": false,
+     "reason": "结束时间属 2026-11-13，已归档到该日期目录"
+    },
+    {
+     "rn": 123,
+     "pipelineRunId": "0fefc565c4544d13a1b5789b79181f4b",
+     "start": "2026-11-13 08:00:40",
+     "end": "2026-11-13 09:22:27",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-13",
+     "included": false,
+     "reason": "结束时间属 2026-11-13，已归档到该日期目录"
+    },
+    {
+     "rn": 130,
+     "pipelineRunId": "647ff6e0e83a4d9090a8fc602b387b06",
+     "start": "2026-11-16 17:00:26",
+     "end": "2026-11-16 18:27:48",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-16",
+     "included": false,
+     "reason": "结束时间属 2026-11-16，已归档到该日期目录"
+    },
+    {
+     "rn": 129,
+     "pipelineRunId": "c7f871cda8c34c9ea1af65b7d2c84716",
+     "start": "2026-11-16 08:00:40",
+     "end": "2026-11-16 09:28:23",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-16",
+     "included": false,
+     "reason": "结束时间属 2026-11-16，已归档到该日期目录"
+    },
+    {
+     "rn": 132,
+     "pipelineRunId": "21423119b85543de8181b95334937077",
+     "start": "2026-11-17 17:00:26",
+     "end": "2026-11-17 18:38:59",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-17",
+     "included": false,
+     "reason": "结束时间属 2026-11-17，已归档到该日期目录"
+    },
+    {
+     "rn": 131,
+     "pipelineRunId": "d75e888eb6074e5c95a9e0c105f9322e",
+     "start": "2026-11-17 08:00:40",
+     "end": "2026-11-17 09:26:55",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-17",
+     "included": false,
+     "reason": "结束时间属 2026-11-17，已归档到该日期目录"
+    },
+    {
+     "rn": 134,
+     "pipelineRunId": "7bcd0a20d51f48f0a6ad7db66052b6c1",
+     "start": "2026-11-18 17:00:26",
+     "end": "2026-11-18 18:41:46",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-18",
+     "included": false,
+     "reason": "结束时间属 2026-11-18，已归档到该日期目录"
+    },
+    {
+     "rn": 133,
+     "pipelineRunId": "142db2ba2e944f6ead0693f636f8a626",
+     "start": "2026-11-18 08:00:40",
+     "end": "2026-11-18 09:16:29",
+     "status": "COMPLETED",
+     "endedDate": "2026-11-18",
+     "included": false,
+     "reason": "结束时间属 2026-11-18，已归档到该日期目录"
+    }
+   ],
+   "runHistory": [
+    {
+     "rn": 3,
+     "start": "2026-09-15 20:43:15",
+     "end": "2026-09-15 21:28:18",
+     "status": "COMPLETED",
+     "rid": "8ef48e6a83754c328915c04d01543bdb",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=8ef48e6a83754c328915c04d01543bdb",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 2,
+     "start": "2026-09-15 19:19:50",
+     "end": "2026-09-15 20:06:34",
+     "status": "COMPLETED",
+     "rid": "464ac8d5cbe246d68d01df22948f747a",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=464ac8d5cbe246d68d01df22948f747a",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 99.9,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 1,
+     "start": "2026-09-15 16:37:39",
+     "end": "2026-09-15 17:33:03",
+     "status": "COMPLETED",
+     "rid": "d90b59eb5a0d4b0c8b92f4850dcb302c",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=d90b59eb5a0d4b0c8b92f4850dcb302c",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 99.26,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 4,
+     "start": "2026-09-16 08:00:24",
+     "end": "2026-09-16 08:58:44",
+     "status": "COMPLETED",
+     "rid": "57c557e7f84e4641a0fc9f28741c822f",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=57c557e7f84e4641a0fc9f28741c822f",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 5,
+     "start": "2026-09-17 08:00:24",
+     "end": "2026-09-17 12:03:26",
+     "status": "COMPLETED",
+     "rid": "f2cefb28cfd14df099c981e370cb3cb1",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=f2cefb28cfd14df099c981e370cb3cb1",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 6,
+     "start": "2026-09-18 08:00:14",
+     "end": "2026-09-18 08:58:21",
+     "status": "COMPLETED",
+     "rid": "28b0552470f74f3ea4f14f3dc1b351ad",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=28b0552470f74f3ea4f14f3dc1b351ad",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 9,
+     "start": "2026-09-20 16:04:58",
+     "end": "2026-09-20 17:16:40",
+     "status": "COMPLETED",
+     "rid": "cdef4b3129144f2bac5406b1e37b56e5",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=cdef4b3129144f2bac5406b1e37b56e5",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 8,
+     "start": "2026-09-20 08:00:14",
+     "end": "2026-09-20 08:09:18",
+     "status": "FAILED",
+     "rid": "715bbcb41c6c481f98864ad495d60043",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=715bbcb41c6c481f98864ad495d60043",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 12,
+     "start": "2026-09-21 19:47:44",
+     "end": "2026-09-21 20:47:13",
+     "status": "COMPLETED",
+     "rid": "764d7cab19dd475cbcc95ce601cca295",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=764d7cab19dd475cbcc95ce601cca295",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 11,
+     "start": "2026-09-21 14:07:10",
+     "end": "2026-09-21 15:05:29",
+     "status": "COMPLETED",
+     "rid": "a6c245b94b79488188857ec1d6557002",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a6c245b94b79488188857ec1d6557002",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 10,
+     "start": "2026-09-21 08:00:14",
+     "end": "2026-09-21 08:57:32",
+     "status": "COMPLETED",
+     "rid": "9621685de7fe40d4a7ed613d8d12a845",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=9621685de7fe40d4a7ed613d8d12a845",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 99.97,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 13,
+     "start": "2026-09-22 08:00:14",
+     "end": "2026-09-22 09:11:39",
+     "status": "COMPLETED",
+     "rid": "a82fb424c5174e0bbc5a66c42644bbcd",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a82fb424c5174e0bbc5a66c42644bbcd",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 14,
+     "start": "2026-09-23 08:00:14",
+     "end": "2026-09-23 09:01:10",
+     "status": "COMPLETED",
+     "rid": "c8df1f6c6ef344978345d2061a256c96",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=c8df1f6c6ef344978345d2061a256c96",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 15,
+     "start": "2026-09-24 08:00:13",
+     "end": "2026-09-24 09:02:41",
+     "status": "COMPLETED",
+     "rid": "9376b66cb0f1401abe70cd439b91b294",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=9376b66cb0f1401abe70cd439b91b294",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 19,
+     "start": "2026-09-28 08:00:55",
+     "end": "2026-09-28 08:57:38",
+     "status": "COMPLETED",
+     "rid": "8b0addf4ac5d44f09a73ca1394374a92",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=8b0addf4ac5d44f09a73ca1394374a92",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 20,
+     "start": "2026-09-29 08:00:55",
+     "end": "2026-09-29 09:01:09",
+     "status": "COMPLETED",
+     "rid": "eaa3a30605544cb09a1984e4c7177a71",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=eaa3a30605544cb09a1984e4c7177a71",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 21,
+     "start": "2026-09-30 08:00:55",
+     "end": "2026-09-30 08:58:58",
+     "status": "COMPLETED",
+     "rid": "2f3950c984cc4df89c9eed9c23008a97",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=2f3950c984cc4df89c9eed9c23008a97",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 98.38,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 30,
+     "start": "2026-10-08 16:57:24",
+     "end": "2026-10-08 18:17:27",
+     "status": "COMPLETED",
+     "rid": "026dae19434249b5850762f335982eed",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=026dae19434249b5850762f335982eed",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 29,
+     "start": "2026-10-08 08:00:54",
+     "end": "2026-10-08 08:56:03",
+     "status": "COMPLETED",
+     "rid": "b79b09e4f9c84aa9bb826da843e2e16d",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=b79b09e4f9c84aa9bb826da843e2e16d",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 98.38,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 33,
+     "start": "2026-10-09 17:00:33",
+     "end": "2026-10-09 17:56:49",
+     "status": "COMPLETED",
+     "rid": "715b06b6a32548399e0ef7758ca970f3",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=715b06b6a32548399e0ef7758ca970f3",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 32,
+     "start": "2026-10-09 12:01:57",
+     "end": "2026-10-09 12:56:45",
+     "status": "COMPLETED",
+     "rid": "0a1da7cf3dde4ff29d6fc4e7d6259cd5",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=0a1da7cf3dde4ff29d6fc4e7d6259cd5",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 31,
+     "start": "2026-10-09 08:00:42",
+     "end": "2026-10-09 08:54:39",
+     "status": "COMPLETED",
+     "rid": "f93aa4e5078f41e097b2d9783d01273d",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=f93aa4e5078f41e097b2d9783d01273d",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 35,
+     "start": "2026-10-10 17:00:32",
+     "end": "2026-10-10 18:05:59",
+     "status": "COMPLETED",
+     "rid": "d57fd094071149dcb21719806fddd6a8",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=d57fd094071149dcb21719806fddd6a8",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 99.93,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 34,
+     "start": "2026-10-10 08:00:34",
+     "end": "2026-10-10 08:57:26",
+     "status": "COMPLETED",
+     "rid": "5633fa40b59a4430acd8776bf0826ef4",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=5633fa40b59a4430acd8776bf0826ef4",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 39,
+     "start": "2026-10-12 17:00:32",
+     "end": "2026-10-12 18:19:26",
+     "status": "COMPLETED",
+     "rid": "01b27745650f4ff68fd4c1dd12c0997d",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=01b27745650f4ff68fd4c1dd12c0997d",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 99.18,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 38,
+     "start": "2026-10-12 08:00:32",
+     "end": "2026-10-12 08:55:21",
+     "status": "COMPLETED",
+     "rid": "33a196f0ca78408486a13441fcf89b93",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=33a196f0ca78408486a13441fcf89b93",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 41,
+     "start": "2026-10-13 17:00:32",
+     "end": "2026-10-13 18:01:46",
+     "status": "COMPLETED",
+     "rid": "461d9a13f36142b3a2e6fa60d9d06c54",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=461d9a13f36142b3a2e6fa60d9d06c54",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 40,
+     "start": "2026-10-13 08:00:32",
+     "end": "2026-10-13 09:00:42",
+     "status": "COMPLETED",
+     "rid": "ed5544be900f417baa88b08a04460ac5",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=ed5544be900f417baa88b08a04460ac5",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 43,
+     "start": "2026-10-14 17:00:24",
+     "end": "2026-10-14 17:59:37",
+     "status": "COMPLETED",
+     "rid": "c29011bd5abf4412837c8141d851148b",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=c29011bd5abf4412837c8141d851148b",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 42,
+     "start": "2026-10-14 08:00:33",
+     "end": "2026-10-14 08:55:50",
+     "status": "COMPLETED",
+     "rid": "a7de26370d0047589427bfa343eafb28",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a7de26370d0047589427bfa343eafb28",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 45,
+     "start": "2026-10-15 17:00:45",
+     "end": "2026-10-15 17:57:45",
+     "status": "FAILED",
+     "rid": "43e567f2cb9b49a989edade14fcb0db3",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=43e567f2cb9b49a989edade14fcb0db3",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 44,
+     "start": "2026-10-15 08:00:32",
+     "end": "2026-10-15 09:01:14",
+     "status": "COMPLETED",
+     "rid": "c56a6272b8024ae59a9d8e6d3c1eb4f6",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=c56a6272b8024ae59a9d8e6d3c1eb4f6",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 48,
+     "start": "2026-10-16 17:00:39",
+     "end": "2026-10-16 19:48:31",
+     "status": "COMPLETED",
+     "rid": "455f07704dd443a78f434bd07b39dd56",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=455f07704dd443a78f434bd07b39dd56",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 24.35,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 47,
+     "start": "2026-10-16 16:28:32",
+     "end": "2026-10-16 19:06:54",
+     "status": "COMPLETED",
+     "rid": "a0422ac945024a748a23c587e2307c3e",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a0422ac945024a748a23c587e2307c3e",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 16.34,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 46,
+     "start": "2026-10-16 08:00:07",
+     "end": "2026-10-16 08:54:48",
+     "status": "COMPLETED",
+     "rid": "9166e9c2a1dd4c68be1ddd22f7e2d5c2",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=9166e9c2a1dd4c68be1ddd22f7e2d5c2",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 26.35,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 57,
+     "start": "2026-10-19 20:59:39",
+     "end": "2026-10-19 21:17:49",
+     "status": "COMPLETED",
+     "rid": "1f55d7a72035486e818f5f88ee30acc8",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=1f55d7a72035486e818f5f88ee30acc8",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 56,
+     "start": "2026-10-19 17:00:13",
+     "end": "2026-10-19 18:01:17",
+     "status": "COMPLETED",
+     "rid": "b105d11cfb2f45f28be630e424f50332",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=b105d11cfb2f45f28be630e424f50332",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 55,
+     "start": "2026-10-19 13:30:04",
+     "end": "2026-10-19 14:20:58",
+     "status": "COMPLETED",
+     "rid": "ea4f6f517d87443bbe7768fed9081c06",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=ea4f6f517d87443bbe7768fed9081c06",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 63.89,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 54,
+     "start": "2026-10-19 10:33:15",
+     "end": "2026-10-19 11:25:44",
+     "status": "COMPLETED",
+     "rid": "1457be210c4e4db7a84d769a819ab524",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=1457be210c4e4db7a84d769a819ab524",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 58.1,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 53,
+     "start": "2026-10-19 08:00:13",
+     "end": "2026-10-19 10:21:09",
+     "status": "COMPLETED",
+     "rid": "40cc715e4db149508392c097b0cad206",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=40cc715e4db149508392c097b0cad206",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 23.31,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 59,
+     "start": "2026-10-20 17:00:12",
+     "end": "2026-10-20 18:05:05",
+     "status": "COMPLETED",
+     "rid": "3d6917bee87f423b9588283280669075",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=3d6917bee87f423b9588283280669075",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 58,
+     "start": "2026-10-20 08:00:12",
+     "end": "2026-10-20 09:00:29",
+     "status": "COMPLETED",
+     "rid": "a1408112eac846abbead310ac1484314",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a1408112eac846abbead310ac1484314",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 62,
+     "start": "2026-10-21 17:00:11",
+     "end": "2026-10-21 18:13:05",
+     "status": "COMPLETED",
+     "rid": "21c9685b6f28421a8580088a01f78469",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=21c9685b6f28421a8580088a01f78469",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 61,
+     "start": "2026-10-21 13:07:21",
+     "end": "2026-10-21 14:18:55",
+     "status": "COMPLETED",
+     "rid": "5d02d9db5b29454cbb02013383c13a42",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=5d02d9db5b29454cbb02013383c13a42",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 60,
+     "start": "2026-10-21 08:00:12",
+     "end": "2026-10-21 09:01:59",
+     "status": "COMPLETED",
+     "rid": "7c201c05c5f84ddcaee0b88f4961adec",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=7c201c05c5f84ddcaee0b88f4961adec",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 26.03,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 68,
+     "start": "2026-10-22 17:00:13",
+     "end": "2026-10-22 18:11:35",
+     "status": "COMPLETED",
+     "rid": "d21e487a0e2541b7a90f2c4643de6b86",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=d21e487a0e2541b7a90f2c4643de6b86",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 67,
+     "start": "2026-10-22 11:59:27",
+     "end": "2026-10-22 13:07:53",
+     "status": "COMPLETED",
+     "rid": "c96e209b878343bf9d32177a7f27cac9",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=c96e209b878343bf9d32177a7f27cac9",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 66,
+     "start": "2026-10-22 10:16:16",
+     "end": "2026-10-22 11:41:20",
+     "status": "FAILED",
+     "rid": "ed92b97215654b95af9b079f555fefe1",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=ed92b97215654b95af9b079f555fefe1",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 65,
+     "start": "2026-10-22 09:48:49",
+     "end": "2026-10-22 10:14:29",
+     "status": "FAILED",
+     "rid": "4a2cffa668d24bd58966aa414069ebd5",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=4a2cffa668d24bd58966aa414069ebd5",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 64,
+     "start": "2026-10-22 09:16:36",
+     "end": "2026-10-22 09:40:33",
+     "status": "FAILED",
+     "rid": "ef918397deef43d9a00d457ca3ca8fe1",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=ef918397deef43d9a00d457ca3ca8fe1",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 63,
+     "start": "2026-10-22 08:00:13",
+     "end": "2026-10-22 08:30:55",
+     "status": "FAILED",
+     "rid": "fdcb33bb6928404f9465de1854ff5829",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=fdcb33bb6928404f9465de1854ff5829",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 70,
+     "start": "2026-10-23 17:00:09",
+     "end": "2026-10-23 18:15:04",
+     "status": "FAILED",
+     "rid": "a811076814564a7794b113d85ad2334d",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a811076814564a7794b113d85ad2334d",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 69,
+     "start": "2026-10-23 08:00:12",
+     "end": "2026-10-23 09:04:50",
+     "status": "COMPLETED",
+     "rid": "59e9a375816b4fd3a68af10e8226b4f4",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=59e9a375816b4fd3a68af10e8226b4f4",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 76,
+     "start": "2026-10-26 17:00:12",
+     "end": "2026-10-26 18:10:23",
+     "status": "FAILED",
+     "rid": "ccd5d0134b3d4b7c8f978bf0680a2e14",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=ccd5d0134b3d4b7c8f978bf0680a2e14",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 75,
+     "start": "2026-10-26 08:00:13",
+     "end": "2026-10-26 09:04:18",
+     "status": "COMPLETED",
+     "rid": "56893ed27ec04519ae20ccacf752a64b",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=56893ed27ec04519ae20ccacf752a64b",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 78,
+     "start": "2026-10-27 17:00:10",
+     "end": "2026-10-27 18:26:58",
+     "status": "COMPLETED",
+     "rid": "80acf126e66147c9820e901335b7f8d2",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=80acf126e66147c9820e901335b7f8d2",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 77,
+     "start": "2026-10-27 08:00:12",
+     "end": "2026-10-27 09:07:32",
+     "status": "COMPLETED",
+     "rid": "374729cdae614058880e27a186786fa4",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=374729cdae614058880e27a186786fa4",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 83,
+     "start": "2026-10-28 20:04:28",
+     "end": "2026-10-28 21:14:20",
+     "status": "COMPLETED",
+     "rid": "63dd87ed4b7d43f691e3b55536271bbe",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=63dd87ed4b7d43f691e3b55536271bbe",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 82,
+     "start": "2026-10-28 19:14:28",
+     "end": "2026-10-28 19:35:33",
+     "status": "CANCELED",
+     "rid": "199ba2c5c4534de3a0ac8a1197cab9c5",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=199ba2c5c4534de3a0ac8a1197cab9c5",
+     "bc": 10,
+     "bpc": 6,
+     "cpr": null,
+     "iva": false,
+     "ftt": "构建任务"
+    },
+    {
+     "rn": 81,
+     "start": "2026-10-28 17:00:11",
+     "end": "2026-10-28 18:06:49",
+     "status": "COMPLETED",
+     "rid": "cae26fe3388f433393581c7d8e26fb0f",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=cae26fe3388f433393581c7d8e26fb0f",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 99.97,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 80,
+     "start": "2026-10-28 16:25:49",
+     "end": "2026-10-28 17:41:48",
+     "status": "COMPLETED",
+     "rid": "02d2bbcea128413d910e2a2155ee84fa",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=02d2bbcea128413d910e2a2155ee84fa",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 99.97,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 79,
+     "start": "2026-10-28 08:00:12",
+     "end": "2026-10-28 09:10:45",
+     "status": "COMPLETED",
+     "rid": "457b49eedcb0402bb9508b04fbe4c6e2",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=457b49eedcb0402bb9508b04fbe4c6e2",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 99.97,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 85,
+     "start": "2026-10-29 17:00:09",
+     "end": "2026-10-29 18:20:42",
+     "status": "COMPLETED",
+     "rid": "45ea34302079437f83a77ec7e44fe2c0",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=45ea34302079437f83a77ec7e44fe2c0",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 84,
+     "start": "2026-10-29 08:00:12",
+     "end": "2026-10-29 09:18:58",
+     "status": "COMPLETED",
+     "rid": "a0d95825c61b43ba99c9cf5fde29dea5",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a0d95825c61b43ba99c9cf5fde29dea5",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 87,
+     "start": "2026-10-30 17:00:09",
+     "end": "2026-10-30 18:14:24",
+     "status": "COMPLETED",
+     "rid": "b6ec92d275884799b300834c3340f70b",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=b6ec92d275884799b300834c3340f70b",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 99.95,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 86,
+     "start": "2026-10-30 08:00:12",
+     "end": "2026-10-30 09:13:31",
+     "status": "COMPLETED",
+     "rid": "8f36bd86f1294300b4f6c6849bec3dcb",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=8f36bd86f1294300b4f6c6849bec3dcb",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 95,
+     "start": "2026-11-02 17:00:10",
+     "end": "2026-11-02 19:21:13",
+     "status": "COMPLETED",
+     "rid": "2efaf22aa9854735bac94a677b9c47c6",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=2efaf22aa9854735bac94a677b9c47c6",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 99.81,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 94,
+     "start": "2026-11-02 15:44:29",
+     "end": "2026-11-02 17:18:06",
+     "status": "COMPLETED",
+     "rid": "5c1ce1884c304ec5a06e012530d86747",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=5c1ce1884c304ec5a06e012530d86747",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 93,
+     "start": "2026-11-02 14:56:19",
+     "end": "2026-11-02 15:54:43",
+     "status": "FAILED",
+     "rid": "39bac8cda1db43be93bc10f862cf398a",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=39bac8cda1db43be93bc10f862cf398a",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 92,
+     "start": "2026-11-02 08:00:11",
+     "end": "2026-11-02 08:37:22",
+     "status": "FAILED",
+     "rid": "683e0a99287844b189c34642fd251077",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=683e0a99287844b189c34642fd251077",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 98,
+     "start": "2026-11-03 17:00:52",
+     "end": "2026-11-03 18:22:44",
+     "status": "COMPLETED",
+     "rid": "cc6048d1f95241968f3bbc2380878a1a",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=cc6048d1f95241968f3bbc2380878a1a",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 97,
+     "start": "2026-11-03 08:48:28",
+     "end": "2026-11-03 10:07:21",
+     "status": "COMPLETED",
+     "rid": "4134231b8bbd4c168eed79de5953f0ac",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=4134231b8bbd4c168eed79de5953f0ac",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 96,
+     "start": "2026-11-03 08:00:12",
+     "end": "2026-11-03 08:28:21",
+     "status": "FAILED",
+     "rid": "088cb5b9423049699078f30afe0bdf58",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=088cb5b9423049699078f30afe0bdf58",
+     "bc": 10,
+     "bpc": 10,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 100,
+     "start": "2026-11-04 17:00:52",
+     "end": "2026-11-04 18:57:00",
+     "status": "COMPLETED",
+     "rid": "257a604e6cde47f7a497195f8ec6717d",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=257a604e6cde47f7a497195f8ec6717d",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.73,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 99,
+     "start": "2026-11-04 08:00:07",
+     "end": "2026-11-04 09:12:23",
+     "status": "COMPLETED",
+     "rid": "1d4797d4bb404342a34f8b617e75e2f4",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=1d4797d4bb404342a34f8b617e75e2f4",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 102,
+     "start": "2026-11-05 17:00:52",
+     "end": "2026-11-05 18:32:50",
+     "status": "COMPLETED",
+     "rid": "4b843d6e055a4661ae1c621354afb817",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=4b843d6e055a4661ae1c621354afb817",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.95,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 101,
+     "start": "2026-11-05 08:00:05",
+     "end": "2026-11-05 09:15:03",
+     "status": "COMPLETED",
+     "rid": "d9843e001af7450caeda2017e000c27f",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=d9843e001af7450caeda2017e000c27f",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 104,
+     "start": "2026-11-06 17:00:52",
+     "end": "2026-11-06 17:27:26",
+     "status": "FAILED",
+     "rid": "9ae1e7dda41c4a78957a5ba09d2e5b3c",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=9ae1e7dda41c4a78957a5ba09d2e5b3c",
+     "bc": 0,
+     "bpc": 0,
+     "cpr": null,
+     "iva": false,
+     "ftt": "测试任务"
+    },
+    {
+     "rn": 103,
+     "start": "2026-11-06 08:00:06",
+     "end": "2026-11-06 09:14:37",
+     "status": "COMPLETED",
+     "rid": "a96339ef2f4c462ab2c26dc9e62e6978",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=a96339ef2f4c462ab2c26dc9e62e6978",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.81,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 112,
+     "start": "2026-11-09 20:14:30",
+     "end": "2026-11-09 23:18:49",
+     "status": "COMPLETED",
+     "rid": "96a087f10810405698c122a664133624",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=96a087f10810405698c122a664133624",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 111,
+     "start": "2026-11-09 17:00:54",
+     "end": "2026-11-09 21:50:27",
+     "status": "COMPLETED",
+     "rid": "62cc944395914c9abb782d42f0da826c",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=62cc944395914c9abb782d42f0da826c",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.91,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 110,
+     "start": "2026-11-09 11:26:58",
+     "end": "2026-11-09 12:50:39",
+     "status": "COMPLETED",
+     "rid": "24cb84933b7b4b82909be4c0a3db5f1e",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=24cb84933b7b4b82909be4c0a3db5f1e",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 109,
+     "start": "2026-11-09 08:00:05",
+     "end": "2026-11-09 09:11:40",
+     "status": "COMPLETED",
+     "rid": "9648b52e519e48dfb11a9450b10a1667",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=9648b52e519e48dfb11a9450b10a1667",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 98.62,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 114,
+     "start": "2026-11-10 17:00:51",
+     "end": "2026-11-10 18:12:02",
+     "status": "COMPLETED",
+     "rid": "cc7bde6ed1ae490692ed9b6a4b9b082a",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=cc7bde6ed1ae490692ed9b6a4b9b082a",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.95,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 113,
+     "start": "2026-11-10 08:00:07",
+     "end": "2026-11-10 09:12:36",
+     "status": "COMPLETED",
+     "rid": "d28ef926e3ed4cdd886abc4b362619aa",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=d28ef926e3ed4cdd886abc4b362619aa",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 118,
+     "start": "2026-11-11 19:36:58",
+     "end": "2026-11-11 20:54:10",
+     "status": "COMPLETED",
+     "rid": "0cc080b4aa024c8e9529cbf27e94e418",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=0cc080b4aa024c8e9529cbf27e94e418",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.97,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 117,
+     "start": "2026-11-11 17:00:52",
+     "end": "2026-11-11 18:23:31",
+     "status": "COMPLETED",
+     "rid": "862af792224a42839122e1eb06bc30e3",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=862af792224a42839122e1eb06bc30e3",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 116,
+     "start": "2026-11-11 14:17:28",
+     "end": "2026-11-11 16:01:21",
+     "status": "COMPLETED",
+     "rid": "739d3bc4900149c694e94e5ca7bf5e5a",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=739d3bc4900149c694e94e5ca7bf5e5a",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.72,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 115,
+     "start": "2026-11-11 08:00:06",
+     "end": "2026-11-11 09:11:15",
+     "status": "COMPLETED",
+     "rid": "f17c826d95f64914806779e0d8c35e58",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=f17c826d95f64914806779e0d8c35e58",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.91,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 122,
+     "start": "2026-11-12 17:00:27",
+     "end": "2026-11-12 18:38:08",
+     "status": "COMPLETED",
+     "rid": "e4a39d42e3a24deabf46a7b9271a3353",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=e4a39d42e3a24deabf46a7b9271a3353",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 121,
+     "start": "2026-11-12 16:26:17",
+     "end": "2026-11-12 17:58:36",
+     "status": "COMPLETED",
+     "rid": "f67dde5e646642e3b26e1757d8a44591",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=f67dde5e646642e3b26e1757d8a44591",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 120,
+     "start": "2026-11-12 14:24:14",
+     "end": "2026-11-12 15:57:15",
+     "status": "COMPLETED",
+     "rid": "38aec4bb4bec4689a685d8a067e26ab2",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=38aec4bb4bec4689a685d8a067e26ab2",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.75,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 119,
+     "start": "2026-11-12 08:00:07",
+     "end": "2026-11-12 09:19:14",
+     "status": "COMPLETED",
+     "rid": "5a14f06d31694274b982f8a2264335d4",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=5a14f06d31694274b982f8a2264335d4",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 99.53,
+     "iva": false,
+     "ftt": null
+    },
+    {
+     "rn": 124,
+     "start": "2026-11-13 17:00:26",
+     "end": "2026-11-13 21:04:51",
+     "status": "COMPLETED",
+     "rid": "c15fd515715742b79cb75a732efaf59b",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=c15fd515715742b79cb75a732efaf59b",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 123,
+     "start": "2026-11-13 08:00:40",
+     "end": "2026-11-13 09:22:27",
+     "status": "COMPLETED",
+     "rid": "0fefc565c4544d13a1b5789b79181f4b",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=0fefc565c4544d13a1b5789b79181f4b",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 130,
+     "start": "2026-11-16 17:00:26",
+     "end": "2026-11-16 18:27:48",
+     "status": "COMPLETED",
+     "rid": "647ff6e0e83a4d9090a8fc602b387b06",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=647ff6e0e83a4d9090a8fc602b387b06",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 129,
+     "start": "2026-11-16 08:00:40",
+     "end": "2026-11-16 09:28:23",
+     "status": "COMPLETED",
+     "rid": "c7f871cda8c34c9ea1af65b7d2c84716",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=c7f871cda8c34c9ea1af65b7d2c84716",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 132,
+     "start": "2026-11-17 17:00:26",
+     "end": "2026-11-17 18:38:59",
+     "status": "COMPLETED",
+     "rid": "21423119b85543de8181b95334937077",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=21423119b85543de8181b95334937077",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 131,
+     "start": "2026-11-17 08:00:40",
+     "end": "2026-11-17 09:26:55",
+     "status": "COMPLETED",
+     "rid": "d75e888eb6074e5c95a9e0c105f9322e",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=d75e888eb6074e5c95a9e0c105f9322e",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 134,
+     "start": "2026-11-18 17:00:26",
+     "end": "2026-11-18 18:41:46",
+     "status": "COMPLETED",
+     "rid": "7bcd0a20d51f48f0a6ad7db66052b6c1",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=7bcd0a20d51f48f0a6ad7db66052b6c1",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    },
+    {
+     "rn": 133,
+     "start": "2026-11-18 08:00:40",
+     "end": "2026-11-18 09:16:29",
+     "status": "COMPLETED",
+     "rid": "142db2ba2e944f6ead0693f636f8a626",
+     "url": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=142db2ba2e944f6ead0693f636f8a626",
+     "bc": 12,
+     "bpc": 12,
+     "cpr": 100,
+     "iva": true,
+     "ftt": null
+    }
+   ],
+   "meta": {
+    "workdays": [
+     "2026-09-01",
+     "2026-09-02",
+     "2026-09-03",
+     "2026-09-04",
+     "2026-09-07",
+     "2026-09-08",
+     "2026-09-09",
+     "2026-09-10",
+     "2026-09-11",
+     "2026-09-14",
+     "2026-09-15",
+     "2026-09-16",
+     "2026-09-17",
+     "2026-09-18",
+     "2026-09-20",
+     "2026-09-21",
+     "2026-09-22",
+     "2026-09-23",
+     "2026-09-24",
+     "2026-09-28",
+     "2026-09-29",
+     "2026-09-30",
+     "2026-10-08",
+     "2026-10-09",
+     "2026-10-10",
+     "2026-10-12",
+     "2026-10-13",
+     "2026-10-14",
+     "2026-10-15",
+     "2026-10-16",
+     "2026-10-19",
+     "2026-10-20",
+     "2026-10-21",
+     "2026-10-22",
+     "2026-10-23",
+     "2026-10-26",
+     "2026-10-27",
+     "2026-10-28",
+     "2026-10-29",
+     "2026-10-30",
+     "2026-11-02",
+     "2026-11-03",
+     "2026-11-04",
+     "2026-11-05",
+     "2026-11-06",
+     "2026-11-09",
+     "2026-11-10",
+     "2026-11-11",
+     "2026-11-12",
+     "2026-11-13",
+     "2026-11-16",
+     "2026-11-17",
+     "2026-11-18"
+    ],
+    "workdayCount": 53,
+    "skippedNonWorkdayRuns": 33,
+    "skippedRunningRuns": 0,
+    "workdayNotes": [
+     "法定工作日历: timor.tech API（1 年）"
+    ],
+    "vaDayRule": "VA 日可用口径（双指标）：当天任一次运行 服务端 isVersionAvailable=true（任务构建成功且测试用例通过率 100%，casePassRate 为空/-- 视为失败）→ 当天可用；scheduledOnly 产品（config.analysis_policy.scheduled_only）先剔除全部含 PR 的运行，仅以定时任务运行（displayTitle 含 (scheduled)）判定 —— 当天有成功的定时运行才算可用，否则当天全部失败的定时运行都进入根因分析；执行记录即 N2 nightly-dashboard-detail 逐运行明细（同运行多条评估记录保留结束时间最新一条）",
+    "dashFailed": [],
+    "rule": "执行记录取自 N2 nightly-dashboard-detail 逐运行明细（不再调流水线执行历史接口），按结束时间归属统计周期与日期（跨午夜运行归到结束日，无结束时间不纳入），仅统计工作日（含法定调休补班），周末与法定假不分析；VA 轨道按 isVersionAvailable 双指标口径按天豁免，BS 轨道任务级语义补圈豁免日失败运行（dims=bs）；N2 失败的流水线无执行记录（记 dashFailed 待办）；runHistory 附编译次数/编译成功次数/失败任务类型（未失败为 null）与构建号跳转链接（github 平台流水线不计算编译成功率，bc/bpc 置 null 不展示）；缓存复用前校准运行状态（N2 状态/结束时间与缓存记录比对，重试重跑变更即重抓）"
+   },
+   "keptRuns": 2,
+   "keptFailedRuns": 1,
+   "excludedRuns": 99,
+   "note": null
+  },
+  "step_3_tasks": {
+   "_doc": {
+    "step": "step_3_tasks",
+    "title": "第 3 步 失败任务分流（T4）",
+    "source": "openLiBing 流水线运行详情（任务列表）",
+    "criteria": "仅取状态为失败的任务；UNSELECTED/CANCELED/IGNORED/INIT 跳过；含测试结果的任务走测试取证（第 4 步），其余走日志取证（第 5 步），github 平台运行改走第 5c 步",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20"
+   },
+   "test": [
+    {
+     "key": "Triton_Ascend|Ascend",
+     "pipeline": "Ascend",
+     "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+     "projectId": 300130,
+     "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+     "rid": "715bbcb41c6c481f98864ad495d60043",
+     "rn": 8,
+     "st": "09-20 08:00",
+     "jobId": "62fa079fb958487ca79a82bbc89daffe",
+     "jobName": "Test_Triton_Ascend",
+     "stepIds": [
+      "1174e6dde344404897a37eb767df553d"
+     ],
+     "steps": [
+      {
+       "id": "1174e6dde344404897a37eb767df553d",
+       "name": "Test_Triton_Ascend",
+       "status": "FAILED",
+       "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+       "lastDispatchId": "e451acdeff49455a8826b361fecf8f35",
+       "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+      }
+     ],
+     "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "jobLastDispatchId": "608455cd5be843b589007c135ec0ccf0",
+     "route": "test",
+     "isBuild": false,
+     "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "log": [
+    {
+     "key": "Triton_Ascend|Ascend",
+     "pipeline": "Ascend",
+     "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+     "projectId": 300130,
+     "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+     "rid": "715bbcb41c6c481f98864ad495d60043",
+     "rn": 8,
+     "st": "09-20 08:00",
+     "jobId": "07d49b87808248bf9dfc004ed9c71bb4",
+     "jobName": "npu_ir流水线调用",
+     "stepIds": [
+      "d301cbe139cc4779afd47fd75cff40e3"
+     ],
+     "steps": [
+      {
+       "id": "d301cbe139cc4779afd47fd75cff40e3",
+       "name": "npu_ir流水线调用",
+       "status": "FAILED",
+       "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+       "lastDispatchId": "aa77d5913d8f4225a9b5e724195b7b47",
+       "jobIdParam": "6bad4cc34d19426da5fdda3be0181621"
+      }
+     ],
+     "jobErrMsg": "步骤npu_ir流水线调用执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "jobLastDispatchId": "913df33639be43d0a38f1a871f32f37a",
+     "route": "log",
+     "isBuild": false,
+     "buildJobId": "6bad4cc34d19426da5fdda3be0181621"
+    }
+   ],
+   "skipped": [],
+   "errors": [],
+   "counts": {
+    "test": 1,
+    "log": 1,
+    "skipped": 0
+   }
+  },
+  "step_4_cases": {
+   "_doc": {
+    "step": "step_4_cases",
+    "title": "第 4 步 测试用例取证（T6）",
+    "source": "openLiBing 测试报告页 + 用例日志下载",
+    "criteria": "取失败任务的失败用例、错误信息、深度学习命中行，并下载用例日志到 case_logs/",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20"
+   },
+   "results": [
+    {
+     "route": "test",
+     "key": "Triton_Ascend|Ascend",
+     "pipeline": "Ascend",
+     "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+     "rn": 8,
+     "st": "09-20 08:00",
+     "projectId": 300130,
+     "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+     "rid": "715bbcb41c6c481f98864ad495d60043",
+     "jobId": "62fa079fb958487ca79a82bbc89daffe",
+     "jobName": "Test_Triton_Ascend",
+     "stepIds": [
+      "1174e6dde344404897a37eb767df553d"
+     ],
+     "steps": [
+      {
+       "id": "1174e6dde344404897a37eb767df553d",
+       "name": "Test_Triton_Ascend",
+       "status": "FAILED",
+       "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+       "lastDispatchId": "e451acdeff49455a8826b361fecf8f35",
+       "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+      }
+     ],
+     "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "jobLastDispatchId": "608455cd5be843b589007c135ec0ccf0",
+     "code": 200,
+     "summary": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "passRate": "0.00%"
+     },
+     "failedCases": [],
+     "empty": true
+    }
+   ],
+   "caseErrors": [],
+   "errors": [],
+   "counts": {
+    "tasks": 1,
+    "failedCases": 0,
+    "caseLogs": 0,
+    "caseErrors": 0
+   }
+  },
+  "step_5_logs": {
+   "_doc": {
+    "step": "step_5_logs",
+    "title": "第 5 步 任务日志取证（T5）",
+    "source": "openLiBing 任务日志导出/分页接口",
+    "criteria": "对每个失败任务导出整份日志落 job_logs/，并按关键字扫描错误行",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20"
+   },
+   "results": [
+    {
+     "route": "log",
+     "key": "Triton_Ascend|Ascend",
+     "pipeline": "Ascend",
+     "rn": 8,
+     "st": "09-20 08:00",
+     "rid": "715bbcb41c6c481f98864ad495d60043",
+     "jobId": "07d49b87808248bf9dfc004ed9c71bb4",
+     "jobName": "npu_ir流水线调用",
+     "fallback": false,
+     "stepErrMsgs": [
+      "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+     ],
+     "jobErrMsg": "步骤npu_ir流水线调用执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "logFile": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "logBytes": 14891,
+     "logLines": 148,
+     "download": "export",
+     "truncated": false,
+     "excerpt": null,
+     "errorLines": [
+      "L126: [2026/09/20 08:08:05.001 GMT+08:00] [08:08:02] run#280 | FAILED(失败) | 已等待 00:07:33",
+      "L127: [2026/09/20 08:08:05.001 GMT+08:00]   · 阶段 [阶段_1]: RUNNING(运行中) -> FAILED(失败)",
+      "L128: [2026/09/20 08:08:05.001 GMT+08:00]     任务 [Build_a3a5_arm]: RUNNING(运行中) -> FAILED(失败)",
+      "L133: [2026/09/20 08:08:05.001 GMT+08:00] 最终状态: FAILED(失败)",
+      "L137: [2026/09/20 08:08:05.001 GMT+08:00]   [阶段] 阶段_1: FAILED(失败)",
+      "L139: [2026/09/20 08:08:05.001 GMT+08:00]     [任务] Build_a3a5_arm: FAILED(失败) | 持续时间: 00:07:22 | message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+      "L141: [2026/09/20 08:08:05.001 GMT+08:00] 失败/取消任务明细:",
+      "L142: [2026/09/20 08:08:05.001 GMT+08:00]   [阶段_1] Build_a3a5_arm: FAILED(失败)",
+      "L143: [2026/09/20 08:08:05.001 GMT+08:00]       message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+      "L144: [2026/09/20 08:08:05.001 GMT+08:00]       step [Build_a3a5_arm]: FAILED(失败)",
+      "L145: [2026/09/20 08:08:05.001 GMT+08:00]           message: {\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+      "L146: [2026/09/20 08:08:05.016 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
+      "L148: [2026/09/20 08:08:09.104 GMT+08:00] Finished: FAILURE"
+     ],
+     "subTasks": []
+    },
+    {
+     "route": "log",
+     "key": "Triton_Ascend|Ascend",
+     "pipeline": "Ascend",
+     "rn": 8,
+     "st": "09-20 08:00",
+     "rid": "715bbcb41c6c481f98864ad495d60043",
+     "jobId": "62fa079fb958487ca79a82bbc89daffe",
+     "jobName": "Test_Triton_Ascend",
+     "fallback": true,
+     "stepErrMsgs": [
+      "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+     ],
+     "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "logFile": "job_logs/53_Ascend_8_Test_Triton_Ascend.log",
+     "logBytes": 12662,
+     "logLines": 130,
+     "download": "export",
+     "truncated": false,
+     "excerpt": null,
+     "errorLines": [
+      "L126: [2026/09/20 08:09:06.443 GMT+08:00] 2026-09-20 08:09:06 ERROR 404: Not Found.",
+      "L128: [2026/09/20 08:09:06.473 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+      "L130: [2026/09/20 08:09:13.543 GMT+08:00] Finished: FAILURE"
+     ]
+    }
+   ],
+   "errors": [],
+   "counts": {
+    "tasks": 2,
+    "logFiles": 2,
+    "errorLines": 16
+   }
+  },
+  "step_5b_subtasks": {
+   "_doc": {
+    "step": "step_5b_subtasks",
+    "title": "第 5b 步 buildflow 子任务下钻（T7）",
+    "source": "openLiBing buildflow 子任务页",
+    "criteria": "对 buildflow 任务的失败子任务逐个取真实编译报错与子任务日志",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20"
+   },
+   "items": [],
+   "counts": {
+    "tasks": 0,
+    "subTasks": 0,
+    "failed": 0,
+    "logs": 0
+   }
+  },
+  "step_5c_github": {
+   "_doc": {
+    "step": "step_5c_github",
+    "title": "第 5c 步 GitHub 平台运行取证",
+    "source": "GitHub Actions API（jobs / logs / 测试结果）",
+    "criteria": "对 github 平台运行按 job 分流取日志，测试 job 解析测试结果定位到用例",
+    "dateField": "run.updated_at（等价于执行结束时间）",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20"
+   },
+   "results": [],
+   "errors": [],
+   "counts": {
+    "runs": 0,
+    "jobs": 0,
+    "missing": 0
+   }
+  },
+  "step_6_records": {
+   "_doc": {
+    "step": "step_6_records",
+    "title": "第 6 步 证据合并与执行记录",
+    "source": "第 2~5c 步归档产物",
+    "criteria": "以「一次执行」为最小单位合并任务、用例、错误信息、证据与构建编号，形成可直接展示与逐条分析的记录",
+    "dateField": "pipelineRunEndtime",
+    "generatedAt": "2026-11-19 17:35:20",
+    "component": "Triton_Ascend",
+    "pipeline": "Ascend",
+    "date": "2026-09-20",
+    "recordCount": 2
+   },
+   "date": "2026-09-20",
+   "component": "Triton_Ascend",
+   "pipeline": "Ascend",
+   "counts": {
+    "records": 2,
+    "tasks": 3,
+    "cases": 0,
+    "errorMessages": 11
+   },
+   "pathBase": "记录正文在本文件顶层 records[]（不再拆 records/run_<构建号>.json）",
+   "recordDoc": "单条执行记录：任务/用例/错误信息/证据/定性/置信度/构建编号（每条记录不再单独带 _doc，题头见本字段）"
+  }
+ },
+ "stepIndex": [
+  {
+   "step": "step_1_lights",
+   "bytes": 2599,
+   "title": "第 1 步 夜间统计与待分析圈定",
+   "source": "openLiBing 夜间统计看板（产品维度指标）",
+   "criteria": "默认取「前一个工作日」单日（跳过周末与法定节假日，config.date_range 留空时生效）：取 config.products 指定的开源组件在该日的版本可用度/编译成功率，比率按我们采集到的执行记录重算（归档只存数值，不存黄/绿/红）；本产品下任一指标未达 100%（或版本不可用）的流水线进入待分析集合",
+   "dateField": "统计区间（start~end，含端点）"
+  },
+  {
+   "step": "step_2_runs",
+   "bytes": 67584,
+   "title": "第 2 步 执行记录圈定（N2）",
+   "source": "openLiBing 流水线 N2 执行列表",
+   "criteria": "按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）；仅保留工作日；VA 轨道=当日无 isVersionAvailable=true 的待查运行，BS 轨道=豁免日补圈的 Build* 失败运行",
+   "dateField": "pipelineRunEndtime"
+  },
+  {
+   "step": "step_3_tasks",
+   "bytes": 2601,
+   "title": "第 3 步 失败任务分流（T4）",
+   "source": "openLiBing 流水线运行详情（任务列表）",
+   "criteria": "仅取状态为失败的任务；UNSELECTED/CANCELED/IGNORED/INIT 跳过；含测试结果的任务走测试取证（第 4 步），其余走日志取证（第 5 步），github 平台运行改走第 5c 步",
+   "dateField": "pipelineRunEndtime"
+  },
+  {
+   "step": "step_4_cases",
+   "bytes": 1575,
+   "title": "第 4 步 测试用例取证（T6）",
+   "source": "openLiBing 测试报告页 + 用例日志下载",
+   "criteria": "取失败任务的失败用例、错误信息、深度学习命中行，并下载用例日志到 case_logs/",
+   "dateField": "pipelineRunEndtime"
+  },
+  {
+   "step": "step_5_logs",
+   "bytes": 3615,
+   "title": "第 5 步 任务日志取证（T5）",
+   "source": "openLiBing 任务日志导出/分页接口",
+   "criteria": "对每个失败任务导出整份日志落 job_logs/，并按关键字扫描错误行",
+   "dateField": "pipelineRunEndtime"
+  },
+  {
+   "step": "step_5b_subtasks",
+   "bytes": 464,
+   "title": "第 5b 步 buildflow 子任务下钻（T7）",
+   "source": "openLiBing buildflow 子任务页",
+   "criteria": "对 buildflow 任务的失败子任务逐个取真实编译报错与子任务日志",
+   "dateField": "pipelineRunEndtime"
+  },
+  {
+   "step": "step_5c_github",
+   "bytes": 511,
+   "title": "第 5c 步 GitHub 平台运行取证",
+   "source": "GitHub Actions API（jobs / logs / 测试结果）",
+   "criteria": "对 github 平台运行按 job 分流取日志，测试 job 解析测试结果定位到用例",
+   "dateField": "run.updated_at（等价于执行结束时间）"
+  },
+  {
+   "step": "step_6_records",
+   "bytes": 854,
+   "title": "第 6 步 证据合并与执行记录",
+   "source": "第 2~5c 步归档产物",
+   "criteria": "以「一次执行」为最小单位合并任务、用例、错误信息、证据与构建编号，形成可直接展示与逐条分析的记录",
+   "dateField": "pipelineRunEndtime"
+  }
+ ],
+ "records": [
+  {
+   "recordId": "Triton_Ascend|Ascend#8",
+   "date": "2026-09-20",
+   "component": "Triton_Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "platform": "codearts",
+   "buildNumber": 8,
+   "pipelineRunId": "715bbcb41c6c481f98864ad495d60043",
+   "status": "FAILED",
+   "failedTaskType": "测试任务",
+   "startedAt": "2026-09-20T08:00:14",
+   "endedAt": "2026-09-20T08:09:18",
+   "dateBasis": {
+    "field": "pipelineRunEndtime",
+    "value": "2026-09-20T08:09:18",
+    "rule": "按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）"
+   },
+   "light": {
+    "vaRate": 0.9302,
+    "bsRate": 0.9953,
+    "dims": [
+     "va",
+     "bs"
+    ],
+    "track": "bs",
+    "affects": []
+   },
+   "links": {
+    "openlibing": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=715bbcb41c6c481f98864ad495d60043",
+    "detail": null,
+    "github": null
+   },
+   "tasks": [
+    {
+     "jobName": "Test_Triton_Ascend",
+     "type": "test",
+     "summary": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "passRate": "0.00%"
+     },
+     "cases": [],
+     "emptyTestResult": true,
+     "stepErrMsgs": []
+    },
+    {
+     "jobName": "npu_ir流水线调用",
+     "type": "log",
+     "fallback": false,
+     "logFile": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "logBytes": 14891,
+     "logLines": 148,
+     "download": "export",
+     "truncated": false,
+     "excerpt": null,
+     "stepErrMsgs": [
+      "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+     ],
+     "jobErrMsg": "步骤npu_ir流水线调用执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "errorLines": [
+      "L126: [2026/09/20 08:08:05.001 GMT+08:00] [08:08:02] run#280 | FAILED(失败) | 已等待 00:07:33",
+      "L127: [2026/09/20 08:08:05.001 GMT+08:00]   · 阶段 [阶段_1]: RUNNING(运行中) -> FAILED(失败)",
+      "L128: [2026/09/20 08:08:05.001 GMT+08:00]     任务 [Build_a3a5_arm]: RUNNING(运行中) -> FAILED(失败)",
+      "L133: [2026/09/20 08:08:05.001 GMT+08:00] 最终状态: FAILED(失败)",
+      "L137: [2026/09/20 08:08:05.001 GMT+08:00]   [阶段] 阶段_1: FAILED(失败)",
+      "L139: [2026/09/20 08:08:05.001 GMT+08:00]     [任务] Build_a3a5_arm: FAILED(失败) | 持续时间: 00:07:22 | message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+      "L141: [2026/09/20 08:08:05.001 GMT+08:00] 失败/取消任务明细:",
+      "L142: [2026/09/20 08:08:05.001 GMT+08:00]   [阶段_1] Build_a3a5_arm: FAILED(失败)",
+      "L143: [2026/09/20 08:08:05.001 GMT+08:00]       message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+      "L144: [2026/09/20 08:08:05.001 GMT+08:00]       step [Build_a3a5_arm]: FAILED(失败)",
+      "L145: [2026/09/20 08:08:05.001 GMT+08:00]           message: {\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+      "L146: [2026/09/20 08:08:05.016 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
+      "L148: [2026/09/20 08:08:09.104 GMT+08:00] Finished: FAILURE"
+     ],
+     "subTasks": []
+    },
+    {
+     "jobName": "Test_Triton_Ascend",
+     "type": "log",
+     "fallback": true,
+     "logFile": "job_logs/53_Ascend_8_Test_Triton_Ascend.log",
+     "logBytes": 12662,
+     "logLines": 130,
+     "download": "export",
+     "truncated": false,
+     "excerpt": null,
+     "stepErrMsgs": [
+      "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+     ],
+     "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "errorLines": [
+      "L126: [2026/09/20 08:09:06.443 GMT+08:00] 2026-09-20 08:09:06 ERROR 404: Not Found.",
+      "L128: [2026/09/20 08:09:06.473 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+      "L130: [2026/09/20 08:09:13.543 GMT+08:00] Finished: FAILURE"
+     ],
+     "subTasks": []
+    }
+   ],
+   "cases": [],
+   "errorMessages": [
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 126,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:05.001 GMT+08:00] [08:08:02] run#280 | FAILED(失败) | 已等待 00:07:33"
+    },
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 127,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:05.001 GMT+08:00]   · 阶段 [阶段_1]: RUNNING(运行中) -> FAILED(失败)"
+    },
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 128,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:05.001 GMT+08:00]     任务 [Build_a3a5_arm]: RUNNING(运行中) -> FAILED(失败)"
+    },
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 133,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:05.001 GMT+08:00] 最终状态: FAILED(失败)"
+    },
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 144,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:05.001 GMT+08:00]       step [Build_a3a5_arm]: FAILED(失败)"
+    },
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 145,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:05.001 GMT+08:00]           message: {\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+    },
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 146,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:05.016 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed"
+    },
+    {
+     "task": "npu_ir流水线调用",
+     "source": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "line": 148,
+     "level": "LOG",
+     "text": "[2026/09/20 08:08:09.104 GMT+08:00] Finished: FAILURE"
+    },
+    {
+     "task": "Test_Triton_Ascend",
+     "source": "job_logs/53_Ascend_8_Test_Triton_Ascend.log",
+     "line": 126,
+     "level": "LOG",
+     "text": "[2026/09/20 08:09:06.443 GMT+08:00] 2026-09-20 08:09:06 ERROR 404: Not Found."
+    },
+    {
+     "task": "Test_Triton_Ascend",
+     "source": "job_logs/53_Ascend_8_Test_Triton_Ascend.log",
+     "line": 128,
+     "level": "LOG",
+     "text": "[2026/09/20 08:09:06.473 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed"
+    },
+    {
+     "task": "Test_Triton_Ascend",
+     "source": "job_logs/53_Ascend_8_Test_Triton_Ascend.log",
+     "line": 130,
+     "level": "LOG",
+     "text": "[2026/09/20 08:09:13.543 GMT+08:00] Finished: FAILURE"
+    }
+   ],
+   "evidence": {
+    "files": [
+     "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+     "job_logs/53_Ascend_8_Test_Triton_Ascend.log"
+    ],
+    "missing": [
+     "Test_Triton_Ascend"
+    ],
+    "github": null
+   },
+   "counts": {
+    "tasks": 3,
+    "testTasks": 1,
+    "logTasks": 2,
+    "buildTasks": 0,
+    "cases": 0,
+    "errorMessages": 11,
+    "evidenceFiles": 2
+   },
+   "verdict": {
+    "category": "env_not_ready",
+    "text": "用例未拉起（测试环境异常）",
+    "confidence": 0.5,
+    "level": "中",
+    "basis": [
+     "test 任务 Test_Triton_Ascend 测试结果为空（用例未拉起），已回退整 job 日志",
+     "基线 0.30",
+     "证据文件落盘 2 份 +0.25",
+     "任务日志命中错误行 +0.15",
+     "任务 Test_Triton_Ascend 无任何证据 −0.20"
+    ]
+   },
+   "suggestions": [],
+   "analysis": {
+    "status": "na",
+    "rootCause": null,
+    "advice": null,
+    "cites": [],
+    "updatedAt": null,
+    "source": null
+   }
+  },
+  {
+   "recordId": "Triton_Ascend|Ascend#9",
+   "date": "2026-09-20",
+   "component": "Triton_Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "platform": "codearts",
+   "buildNumber": 9,
+   "pipelineRunId": "cdef4b3129144f2bac5406b1e37b56e5",
+   "status": "COMPLETED",
+   "failedTaskType": null,
+   "startedAt": "2026-09-20T16:04:58",
+   "endedAt": "2026-09-20T17:16:40",
+   "dateBasis": {
+    "field": "pipelineRunEndtime",
+    "value": "2026-09-20T17:16:40",
+    "rule": "按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）"
+   },
+   "light": {
+    "vaRate": 0.9302,
+    "bsRate": 0.9953,
+    "dims": [
+     "va",
+     "bs"
+    ],
+    "track": "-",
+    "affects": []
+   },
+   "links": {
+    "openlibing": "https://www.openlibing.com/apps/pipelineDetail?pipelineId=9a4886d40e544cecb7da63c9597490a6&projectId=300130&pipelineRunId=cdef4b3129144f2bac5406b1e37b56e5",
+    "detail": null,
+    "github": null
+   },
+   "tasks": [],
+   "cases": [],
+   "errorMessages": [],
+   "evidence": {
+    "files": [],
+    "missing": [],
+    "github": null
+   },
+   "counts": {
+    "tasks": 0,
+    "testTasks": 0,
+    "logTasks": 0,
+    "buildTasks": 0,
+    "cases": 0,
+    "errorMessages": 0,
+    "evidenceFiles": 0
+   },
+   "verdict": {
+    "category": "success",
+    "text": "执行成功",
+    "confidence": 1.0,
+    "level": "高",
+    "basis": [
+     "运行状态 COMPLETED，任务未失败，无需根因分析"
+    ]
+   },
+   "suggestions": [],
+   "analysis": {
+    "status": "na",
+    "rootCause": null,
+    "advice": null,
+    "cites": [],
+    "updatedAt": null,
+    "source": null
+   }
+  }
+ ]
+}

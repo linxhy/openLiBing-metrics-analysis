@@ -2,284 +2,683 @@
  "results": [
   {
    "route": "log",
-   "key": "MindIE|MindIE-SD",
-   "pipeline": "MindIE-SD",
-   "rn": 116,
-   "st": "11-18 01:01",
-   "rid": "5a5a6716983b4f84b5488031000653d7",
-   "jobId": "43aca12a05ca47a787692cf5c15d169c",
-   "jobName": "Build_MindIE-SD",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 64,
+   "st": "10-22 09:16",
+   "rid": "ef918397deef43d9a00d457ca3ca8fe1",
+   "jobId": "1fe5980bedd3416db32857d1861076b9",
+   "jobName": "deploy_inductor_packages",
+   "fallback": false,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤deploy_inductor_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/62_Ascend_64_deploy_inductor_packages.log",
+   "logBytes": 370,
+   "logLines": 3,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L1: [2026/10/22 09:38:58.310 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L2: [2026/10/22 09:38:58.310 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ],
+   "subTasks": []
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 63,
+   "st": "10-22 08:00",
+   "rid": "fdcb33bb6928404f9465de1854ff5829",
+   "jobId": "50d13577ec5a4523ba81add0db555800",
+   "jobName": "deploy_packages",
+   "fallback": false,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤deploy_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/63_Ascend_63_deploy_packages.log",
+   "logBytes": 800,
+   "logLines": 7,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L5: [2026/10/22 08:28:53.615 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L6: [2026/10/22 08:28:53.615 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ],
+   "subTasks": []
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 63,
+   "st": "10-22 08:00",
+   "rid": "fdcb33bb6928404f9465de1854ff5829",
+   "jobId": "30f5734b8d67439d9a1172882da84358",
+   "jobName": "deploy_inductor_packages",
+   "fallback": false,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤deploy_inductor_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/64_Ascend_63_deploy_inductor_packages.log",
+   "logBytes": 370,
+   "logLines": 3,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L1: [2026/10/22 08:28:45.071 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L2: [2026/10/22 08:28:45.071 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ],
+   "subTasks": []
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 8,
+   "st": "09-20 08:00",
+   "rid": "715bbcb41c6c481f98864ad495d60043",
+   "jobId": "07d49b87808248bf9dfc004ed9c71bb4",
+   "jobName": "npu_ir流水线调用",
    "fallback": false,
    "stepErrMsgs": [
     "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
    ],
-   "jobErrMsg": "步骤Build_MindIE-SD执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-   "logFile": "job_logs/42_MindIE-SD_116_Build_MindIE-SD.log",
-   "logBytes": 6487,
-   "logLines": 61,
+   "jobErrMsg": "步骤npu_ir流水线调用执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/48_Ascend_8_npu_ir流水线调用.log",
+   "logBytes": 14891,
+   "logLines": 148,
    "download": "export",
    "truncated": false,
    "excerpt": null,
    "errorLines": [
-    "L45: [2026/11/18 01:14:52.629 GMT+08:00] [ERROR] [build_flow:build_flow] : Job MindIE-SD_x86_py311_abi0 failed",
-    "L48: [2026/11/18 01:15:52.738 GMT+08:00] [ERROR] [build_flow:build_flow] : Job MindIE-SD_arm_py311_abi0 failed",
-    "L55: [2026/11/18 01:16:52.834 GMT+08:00] [INFO] [build_flow:build_flow] : Total jobs num: 4, dispatched jobs num: 4, succeed jobs num: 2, failed jobs num: 2",
-    "L56: [2026/11/18 01:16:52.834 GMT+08:00] [ERROR] [build_flow:build_flow] : Follow jobs are failed: [MindIE-SD_arm_py311_abi0, MindIE-SD_x86_py311_abi0]",
-    "L57: [2026/11/18 01:16:52.836 GMT+08:00] [ERROR] [build_flow:build_flow] : 错误信息: 您所提交的构建任务脚本(buildflow)中子任务【[MindIE-SD_arm_py311_abi0, MindIE-SD_x86_py311_abi0]】等构建失败",
-    "L58: [2026/11/18 01:16:52.916 GMT+08:00] [ERROR] [build_flow:build_flow] : 该步骤执行失败",
-    "L59: [2026/11/18 01:16:52.918 GMT+08:00] [ERROR]  : 该步骤执行失败,错误信息:您所提交的构建任务脚本(buildflow)中子任务【[MindIE-SD_arm_py311_abi0, MindIE-SD_x86_py311_abi0]】等构建失败",
-    "L61: [2026/11/18 01:16:55.808 GMT+08:00] Finished: FAILURE"
+    "L126: [2026/09/20 08:08:05.001 GMT+08:00] [08:08:02] run#280 | FAILED(失败) | 已等待 00:07:33",
+    "L127: [2026/09/20 08:08:05.001 GMT+08:00]   · 阶段 [阶段_1]: RUNNING(运行中) -> FAILED(失败)",
+    "L128: [2026/09/20 08:08:05.001 GMT+08:00]     任务 [Build_a3a5_arm]: RUNNING(运行中) -> FAILED(失败)",
+    "L133: [2026/09/20 08:08:05.001 GMT+08:00] 最终状态: FAILED(失败)",
+    "L137: [2026/09/20 08:08:05.001 GMT+08:00]   [阶段] 阶段_1: FAILED(失败)",
+    "L139: [2026/09/20 08:08:05.001 GMT+08:00]     [任务] Build_a3a5_arm: FAILED(失败) | 持续时间: 00:07:22 | message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L141: [2026/09/20 08:08:05.001 GMT+08:00] 失败/取消任务明细:",
+    "L142: [2026/09/20 08:08:05.001 GMT+08:00]   [阶段_1] Build_a3a5_arm: FAILED(失败)",
+    "L143: [2026/09/20 08:08:05.001 GMT+08:00]       message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L144: [2026/09/20 08:08:05.001 GMT+08:00]       step [Build_a3a5_arm]: FAILED(失败)",
+    "L145: [2026/09/20 08:08:05.001 GMT+08:00]           message: {\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L146: [2026/09/20 08:08:05.016 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
+    "L148: [2026/09/20 08:08:09.104 GMT+08:00] Finished: FAILURE"
    ],
-   "subTasks": [
-    {
-     "name": "MindIE-SD_arm_py311_abi0",
-     "buildNo": "1541",
-     "buildJobId": "52112032-a94f-4710-a9d6-cc919216ff0d",
-     "status": "FAILURE",
-     "durationMs": 836164,
-     "startTime": "2026-11-17T17:01:52.000+00:00",
-     "finishTime": "2026-11-17T17:15:48.000+00:00",
-     "logFile": "job_logs/44_MindIE-SD_116_Build_MindIE-SD_MindIE-SD_arm_py311_abi0.log",
-     "download": "export",
-     "truncated": false,
-     "logBytes": 2669594,
-     "logLines": 19215,
-     "errorLines": [
-      "L2564: [2026/11/18 01:06:40.599 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L2580: [2026/11/18 01:06:40.600 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L2596: [2026/11/18 01:06:40.600 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3717: [2026/11/18 01:06:43.914 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3733: [2026/11/18 01:06:43.915 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3748: [2026/11/18 01:06:43.915 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3922: [2026/11/18 01:06:43.921 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3988: [2026/11/18 01:06:43.923 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L4009: [2026/11/18 01:06:43.924 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L8564: [2026/11/18 01:06:45.583 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L16648: [2026/11/18 01:06:51.549 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16650: [2026/11/18 01:06:51.549 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16666: [2026/11/18 01:06:51.550 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16668: [2026/11/18 01:06:51.550 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16686: [2026/11/18 01:06:51.550 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16704: [2026/11/18 01:06:51.551 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16720: [2026/11/18 01:06:51.551 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16722: [2026/11/18 01:06:51.551 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16740: [2026/11/18 01:06:51.552 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16756: [2026/11/18 01:06:51.552 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16758: [2026/11/18 01:06:51.552 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16776: [2026/11/18 01:06:51.553 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16792: [2026/11/18 01:06:51.554 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16794: [2026/11/18 01:06:51.554 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16812: [2026/11/18 01:06:51.554 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16828: [2026/11/18 01:06:51.555 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16830: [2026/11/18 01:06:51.555 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16848: [2026/11/18 01:06:51.555 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16905: [2026/11/18 01:06:51.557 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16907: [2026/11/18 01:06:51.557 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16925: [2026/11/18 01:06:51.558 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16953: [2026/11/18 01:06:51.558 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L16974: [2026/11/18 01:06:51.559 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L16995: [2026/11/18 01:06:51.560 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L17028: [2026/11/18 01:06:51.561 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L17030: [2026/11/18 01:06:51.561 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L17048: [2026/11/18 01:06:51.561 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L17064: [2026/11/18 01:06:51.562 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L17066: [2026/11/18 01:06:51.562 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L17084: [2026/11/18 01:06:51.562 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L19142: [2026/11/18 01:15:11.200 GMT+08:00] /opt/buildtools/python-3.11.4/lib/python3.11/site-packages/torch_npu/include/torch_npu/csrc/framework/interface/AclOpCompileInterface.h:146:54: error: ‘aclOpExecutor’ was not declared in this scope",
-      "L19143: [2026/11/18 01:15:11.200 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19146: [2026/11/18 01:15:11.200 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19149: [2026/11/18 01:15:11.200 GMT+08:00] /opt/buildtools/python-3.11.4/lib/python3.11/site-packages/torch_npu/include/torch_npu/csrc/framework/interface/AclOpCompileInterface.h:146:69: error: ‘executor’ was not declared in this scope",
-      "L19150: [2026/11/18 01:15:11.200 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19153: [2026/11/18 01:15:11.200 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19156: [2026/11/18 01:15:23.434 GMT+08:00] gmake[2]: *** [CMakeFiles/PTAExtensionOPS.dir/build.make:370: CMakeFiles/PTAExtensionOPS.dir/plugin/eagle_split_norm_rope_concat.cpp.o] Error 1",
-      "L19158: [2026/11/18 01:15:23.695 GMT+08:00] gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/PTAExtensionOPS.dir/all] Error 2",
-      "L19159: [2026/11/18 01:15:23.695 GMT+08:00] gmake: *** [Makefile:91: all] Error 2",
-      "L19160: [2026/11/18 01:15:23.695 GMT+08:00] ERROR: Script failed with return code 2",
-      "L19161: [2026/11/18 01:15:23.695 GMT+08:00] ERROR: Build failed: Script execution failed: /workspace/MindIE-SD/build/build_plugin.sh",
-      "L19162: [2026/11/18 01:15:23.695 GMT+08:00] Traceback (most recent call last):",
-      "L19166: [2026/11/18 01:15:23.695 GMT+08:00]     raise CalledProcessError(retcode, cmd)",
-      "L19167: [2026/11/18 01:15:23.695 GMT+08:00] subprocess.CalledProcessError: Command '['bash', '/workspace/MindIE-SD/build/build_plugin.sh', '/workspace/MindIE-SD/build']' returned non-zero exit status 2.",
-      "L19171: [2026/11/18 01:15:23.695 GMT+08:00] Traceback (most recent call last):",
-      "L19207: [2026/11/18 01:15:23.696 GMT+08:00]     raise RuntimeError(\"Script execution failed: %s\" % script_path) from e",
-      "L19208: [2026/11/18 01:15:23.696 GMT+08:00] RuntimeError: Script execution failed: /workspace/MindIE-SD/build/build_plugin.sh",
-      "L19211: [2026/11/18 01:15:47.111 GMT+08:00] ERROR: Job ascend-mindie-sd-9478p 容器 ascend 失败 (exit code: 1, reason: Error)",
-      "L19212: [2026/11/18 01:15:47.131 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
-      "L19215: [2026/11/18 01:15:53.323 GMT+08:00] Finished: FAILURE"
-     ],
-     "excerpt": null
-    },
-    {
-     "name": "MindIE-SD_x86_py311_abi1",
-     "buildNo": "1542",
-     "buildJobId": "3cb2a499-8de9-4eca-b254-f0f86bb07768",
-     "status": "SUCCESS",
-     "durationMs": 881325,
-     "startTime": "2026-11-17T17:01:52.000+00:00",
-     "finishTime": "2026-11-17T17:16:34.000+00:00"
-    },
-    {
-     "name": "MindIE-SD_x86_py311_abi0",
-     "buildNo": "1543",
-     "buildJobId": "670f4fdd-560d-49fc-8b7c-f6761d0d1108",
-     "status": "FAILURE",
-     "durationMs": 753900,
-     "startTime": "2026-11-17T17:01:57.000+00:00",
-     "finishTime": "2026-11-17T17:14:31.000+00:00",
-     "logFile": "job_logs/46_MindIE-SD_116_Build_MindIE-SD_MindIE-SD_x86_py311_abi0.log",
-     "download": "export",
-     "truncated": false,
-     "logBytes": 2669507,
-     "logLines": 19217,
-     "errorLines": [
-      "L2602: [2026/11/18 01:06:21.486 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L2618: [2026/11/18 01:06:21.486 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L2634: [2026/11/18 01:06:21.487 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3718: [2026/11/18 01:06:23.858 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3734: [2026/11/18 01:06:23.858 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3749: [2026/11/18 01:06:23.859 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L3956: [2026/11/18 01:06:24.814 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L8477: [2026/11/18 01:06:24.962 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L8498: [2026/11/18 01:06:24.962 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L8567: [2026/11/18 01:06:25.541 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L16666: [2026/11/18 01:06:29.643 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16668: [2026/11/18 01:06:29.643 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16686: [2026/11/18 01:06:29.643 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16704: [2026/11/18 01:06:29.644 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16720: [2026/11/18 01:06:29.644 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16722: [2026/11/18 01:06:29.644 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16740: [2026/11/18 01:06:29.645 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16756: [2026/11/18 01:06:29.645 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16758: [2026/11/18 01:06:29.645 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16776: [2026/11/18 01:06:29.646 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16792: [2026/11/18 01:06:29.646 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16794: [2026/11/18 01:06:29.646 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16812: [2026/11/18 01:06:29.647 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16828: [2026/11/18 01:06:29.647 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16830: [2026/11/18 01:06:29.647 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16848: [2026/11/18 01:06:29.648 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16905: [2026/11/18 01:06:29.650 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L16907: [2026/11/18 01:06:29.650 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16925: [2026/11/18 01:06:29.650 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L16953: [2026/11/18 01:06:29.651 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L16974: [2026/11/18 01:06:29.652 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L16995: [2026/11/18 01:06:29.652 GMT+08:00]  #define OPS_LOG_STUB_E(OPS_DESC, FMT, ...) OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__)",
-      "L17028: [2026/11/18 01:06:29.653 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L17030: [2026/11/18 01:06:29.654 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L17048: [2026/11/18 01:06:29.654 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L17064: [2026/11/18 01:06:29.655 GMT+08:00]          OPS_LOG_STUB(OP, DLOG_ERROR, OPS_DESC, FMT, ##__VA_ARGS__); \\",
-      "L17066: [2026/11/18 01:06:29.655 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L17084: [2026/11/18 01:06:29.655 GMT+08:00] /workspace/MindIE-SD/csrc/ops/eagle_block_sparse_attention/op_host/../../utils/inc/error/ops_error.h:26:52: note: in expansion of macro ‘OPS_INNER_ERR_STUB’",
-      "L18988: [2026/11/18 01:13:54.630 GMT+08:00] -- Detecting C compiler ABI info - failed",
-      "L18994: [2026/11/18 01:13:54.630 GMT+08:00] -- Detecting CXX compiler ABI info - failed",
-      "L19144: [2026/11/18 01:14:02.109 GMT+08:00] /opt/buildtools/python-3.11.4/lib/python3.11/site-packages/torch_npu/include/torch_npu/csrc/framework/interface/AclOpCompileInterface.h:146:54: error: ‘aclOpExecutor’ was not declared in this scope",
-      "L19145: [2026/11/18 01:14:02.109 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19148: [2026/11/18 01:14:02.109 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19151: [2026/11/18 01:14:02.109 GMT+08:00] /opt/buildtools/python-3.11.4/lib/python3.11/site-packages/torch_npu/include/torch_npu/csrc/framework/interface/AclOpCompileInterface.h:146:69: error: ‘executor’ was not declared in this scope",
-      "L19152: [2026/11/18 01:14:02.109 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19155: [2026/11/18 01:14:02.109 GMT+08:00]  ACL_FUNC_VISIBILITY aclError AclDestroyAclOpExecutor(aclOpExecutor *executor);",
-      "L19158: [2026/11/18 01:14:10.253 GMT+08:00] gmake[2]: *** [CMakeFiles/PTAExtensionOPS.dir/build.make:370: CMakeFiles/PTAExtensionOPS.dir/plugin/eagle_split_norm_rope_concat.cpp.o] Error 1",
-      "L19160: [2026/11/18 01:14:11.638 GMT+08:00] gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/PTAExtensionOPS.dir/all] Error 2",
-      "L19161: [2026/11/18 01:14:11.638 GMT+08:00] gmake: *** [Makefile:91: all] Error 2",
-      "L19162: [2026/11/18 01:14:11.638 GMT+08:00] ERROR: Script failed with return code 2",
-      "L19163: [2026/11/18 01:14:11.638 GMT+08:00] ERROR: Build failed: Script execution failed: /workspace/MindIE-SD/build/build_plugin.sh",
-      "L19164: [2026/11/18 01:14:11.638 GMT+08:00] Traceback (most recent call last):",
-      "L19168: [2026/11/18 01:14:11.638 GMT+08:00]     raise CalledProcessError(retcode, cmd)",
-      "L19169: [2026/11/18 01:14:11.638 GMT+08:00] subprocess.CalledProcessError: Command '['bash', '/workspace/MindIE-SD/build/build_plugin.sh', '/workspace/MindIE-SD/build']' returned non-zero exit status 2.",
-      "L19173: [2026/11/18 01:14:11.638 GMT+08:00] Traceback (most recent call last):",
-      "L19209: [2026/11/18 01:14:11.639 GMT+08:00]     raise RuntimeError(\"Script execution failed: %s\" % script_path) from e",
-      "L19210: [2026/11/18 01:14:11.639 GMT+08:00] RuntimeError: Script execution failed: /workspace/MindIE-SD/build/build_plugin.sh",
-      "L19213: [2026/11/18 01:14:29.761 GMT+08:00] ERROR: Job ascend-mindie-sd-65cdv 容器 ascend 失败 (exit code: 1, reason: Error)",
-      "L19214: [2026/11/18 01:14:29.778 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
-      "L19217: [2026/11/18 01:14:35.895 GMT+08:00] Finished: FAILURE"
-     ],
-     "excerpt": null
-    },
-    {
-     "name": "MindIE-SD_arm_py311_abi1",
-     "buildNo": "1544",
-     "buildJobId": "9c069d10-d223-4255-addb-5e289c8cd601",
-     "status": "SUCCESS",
-     "durationMs": 876100,
-     "startTime": "2026-11-17T17:01:57.000+00:00",
-     "finishTime": "2026-11-17T17:16:33.000+00:00"
-    }
+   "subTasks": []
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 65,
+   "st": "10-22 09:48",
+   "rid": "4a2cffa668d24bd58966aa414069ebd5",
+   "jobId": "d20e1fa477ff4668b4aef2f8210f6e97",
+   "jobName": "deploy_packages",
+   "fallback": false,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤deploy_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/65_Ascend_65_deploy_packages.log",
+   "logBytes": 370,
+   "logLines": 3,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L1: [2026/10/22 10:12:53.933 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L2: [2026/10/22 10:12:53.933 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ],
+   "subTasks": []
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 96,
+   "st": "11-03 08:00",
+   "rid": "088cb5b9423049699078f30afe0bdf58",
+   "jobId": "68ad2fec1b2043ecb90666959fd56199",
+   "jobName": "deploy_inductor_packages",
+   "fallback": false,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤deploy_inductor_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/69_Ascend_96_deploy_inductor_packages.log",
+   "logBytes": 706,
+   "logLines": 6,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L4: [2026/11/03 08:21:41.668 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L5: [2026/11/03 08:21:41.668 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ],
+   "subTasks": []
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 104,
+   "st": "11-06 17:00",
+   "rid": "9ae1e7dda41c4a78957a5ba09d2e5b3c",
+   "jobId": "5b0ba7feedf147a0a53594304b3c15b2",
+   "jobName": "npu_ir流水线调用",
+   "fallback": false,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤npu_ir流水线调用执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/49_Ascend_104_npu_ir流水线调用.log",
+   "logBytes": 18857,
+   "logLines": 187,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L144: [2026/11/06 17:17:46.045 GMT+08:00]     任务 [Build_a3a5_arm]: RUNNING(运行中) -> FAILED(失败)",
+    "L161: [2026/11/06 17:26:21.511 GMT+08:00] [17:26:18] run#516 | FAILED(失败) | 已等待 00:25:10",
+    "L162: [2026/11/06 17:26:21.511 GMT+08:00]   · 阶段 [阶段_1]: RUNNING(运行中) -> FAILED(失败)",
+    "L163: [2026/11/06 17:26:21.511 GMT+08:00]     任务 [Build_a3a5_x86]: RUNNING(运行中) -> FAILED(失败)",
+    "L168: [2026/11/06 17:26:21.511 GMT+08:00] 最终状态: FAILED(失败)",
+    "L172: [2026/11/06 17:26:21.511 GMT+08:00]   [阶段] 阶段_1: FAILED(失败)",
+    "L173: [2026/11/06 17:26:21.511 GMT+08:00]     [任务] Build_a3a5_x86: FAILED(失败) | 持续时间: 00:24:51 | message: 步骤Build_a3a5_x86执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L174: [2026/11/06 17:26:21.511 GMT+08:00]     [任务] Build_a3a5_arm: FAILED(失败) | 持续时间: 00:16:31 | message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L176: [2026/11/06 17:26:21.511 GMT+08:00] 失败/取消任务明细:",
+    "L177: [2026/11/06 17:26:21.511 GMT+08:00]   [阶段_1] Build_a3a5_x86: FAILED(失败)",
+    "L178: [2026/11/06 17:26:21.511 GMT+08:00]       message: 步骤Build_a3a5_x86执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L179: [2026/11/06 17:26:21.511 GMT+08:00]       step [Build_a3a5_x86]: FAILED(失败)",
+    "L180: [2026/11/06 17:26:21.511 GMT+08:00]           message: {\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L181: [2026/11/06 17:26:21.511 GMT+08:00]   [阶段_1] Build_a3a5_arm: FAILED(失败)",
+    "L182: [2026/11/06 17:26:21.511 GMT+08:00]       message: 步骤Build_a3a5_arm执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L183: [2026/11/06 17:26:21.511 GMT+08:00]       step [Build_a3a5_arm]: FAILED(失败)",
+    "L184: [2026/11/06 17:26:21.511 GMT+08:00]           message: {\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+    "L185: [2026/11/06 17:26:21.529 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
+    "L187: [2026/11/06 17:26:27.009 GMT+08:00] Finished: FAILURE"
+   ],
+   "subTasks": []
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 45,
+   "st": "10-15 17:00",
+   "rid": "43e567f2cb9b49a989edade14fcb0db3",
+   "jobId": "4f1f4aea115b462aa5de89c7234940e8",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/50_Ascend_45_Test_Triton_Ascend.log",
+   "logBytes": 12766,
+   "logLines": 131,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L127: [2026/10/15 17:57:38.484 GMT+08:00] 2026-10-15 17:57:38 ERROR 404: Not Found.",
+    "L129: [2026/10/15 17:57:38.507 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L131: [2026/10/15 17:57:45.574 GMT+08:00] Finished: FAILURE"
    ]
   },
   {
    "route": "log",
-   "key": "MindIE|MindIE-Motor",
-   "pipeline": "MindIE-Motor",
-   "rn": 137,
-   "st": "11-18 14:43",
-   "rid": "9f3772fb2963417d9b1c5b1e36e4d1c0",
-   "jobId": "0eb5b598b63a42b7859bb8c7b94c149e",
-   "jobName": "Build_MindIE-Motor",
-   "fallback": false,
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 63,
+   "st": "10-22 08:00",
+   "rid": "fdcb33bb6928404f9465de1854ff5829",
+   "jobId": "c279dc72faf9461e854c0bd2e784141b",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
    "stepErrMsgs": [
     "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
    ],
-   "jobErrMsg": "步骤Build_MindIE-Motor执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-   "logFile": "job_logs/43_MindIE-Motor_137_Build_MindIE-Motor.log",
-   "logBytes": 3525,
-   "logLines": 31,
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/51_Ascend_63_Test_Triton_Ascend.log",
+   "logBytes": 12894,
+   "logLines": 131,
    "download": "export",
    "truncated": false,
    "excerpt": null,
    "errorLines": [
-    "L21: [2026/11/18 14:45:57.731 GMT+08:00] [ERROR] [build_flow:build_flow] : Job MindIE-Motor_arm failed",
-    "L22: [2026/11/18 14:45:57.731 GMT+08:00] [ERROR] [build_flow:build_flow] : Job MindIE-Motor_x86 failed",
-    "L25: [2026/11/18 14:45:57.731 GMT+08:00] [INFO] [build_flow:build_flow] : Total jobs num: 2, dispatched jobs num: 2, succeed jobs num: 0, failed jobs num: 2",
-    "L26: [2026/11/18 14:45:57.731 GMT+08:00] [ERROR] [build_flow:build_flow] : Follow jobs are failed: [MindIE-Motor_arm, MindIE-Motor_x86]",
-    "L27: [2026/11/18 14:45:57.741 GMT+08:00] [ERROR] [build_flow:build_flow] : 错误信息: 您所提交的构建任务脚本(buildflow)中子任务【[MindIE-Motor_arm, MindIE-Motor_x86]】等构建失败",
-    "L28: [2026/11/18 14:45:57.842 GMT+08:00] [ERROR] [build_flow:build_flow] : 该步骤执行失败",
-    "L29: [2026/11/18 14:45:57.845 GMT+08:00] [ERROR]  : 该步骤执行失败,错误信息:您所提交的构建任务脚本(buildflow)中子任务【[MindIE-Motor_arm, MindIE-Motor_x86]】等构建失败",
-    "L31: [2026/11/18 14:46:00.721 GMT+08:00] Finished: FAILURE"
+    "L127: [2026/10/22 08:30:46.009 GMT+08:00] 2026-10-22 08:30:45 ERROR 404: Not Found.",
+    "L129: [2026/10/22 08:30:46.032 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L131: [2026/10/22 08:30:52.732 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 45,
+   "st": "10-15 17:00",
+   "rid": "43e567f2cb9b49a989edade14fcb0db3",
+   "jobId": "682d62ff6c3e4e62af8138ce3229c56a",
+   "jobName": "test",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
    ],
-   "subTasks": [
-    {
-     "name": "MindIE-Motor_x86",
-     "buildNo": "2485",
-     "buildJobId": "30e4c823-df5f-4796-be72-0780733c4813",
-     "status": "FAILURE",
-     "durationMs": 104694,
-     "startTime": "2026-11-18T06:44:01.000+00:00",
-     "finishTime": "2026-11-18T06:45:46.000+00:00",
-     "logFile": "job_logs/45_MindIE-Motor_137_Build_MindIE-Motor_MindIE-Motor_x86.log",
-     "download": "export",
-     "truncated": false,
-     "logBytes": 18913,
-     "logLines": 224,
-     "errorLines": [
-      "L217: [2026/11/18 14:45:19.477 GMT+08:00] error: pathspec 'v0.30.0' did not match any file(s) known to git",
-      "L220: [2026/11/18 14:45:44.386 GMT+08:00] ERROR: Job ascend-mindie-motor-f2hnw 容器 ascend 失败 (exit code: 1, reason: Error)",
-      "L221: [2026/11/18 14:45:44.409 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
-      "L224: [2026/11/18 14:45:50.739 GMT+08:00] Finished: FAILURE"
-     ],
-     "excerpt": null
-    },
-    {
-     "name": "MindIE-Motor_arm",
-     "buildNo": "2484",
-     "buildJobId": "ae7fdace-3044-4e59-baac-6254355e4ae8",
-     "status": "FAILURE",
-     "durationMs": 104306,
-     "startTime": "2026-11-18T06:44:01.000+00:00",
-     "finishTime": "2026-11-18T06:45:45.000+00:00",
-     "logFile": "job_logs/47_MindIE-Motor_137_Build_MindIE-Motor_MindIE-Motor_arm.log",
-     "download": "export",
-     "truncated": false,
-     "logBytes": 18919,
-     "logLines": 224,
-     "errorLines": [
-      "L217: [2026/11/18 14:45:20.929 GMT+08:00] error: pathspec 'v0.30.0' did not match any file(s) known to git",
-      "L220: [2026/11/18 14:45:43.968 GMT+08:00] ERROR: Job ascend-mindie-motor-slxht 容器 ascend 失败 (exit code: 1, reason: Error)",
-      "L221: [2026/11/18 14:45:43.983 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
-      "L224: [2026/11/18 14:45:50.323 GMT+08:00] Finished: FAILURE"
-     ],
-     "excerpt": null
-    }
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/66_Ascend_45_test.log",
+   "logBytes": 370,
+   "logLines": 3,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L1: [2026/10/15 17:56:43.249 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L2: [2026/10/15 17:56:43.249 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 64,
+   "st": "10-22 09:16",
+   "rid": "ef918397deef43d9a00d457ca3ca8fe1",
+   "jobId": "845da45633864b69a1ceb2e66e9310f5",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/52_Ascend_64_Test_Triton_Ascend.log",
+   "logBytes": 13045,
+   "logLines": 132,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L128: [2026/10/22 09:40:24.222 GMT+08:00] 2026-10-22 09:40:24 ERROR 404: Not Found.",
+    "L130: [2026/10/22 09:40:24.243 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L132: [2026/10/22 09:40:32.994 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 8,
+   "st": "09-20 08:00",
+   "rid": "715bbcb41c6c481f98864ad495d60043",
+   "jobId": "62fa079fb958487ca79a82bbc89daffe",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/53_Ascend_8_Test_Triton_Ascend.log",
+   "logBytes": 12662,
+   "logLines": 130,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L126: [2026/09/20 08:09:06.443 GMT+08:00] 2026-09-20 08:09:06 ERROR 404: Not Found.",
+    "L128: [2026/09/20 08:09:06.473 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L130: [2026/09/20 08:09:13.543 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 66,
+   "st": "10-22 10:16",
+   "rid": "ed92b97215654b95af9b079f555fefe1",
+   "jobId": "0357722396ca42b78117450efcf5f7b7",
+   "jobName": "test",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/67_Ascend_66_test.log",
+   "logBytes": 370,
+   "logLines": 3,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L1: [2026/10/22 11:40:18.551 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L2: [2026/10/22 11:40:18.551 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 65,
+   "st": "10-22 09:48",
+   "rid": "4a2cffa668d24bd58966aa414069ebd5",
+   "jobId": "9d90e3be397e4eaba8a7bd9eb9c44ba9",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/54_Ascend_65_Test_Triton_Ascend.log",
+   "logBytes": 12890,
+   "logLines": 131,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L127: [2026/10/22 10:14:23.621 GMT+08:00] 2026-10-22 10:14:23 ERROR 404: Not Found.",
+    "L129: [2026/10/22 10:14:23.643 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L131: [2026/10/22 10:14:28.451 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 70,
+   "st": "10-23 17:00",
+   "rid": "a811076814564a7794b113d85ad2334d",
+   "jobId": "a6ae6f6f919248e89ce8863ce5c19f73",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/55_Ascend_70_Test_Triton_Ascend.log",
+   "logBytes": 9256,
+   "logLines": 78,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L72: [2026/10/23 18:14:58.971 GMT+08:00]   - Curl error (28): Timeout was reached for http://mirror.siwoo.org/almalinux/8.10/BaseOS/aarch64/os/repodata/c019fb3c91adaab7873f1858de74a3d871bbaa100dd06b0eabafcdae0d38bd87-primary.xml.gz [Connection timed out after 30000 milliseconds]",
+    "L75: [2026/10/23 18:14:58.971 GMT+08:00] Error: Failed to download metadata for repo 'baseos': Yum repo downloading error: Downloading error(s): repodata/c019fb3c91adaab7873f1858de74a3d871bbaa100dd06b0eabafcdae0d38bd87-primary.xml.gz - Cannot download, all mirrors were already tried without success",
+    "L76: [2026/10/23 18:14:58.992 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
+    "L78: [2026/10/23 18:15:06.990 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 76,
+   "st": "10-26 17:00",
+   "rid": "ccd5d0134b3d4b7c8f978bf0680a2e14",
+   "jobId": "ff3863b231784f44b6c6d486320c83aa",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/56_Ascend_76_Test_Triton_Ascend.log",
+   "logBytes": 7013,
+   "logLines": 70,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L65: [2026/10/26 18:10:11.183 GMT+08:00]   - Curl error (28): Timeout was reached for https://mirror.nyist.edu.cn/almalinux/8.10/BaseOS/aarch64/os/repodata/repomd.xml [Connection timed out after 30000 milliseconds]",
+    "L66: [2026/10/26 18:10:11.183 GMT+08:00] Error: Failed to download metadata for repo 'baseos': repomd.xml parser error: Parse error at line: 1 (Document is empty",
+    "L68: [2026/10/26 18:10:11.205 GMT+08:00] [ERROR]  : script returned exit code 1, exitMessage is: command run failed",
+    "L70: [2026/10/26 18:10:15.931 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 92,
+   "st": "11-02 08:00",
+   "rid": "683e0a99287844b189c34642fd251077",
+   "jobId": "6bf1fd1d22d9420eb24369dbc0b0a0cc",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/57_Ascend_92_Test_Triton_Ascend.log",
+   "logBytes": 12890,
+   "logLines": 131,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L127: [2026/11/02 08:37:11.385 GMT+08:00] 2026-11-02 08:37:11 ERROR 404: Not Found.",
+    "L129: [2026/11/02 08:37:11.409 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L131: [2026/11/02 08:37:17.197 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 92,
+   "st": "11-02 08:00",
+   "rid": "683e0a99287844b189c34642fd251077",
+   "jobId": "41c578108ead47ca8229a16f4c6e083c",
+   "jobName": "test",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/68_Ascend_92_test.log",
+   "logBytes": 370,
+   "logLines": 3,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L1: [2026/11/02 08:32:19.704 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L2: [2026/11/02 08:32:19.704 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 66,
+   "st": "10-22 10:16",
+   "rid": "ed92b97215654b95af9b079f555fefe1",
+   "jobId": "02bd4df6f90b48f9879ebf185fc08117",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/58_Ascend_66_Test_Triton_Ascend.log",
+   "logBytes": 12957,
+   "logLines": 132,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L128: [2026/10/22 11:41:12.889 GMT+08:00] 2026-10-22 11:41:12 ERROR 404: Not Found.",
+    "L130: [2026/10/22 11:41:12.910 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L132: [2026/10/22 11:41:18.812 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 96,
+   "st": "11-03 08:00",
+   "rid": "088cb5b9423049699078f30afe0bdf58",
+   "jobId": "b94a0877e74a4b06933ad789ad8461a7",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/59_Ascend_96_Test_Triton_Ascend.log",
+   "logBytes": 13010,
+   "logLines": 132,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L128: [2026/11/03 08:28:17.058 GMT+08:00] 2026-11-03 08:28:16 ERROR 404: Not Found.",
+    "L130: [2026/11/03 08:28:17.081 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L132: [2026/11/03 08:28:23.967 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 93,
+   "st": "11-02 14:56",
+   "rid": "39bac8cda1db43be93bc10f862cf398a",
+   "jobId": "cf05b72611774912a1d4da8a77b417c3",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/60_Ascend_93_Test_Triton_Ascend.log",
+   "logBytes": 12646,
+   "logLines": 130,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L126: [2026/11/02 15:54:34.777 GMT+08:00] 2026-11-02 15:54:34 ERROR 404: Not Found.",
+    "L128: [2026/11/02 15:54:34.800 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L130: [2026/11/02 15:54:39.325 GMT+08:00] Finished: FAILURE"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 93,
+   "st": "11-02 14:56",
+   "rid": "39bac8cda1db43be93bc10f862cf398a",
+   "jobId": "358a3e0c1aca4d169a2103e2f5ed0040",
+   "jobName": "test",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}"
+   ],
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "logFile": "job_logs/70_Ascend_93_test.log",
+   "logBytes": 370,
+   "logLines": 3,
+   "download": "paging",
+   "truncated": true,
+   "excerpt": null,
+   "errorLines": [
+    "L1: [2026/11/02 15:53:31.889 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.",
+    "L2: [2026/11/02 15:53:31.890 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!"
+   ]
+  },
+  {
+   "route": "log",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "rn": 104,
+   "st": "11-06 17:00",
+   "rid": "9ae1e7dda41c4a78957a5ba09d2e5b3c",
+   "jobId": "2f8ebba6f3024d659e6f27bd51a95b98",
+   "jobName": "Test_Triton_Ascend",
+   "fallback": true,
+   "stepErrMsgs": [
+    "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}"
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "logFile": "job_logs/61_Ascend_104_Test_Triton_Ascend.log",
+   "logBytes": 12641,
+   "logLines": 130,
+   "download": "export",
+   "truncated": false,
+   "excerpt": null,
+   "errorLines": [
+    "L126: [2026/11/06 17:27:23.672 GMT+08:00] 2026-11-06 17:27:23 ERROR 404: Not Found.",
+    "L128: [2026/11/06 17:27:23.698 GMT+08:00] [ERROR]  : script returned exit code 8, exitMessage is: command run failed",
+    "L130: [2026/11/06 17:27:28.925 GMT+08:00] Finished: FAILURE"
    ]
   }
  ],
- "errors": []
+ "errors": [
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 63,
+   "jobName": "deploy_inductor_packages",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 63,
+   "jobName": "deploy_packages",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 64,
+   "jobName": "deploy_inductor_packages",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 96,
+   "jobName": "deploy_inductor_packages",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 65,
+   "jobName": "deploy_packages",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 45,
+   "jobName": "test",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 66,
+   "jobName": "test",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 92,
+   "jobName": "test",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 93,
+   "jobName": "test",
+   "err": "export failed: create: 查询执行任务日志信息失败（已重试 3 次）"
+  }
+ ]
 }

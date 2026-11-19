@@ -1,0 +1,3 @@
+[2026/10/22 08:28:45.071 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : [frame] query step status with error.
+[2026/10/22 08:28:45.071 GMT+08:00] [ERROR] [real_stage:official_devcloud_jenkins] : 错误信息: DEV-JENKINS-10002, 任务执行失败!
+[2026/10/22 08:28:45.154 GMT+08:00] [INFO] [real_stage:official_devcloud_jenkins] : 该步骤执行完成

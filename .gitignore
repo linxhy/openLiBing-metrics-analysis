@@ -11,6 +11,7 @@ Thumbs.db
 config.local.json
 
 # 开发期一次性脚本（诊断/接口探针/页面冒烟/临时验证）：用完即删，不进仓库
+out/gen/
 _diag_*
 _probe*
 _smoke_*

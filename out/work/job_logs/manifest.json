@@ -1,6 +1,6 @@
 {
  "9ae1e7dda41c4a78957a5ba09d2e5b3c|5b0ba7feedf147a0a53594304b3c15b2": {
-  "file": "01_Ascend_104_npu_ir流水线调用.log",
+  "file": "49_Ascend_104_npu_ir流水线调用.log",
   "bytes": 18857,
   "lines": 187,
   "download": "export",
@@ -90,7 +90,7 @@
   "jobName": "Test_kupl"
  },
  "9ae1e7dda41c4a78957a5ba09d2e5b3c|2f8ebba6f3024d659e6f27bd51a95b98": {
-  "file": "10_Ascend_104_Test_Triton_Ascend.log",
+  "file": "61_Ascend_104_Test_Triton_Ascend.log",
   "bytes": 12641,
   "lines": 130,
   "download": "export",
@@ -407,5 +407,215 @@
   "rn": 137,
   "jobName": "Build_MindIE-Motor",
   "subTask": "MindIE-Motor_arm"
+ },
+ "715bbcb41c6c481f98864ad495d60043|07d49b87808248bf9dfc004ed9c71bb4": {
+  "file": "48_Ascend_8_npu_ir流水线调用.log",
+  "bytes": 14891,
+  "lines": 148,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 8,
+  "jobName": "npu_ir流水线调用"
+ },
+ "43e567f2cb9b49a989edade14fcb0db3|4f1f4aea115b462aa5de89c7234940e8": {
+  "file": "50_Ascend_45_Test_Triton_Ascend.log",
+  "bytes": 12766,
+  "lines": 131,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 45,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "fdcb33bb6928404f9465de1854ff5829|c279dc72faf9461e854c0bd2e784141b": {
+  "file": "51_Ascend_63_Test_Triton_Ascend.log",
+  "bytes": 12894,
+  "lines": 131,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 63,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "ef918397deef43d9a00d457ca3ca8fe1|845da45633864b69a1ceb2e66e9310f5": {
+  "file": "52_Ascend_64_Test_Triton_Ascend.log",
+  "bytes": 13045,
+  "lines": 132,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 64,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "715bbcb41c6c481f98864ad495d60043|62fa079fb958487ca79a82bbc89daffe": {
+  "file": "53_Ascend_8_Test_Triton_Ascend.log",
+  "bytes": 12662,
+  "lines": 130,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 8,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "4a2cffa668d24bd58966aa414069ebd5|9d90e3be397e4eaba8a7bd9eb9c44ba9": {
+  "file": "54_Ascend_65_Test_Triton_Ascend.log",
+  "bytes": 12890,
+  "lines": 131,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 65,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "a811076814564a7794b113d85ad2334d|a6ae6f6f919248e89ce8863ce5c19f73": {
+  "file": "55_Ascend_70_Test_Triton_Ascend.log",
+  "bytes": 9256,
+  "lines": 78,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 70,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "ccd5d0134b3d4b7c8f978bf0680a2e14|ff3863b231784f44b6c6d486320c83aa": {
+  "file": "56_Ascend_76_Test_Triton_Ascend.log",
+  "bytes": 7013,
+  "lines": 70,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 76,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "683e0a99287844b189c34642fd251077|6bf1fd1d22d9420eb24369dbc0b0a0cc": {
+  "file": "57_Ascend_92_Test_Triton_Ascend.log",
+  "bytes": 12890,
+  "lines": 131,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 92,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "ed92b97215654b95af9b079f555fefe1|02bd4df6f90b48f9879ebf185fc08117": {
+  "file": "58_Ascend_66_Test_Triton_Ascend.log",
+  "bytes": 12957,
+  "lines": 132,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 66,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "088cb5b9423049699078f30afe0bdf58|b94a0877e74a4b06933ad789ad8461a7": {
+  "file": "59_Ascend_96_Test_Triton_Ascend.log",
+  "bytes": 13010,
+  "lines": 132,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 96,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "39bac8cda1db43be93bc10f862cf398a|cf05b72611774912a1d4da8a77b417c3": {
+  "file": "60_Ascend_93_Test_Triton_Ascend.log",
+  "bytes": 12646,
+  "lines": 130,
+  "download": "export",
+  "truncated": false,
+  "excerpt": null,
+  "rn": 93,
+  "jobName": "Test_Triton_Ascend"
+ },
+ "ef918397deef43d9a00d457ca3ca8fe1|1fe5980bedd3416db32857d1861076b9": {
+  "file": "62_Ascend_64_deploy_inductor_packages.log",
+  "bytes": 370,
+  "lines": 3,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 64,
+  "jobName": "deploy_inductor_packages"
+ },
+ "fdcb33bb6928404f9465de1854ff5829|50d13577ec5a4523ba81add0db555800": {
+  "file": "63_Ascend_63_deploy_packages.log",
+  "bytes": 800,
+  "lines": 7,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 63,
+  "jobName": "deploy_packages"
+ },
+ "fdcb33bb6928404f9465de1854ff5829|30f5734b8d67439d9a1172882da84358": {
+  "file": "64_Ascend_63_deploy_inductor_packages.log",
+  "bytes": 370,
+  "lines": 3,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 63,
+  "jobName": "deploy_inductor_packages"
+ },
+ "4a2cffa668d24bd58966aa414069ebd5|d20e1fa477ff4668b4aef2f8210f6e97": {
+  "file": "65_Ascend_65_deploy_packages.log",
+  "bytes": 370,
+  "lines": 3,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 65,
+  "jobName": "deploy_packages"
+ },
+ "43e567f2cb9b49a989edade14fcb0db3|682d62ff6c3e4e62af8138ce3229c56a": {
+  "file": "66_Ascend_45_test.log",
+  "bytes": 370,
+  "lines": 3,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 45,
+  "jobName": "test"
+ },
+ "ed92b97215654b95af9b079f555fefe1|0357722396ca42b78117450efcf5f7b7": {
+  "file": "67_Ascend_66_test.log",
+  "bytes": 370,
+  "lines": 3,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 66,
+  "jobName": "test"
+ },
+ "683e0a99287844b189c34642fd251077|41c578108ead47ca8229a16f4c6e083c": {
+  "file": "68_Ascend_92_test.log",
+  "bytes": 370,
+  "lines": 3,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 92,
+  "jobName": "test"
+ },
+ "088cb5b9423049699078f30afe0bdf58|68ad2fec1b2043ecb90666959fd56199": {
+  "file": "69_Ascend_96_deploy_inductor_packages.log",
+  "bytes": 706,
+  "lines": 6,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 96,
+  "jobName": "deploy_inductor_packages"
+ },
+ "39bac8cda1db43be93bc10f862cf398a|358a3e0c1aca4d169a2103e2f5ed0040": {
+  "file": "70_Ascend_93_test.log",
+  "bytes": 370,
+  "lines": 3,
+  "download": "paging",
+  "truncated": true,
+  "excerpt": null,
+  "rn": 93,
+  "jobName": "test"
  }
 }

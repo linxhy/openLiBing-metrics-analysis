@@ -1,105 +1,793 @@
 {
  "test": [
   {
-   "key": "MindIE|MindIE-Motor",
-   "pipeline": "MindIE-Motor",
-   "pipelineName": "Nightly-CI-Component-pipeline_MindIE-Motor",
-   "projectId": 300036,
-   "pipelineId": "d05b26dfc2e5450e8fff23ddf4cd0eb6",
-   "rid": "81a9f8b8d971445d97556c5c528dd79b",
-   "rn": 138,
-   "st": "11-18 16:22",
-   "jobId": "70320e53f8db474a8746b7f6b1e285aa",
-   "jobName": "Test_MindIE-Motor_1",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "ef918397deef43d9a00d457ca3ca8fe1",
+   "rn": 64,
+   "st": "10-22 09:16",
+   "jobId": "845da45633864b69a1ceb2e66e9310f5",
+   "jobName": "Test_Triton_Ascend",
    "stepIds": [
-    "76e816d8aea8408bbd57089295900754"
+    "e90992e18a80467b8e8ef5aa6a8da022"
    ],
    "steps": [
     {
-     "id": "76e816d8aea8408bbd57089295900754",
-     "name": "Test_MindIE-Motor_1",
+     "id": "e90992e18a80467b8e8ef5aa6a8da022",
+     "name": "Test_Triton_Ascend",
      "status": "FAILED",
      "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-     "lastDispatchId": "685048758f93478c9da20a7591514e8f",
-     "jobIdParam": "35af558b239a4803948c2651933bc2bd"
+     "lastDispatchId": "7966002ffb744d32aa3ae4f544ab39a0",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
     }
    ],
-   "jobErrMsg": "步骤Test_MindIE-Motor_1执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-   "jobLastDispatchId": "ec31cce98a2948ae9638f8d45d516b75",
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "01ddd1e0a1284ea2bbb6b8875766904b",
    "route": "test",
    "isBuild": false,
-   "buildJobId": "35af558b239a4803948c2651933bc2bd"
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "fdcb33bb6928404f9465de1854ff5829",
+   "rn": 63,
+   "st": "10-22 08:00",
+   "jobId": "c279dc72faf9461e854c0bd2e784141b",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "1614e1abd1354ca7b0dc2c542e5987a8"
+   ],
+   "steps": [
+    {
+     "id": "1614e1abd1354ca7b0dc2c542e5987a8",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "62eadd805a2844a3b92278d096604c69",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "0d47114d358f4e1299d06d193cd7e735",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "43e567f2cb9b49a989edade14fcb0db3",
+   "rn": 45,
+   "st": "10-15 17:00",
+   "jobId": "682d62ff6c3e4e62af8138ce3229c56a",
+   "jobName": "test",
+   "stepIds": [
+    "a09514ef08ef4747835152f3543d5503"
+   ],
+   "steps": [
+    {
+     "id": "a09514ef08ef4747835152f3543d5503",
+     "name": "test",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "faa6311d107d4d79818bea982cac5e13",
+     "jobIdParam": null
+    }
+   ],
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "a7735a21ae814fcdba1b913032dcc791",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "43e567f2cb9b49a989edade14fcb0db3",
+   "rn": 45,
+   "st": "10-15 17:00",
+   "jobId": "4f1f4aea115b462aa5de89c7234940e8",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "bdb7adbf13bd4699834081ff3f0cd79e"
+   ],
+   "steps": [
+    {
+     "id": "bdb7adbf13bd4699834081ff3f0cd79e",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "01796a8883c84af99651cd73c2d522f5",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "02dfbdb2e2864c5d83d180864c4d9c97",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "715bbcb41c6c481f98864ad495d60043",
+   "rn": 8,
+   "st": "09-20 08:00",
+   "jobId": "62fa079fb958487ca79a82bbc89daffe",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "1174e6dde344404897a37eb767df553d"
+   ],
+   "steps": [
+    {
+     "id": "1174e6dde344404897a37eb767df553d",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "e451acdeff49455a8826b361fecf8f35",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "608455cd5be843b589007c135ec0ccf0",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "a811076814564a7794b113d85ad2334d",
+   "rn": 70,
+   "st": "10-23 17:00",
+   "jobId": "a6ae6f6f919248e89ce8863ce5c19f73",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "2195a9e6d85b41458ddeabc1ad100b0f"
+   ],
+   "steps": [
+    {
+     "id": "2195a9e6d85b41458ddeabc1ad100b0f",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "4060c1f6e105417aa6649d968d41a940",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "58fcfa2932f5445e923747bcdea50dcb",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "4a2cffa668d24bd58966aa414069ebd5",
+   "rn": 65,
+   "st": "10-22 09:48",
+   "jobId": "9d90e3be397e4eaba8a7bd9eb9c44ba9",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "29ae7b5169fd447a80b4040111fbcbc5"
+   ],
+   "steps": [
+    {
+     "id": "29ae7b5169fd447a80b4040111fbcbc5",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "8e71df083db34a95a391d6830de20797",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "137f876630684aae9452266a13e902da",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "ed92b97215654b95af9b079f555fefe1",
+   "rn": 66,
+   "st": "10-22 10:16",
+   "jobId": "0357722396ca42b78117450efcf5f7b7",
+   "jobName": "test",
+   "stepIds": [
+    "31caae4513ce4b79833a5dd124fc1b93"
+   ],
+   "steps": [
+    {
+     "id": "31caae4513ce4b79833a5dd124fc1b93",
+     "name": "test",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "aef47d6c5b28479890f9efae9aa6d7d1",
+     "jobIdParam": null
+    }
+   ],
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "55a670dfc7004be992dda199fd9a0274",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "ed92b97215654b95af9b079f555fefe1",
+   "rn": 66,
+   "st": "10-22 10:16",
+   "jobId": "02bd4df6f90b48f9879ebf185fc08117",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "d74a8bf04b6a48b4af05868a34141437"
+   ],
+   "steps": [
+    {
+     "id": "d74a8bf04b6a48b4af05868a34141437",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "90dc7b6e3bb1441ca617449b5954194b",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "a54dccc0eb534679bdd217c1e5fe8dc6",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "ccd5d0134b3d4b7c8f978bf0680a2e14",
+   "rn": 76,
+   "st": "10-26 17:00",
+   "jobId": "ff3863b231784f44b6c6d486320c83aa",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "8cf4d4a9bc934555b4e0b8ea925417c0"
+   ],
+   "steps": [
+    {
+     "id": "8cf4d4a9bc934555b4e0b8ea925417c0",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "f0aad72e6ab44344a9f1429a01743429",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "80641265aff34b17a298ac6beb9d43e6",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "683e0a99287844b189c34642fd251077",
+   "rn": 92,
+   "st": "11-02 08:00",
+   "jobId": "41c578108ead47ca8229a16f4c6e083c",
+   "jobName": "test",
+   "stepIds": [
+    "12a0f13a289f42d0b44a38e018d47744"
+   ],
+   "steps": [
+    {
+     "id": "12a0f13a289f42d0b44a38e018d47744",
+     "name": "test",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "66efa32d678f47d094bb30f56fc4fc65",
+     "jobIdParam": null
+    }
+   ],
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "afef16f2c85045418f0947a06fef62f7",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "683e0a99287844b189c34642fd251077",
+   "rn": 92,
+   "st": "11-02 08:00",
+   "jobId": "6bf1fd1d22d9420eb24369dbc0b0a0cc",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "faded3982b184a80bc86910f148b1154"
+   ],
+   "steps": [
+    {
+     "id": "faded3982b184a80bc86910f148b1154",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "e3fc1cd4cf434f2786ef22852afbe6c0",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "0ac49c57ac0b4ac68bd178ce9aaa3a0a",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "088cb5b9423049699078f30afe0bdf58",
+   "rn": 96,
+   "st": "11-03 08:00",
+   "jobId": "b94a0877e74a4b06933ad789ad8461a7",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "038a1d104d7e4e7daf32a4c190749b2f"
+   ],
+   "steps": [
+    {
+     "id": "038a1d104d7e4e7daf32a4c190749b2f",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "f69ecd82764d49858e8338f32cb82fe9",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "93e597629502427a81f9b57356f60a94",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "39bac8cda1db43be93bc10f862cf398a",
+   "rn": 93,
+   "st": "11-02 14:56",
+   "jobId": "358a3e0c1aca4d169a2103e2f5ed0040",
+   "jobName": "test",
+   "stepIds": [
+    "7df688c7ea164d48bc42f9ee52c2fd5c"
+   ],
+   "steps": [
+    {
+     "id": "7df688c7ea164d48bc42f9ee52c2fd5c",
+     "name": "test",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "baf31ae810474c8ea8f35d10ba6d6647",
+     "jobIdParam": null
+    }
+   ],
+   "jobErrMsg": "步骤test执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "9e54536cf9694e4da04217dbc1b321a2",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "39bac8cda1db43be93bc10f862cf398a",
+   "rn": 93,
+   "st": "11-02 14:56",
+   "jobId": "cf05b72611774912a1d4da8a77b417c3",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "2885ea9ec7e34e6d89835c03a7348062"
+   ],
+   "steps": [
+    {
+     "id": "2885ea9ec7e34e6d89835c03a7348062",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "f76e54d4693c442486484568281007e8",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "3826cef13b3b4de48f838928d81318ef",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "9ae1e7dda41c4a78957a5ba09d2e5b3c",
+   "rn": 104,
+   "st": "11-06 17:00",
+   "jobId": "2f8ebba6f3024d659e6f27bd51a95b98",
+   "jobName": "Test_Triton_Ascend",
+   "stepIds": [
+    "6e91ceb17fcb4a54b87c3a718fba58f8"
+   ],
+   "steps": [
+    {
+     "id": "6e91ceb17fcb4a54b87c3a718fba58f8",
+     "name": "Test_Triton_Ascend",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "4e406501030d439b87085b5c49d861ed",
+     "jobIdParam": "48c3b7763886441dafd7fdcb5550116f"
+    }
+   ],
+   "jobErrMsg": "步骤Test_Triton_Ascend执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "f8c1f056c697430cab6bbea92d4c406a",
+   "route": "test",
+   "isBuild": false,
+   "buildJobId": "48c3b7763886441dafd7fdcb5550116f"
   }
  ],
  "log": [
   {
-   "key": "MindIE|MindIE-SD",
-   "pipeline": "MindIE-SD",
-   "pipelineName": "Nightly-CI-Component-pipeline_MindIE-SD",
-   "projectId": 300036,
-   "pipelineId": "921e6a7215ec4bf3972bbe13e9e41bb6",
-   "rid": "5a5a6716983b4f84b5488031000653d7",
-   "rn": 116,
-   "st": "11-18 01:01",
-   "jobId": "43aca12a05ca47a787692cf5c15d169c",
-   "jobName": "Build_MindIE-SD",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "ef918397deef43d9a00d457ca3ca8fe1",
+   "rn": 64,
+   "st": "10-22 09:16",
+   "jobId": "1fe5980bedd3416db32857d1861076b9",
+   "jobName": "deploy_inductor_packages",
    "stepIds": [
-    "8271aa6d296a467cadbd9b1dd135313f"
+    "c08d148b141f474f9678ffd042e28248"
    ],
    "steps": [
     {
-     "id": "8271aa6d296a467cadbd9b1dd135313f",
-     "name": "Build_MindIE-SD",
+     "id": "c08d148b141f474f9678ffd042e28248",
+     "name": "deploy_inductor_packages",
      "status": "FAILED",
-     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-     "lastDispatchId": "6ca41dfa6b7d4c64b40bc47b5c904bd3",
-     "jobIdParam": "3e2e6a4a47294a80b35e8118eb10423d"
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "97e40b7c7b8c4e8dab57c375e802ba75",
+     "jobIdParam": null
     }
    ],
-   "jobErrMsg": "步骤Build_MindIE-SD执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-   "jobLastDispatchId": "71b9ce23d7de48a3ba31a563ecb8258f",
+   "jobErrMsg": "步骤deploy_inductor_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "f17e3f5bd91d4e05a492e2e0d2cabef0",
    "route": "log",
-   "isBuild": true,
-   "buildJobId": "3e2e6a4a47294a80b35e8118eb10423d"
+   "isBuild": false,
+   "buildJobId": null
   },
   {
-   "key": "MindIE|MindIE-Motor",
-   "pipeline": "MindIE-Motor",
-   "pipelineName": "Nightly-CI-Component-pipeline_MindIE-Motor",
-   "projectId": 300036,
-   "pipelineId": "d05b26dfc2e5450e8fff23ddf4cd0eb6",
-   "rid": "9f3772fb2963417d9b1c5b1e36e4d1c0",
-   "rn": 137,
-   "st": "11-18 14:43",
-   "jobId": "0eb5b598b63a42b7859bb8c7b94c149e",
-   "jobName": "Build_MindIE-Motor",
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "fdcb33bb6928404f9465de1854ff5829",
+   "rn": 63,
+   "st": "10-22 08:00",
+   "jobId": "50d13577ec5a4523ba81add0db555800",
+   "jobName": "deploy_packages",
    "stepIds": [
-    "1bb0e9e8dcd14004a61bc7318e9c31e6"
+    "b7e65288cafa4ebda027ee0aa45972fe"
    ],
    "steps": [
     {
-     "id": "1bb0e9e8dcd14004a61bc7318e9c31e6",
-     "name": "Build_MindIE-Motor",
+     "id": "b7e65288cafa4ebda027ee0aa45972fe",
+     "name": "deploy_packages",
      "status": "FAILED",
-     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-     "lastDispatchId": "98155b4d6c7f49a09150d0f519c67a2e",
-     "jobIdParam": "9aaead01b1e94a998e5f0edd788ea1a7"
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "ac06d5d3dc274de18aee7cdc97a0795b",
+     "jobIdParam": null
     }
    ],
-   "jobErrMsg": "步骤Build_MindIE-Motor执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
-   "jobLastDispatchId": "0fe0c284a52549c1bb71530b5d4ec654",
+   "jobErrMsg": "步骤deploy_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "47e2a5d8f46946c0bd785e56b5e98005",
    "route": "log",
-   "isBuild": true,
-   "buildJobId": "9aaead01b1e94a998e5f0edd788ea1a7"
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "fdcb33bb6928404f9465de1854ff5829",
+   "rn": 63,
+   "st": "10-22 08:00",
+   "jobId": "30f5734b8d67439d9a1172882da84358",
+   "jobName": "deploy_inductor_packages",
+   "stepIds": [
+    "93e29c2c48664a22a86b10a891b91a51"
+   ],
+   "steps": [
+    {
+     "id": "93e29c2c48664a22a86b10a891b91a51",
+     "name": "deploy_inductor_packages",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "3a7cc4da9b284ffe8e51600b09b5b744",
+     "jobIdParam": null
+    }
+   ],
+   "jobErrMsg": "步骤deploy_inductor_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "1c547eeb075b46e1804d9e5affc05ec7",
+   "route": "log",
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "715bbcb41c6c481f98864ad495d60043",
+   "rn": 8,
+   "st": "09-20 08:00",
+   "jobId": "07d49b87808248bf9dfc004ed9c71bb4",
+   "jobName": "npu_ir流水线调用",
+   "stepIds": [
+    "d301cbe139cc4779afd47fd75cff40e3"
+   ],
+   "steps": [
+    {
+     "id": "d301cbe139cc4779afd47fd75cff40e3",
+     "name": "npu_ir流水线调用",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "aa77d5913d8f4225a9b5e724195b7b47",
+     "jobIdParam": "6bad4cc34d19426da5fdda3be0181621"
+    }
+   ],
+   "jobErrMsg": "步骤npu_ir流水线调用执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "913df33639be43d0a38f1a871f32f37a",
+   "route": "log",
+   "isBuild": false,
+   "buildJobId": "6bad4cc34d19426da5fdda3be0181621"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "4a2cffa668d24bd58966aa414069ebd5",
+   "rn": 65,
+   "st": "10-22 09:48",
+   "jobId": "d20e1fa477ff4668b4aef2f8210f6e97",
+   "jobName": "deploy_packages",
+   "stepIds": [
+    "0a4061d55e7e416d87e968ad5508ef09"
+   ],
+   "steps": [
+    {
+     "id": "0a4061d55e7e416d87e968ad5508ef09",
+     "name": "deploy_packages",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "1e1b3731f06d44ff99e340c84260efe1",
+     "jobIdParam": null
+    }
+   ],
+   "jobErrMsg": "步骤deploy_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "e47e1d9dc0d04c79bfaeeb58bb846769",
+   "route": "log",
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "088cb5b9423049699078f30afe0bdf58",
+   "rn": 96,
+   "st": "11-03 08:00",
+   "jobId": "68ad2fec1b2043ecb90666959fd56199",
+   "jobName": "deploy_inductor_packages",
+   "stepIds": [
+    "e241d8cc65c840b6b0cc8263b8831823"
+   ],
+   "steps": [
+    {
+     "id": "e241d8cc65c840b6b0cc8263b8831823",
+     "name": "deploy_inductor_packages",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+     "lastDispatchId": "65820df3fb74436aa69fa91c16babf0c",
+     "jobIdParam": null
+    }
+   ],
+   "jobErrMsg": "步骤deploy_inductor_packages执行失败，错误信息：{\"errorMessage\":\" 任务执行失败!\",\"errorCode\":\"DEV-JENKINS-10002\"}",
+   "jobLastDispatchId": "3e16d8b76d614b0698df3caeaf5c593e",
+   "route": "log",
+   "isBuild": false,
+   "buildJobId": null
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "pipeline": "Ascend",
+   "pipelineName": "Nightly-CI-Version-pipeline_Triton_Ascend",
+   "projectId": 300130,
+   "pipelineId": "9a4886d40e544cecb7da63c9597490a6",
+   "rid": "9ae1e7dda41c4a78957a5ba09d2e5b3c",
+   "rn": 104,
+   "st": "11-06 17:00",
+   "jobId": "5b0ba7feedf147a0a53594304b3c15b2",
+   "jobName": "npu_ir流水线调用",
+   "stepIds": [
+    "b49ce0edf52849baabc403c9d6bf0b07"
+   ],
+   "steps": [
+    {
+     "id": "b49ce0edf52849baabc403c9d6bf0b07",
+     "name": "npu_ir流水线调用",
+     "status": "FAILED",
+     "errMsg": "{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+     "lastDispatchId": "5d09dfd9d1e34d778f154c72f0a34c77",
+     "jobIdParam": "6bad4cc34d19426da5fdda3be0181621"
+    }
+   ],
+   "jobErrMsg": "步骤npu_ir流水线调用执行失败，错误信息：{\"errorMessage\":\" 构建任务执行失败!\",\"errorCode\":\"DEV-CODECI-35002\"}",
+   "jobLastDispatchId": "96a832cb498045ae8160f249c975f71a",
+   "route": "log",
+   "isBuild": false,
+   "buildJobId": "6bad4cc34d19426da5fdda3be0181621"
   }
  ],
  "skipped": [],
  "bsCleanRuns": [
   {
-   "key": "MindIE|MindIE-Motor",
-   "rn": 138,
-   "rid": "81a9f8b8d971445d97556c5c528dd79b",
-   "st": "11-18 16:22",
+   "key": "Triton_Ascend|Ascend",
+   "rn": 64,
+   "rid": "ef918397deef43d9a00d457ca3ca8fe1",
+   "st": "10-22 09:16",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 63,
+   "rid": "fdcb33bb6928404f9465de1854ff5829",
+   "st": "10-22 08:00",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 45,
+   "rid": "43e567f2cb9b49a989edade14fcb0db3",
+   "st": "10-15 17:00",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 8,
+   "rid": "715bbcb41c6c481f98864ad495d60043",
+   "st": "09-20 08:00",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 70,
+   "rid": "a811076814564a7794b113d85ad2334d",
+   "st": "10-23 17:00",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 65,
+   "rid": "4a2cffa668d24bd58966aa414069ebd5",
+   "st": "10-22 09:48",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 66,
+   "rid": "ed92b97215654b95af9b079f555fefe1",
+   "st": "10-22 10:16",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 76,
+   "rid": "ccd5d0134b3d4b7c8f978bf0680a2e14",
+   "st": "10-26 17:00",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 92,
+   "rid": "683e0a99287844b189c34642fd251077",
+   "st": "11-02 08:00",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 96,
+   "rid": "088cb5b9423049699078f30afe0bdf58",
+   "st": "11-03 08:00",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 93,
+   "rid": "39bac8cda1db43be93bc10f862cf398a",
+   "st": "11-02 14:56",
+   "status": null,
+   "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
+  },
+  {
+   "key": "Triton_Ascend|Ascend",
+   "rn": 82,
+   "rid": "199ba2c5c4534de3a0ac8a1197cab9c5",
+   "st": "10-28 19:14",
    "status": null,
    "note": "无 Build* 失败任务（服务端 buildSuccess 计数疑似有误），失败任务（含 Test）已全部取证"
   }

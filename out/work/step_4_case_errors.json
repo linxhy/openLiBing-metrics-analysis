@@ -1,17 +1,1 @@
-[
- {
-  "url": "https://mindie.obs.cn-north-4.myhuaweicloud.com/artifact/gitcode/smokeresult/MindIE-Motor/6a4fa7d010294da695be52110517c08b2026111826196/test_pymotor_ras_up_down_scale.html",
-  "file": "case_0199.html",
-  "localLog": "case_logs/case_0199.html",
-  "downloadStatus": "ok",
-  "caseId": "testcase/mindie/motor/pymotor/ras/manual_scaling/test_manual_scaling.py::TestPyMotorRasUpDownScale::test_pymotor_ras_up_down_scale",
-  "status": "Failed",
-  "duration": "969.90s",
-  "fileBytes": 1212504,
-  "fileLines": 17490,
-  "errors": [],
-  "deepHits": [
-   "FAILED due to ERROR/FAIL logs: testcase/mindie/motor/pymotor/ras/manual_scaling/test_manual_scaling.py::TestPyMotorRasUpDownScale::test_pymotor_ras_up_down_scale"
-  ]
- }
-]
+[]

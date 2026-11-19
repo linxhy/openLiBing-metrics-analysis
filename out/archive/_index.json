@@ -5,83 +5,443 @@
   "source": "第 1~6 步中间产物（out/work/）",
   "criteria": "按执行结束时间分层归档的日期清单，逐层可查",
   "dateField": "pipelineRunEndtime",
-  "generatedAt": "2026-11-19 05:02:01",
+  "generatedAt": "2026-11-19 17:35:21",
   "indexType": "day"
  },
- "generatedAt": "2026-11-19 05:02:01",
- "dayCount": 7,
+ "generatedAt": "2026-11-19 17:35:20",
+ "dayCount": 43,
  "productCount": 16,
  "productsFile": "_products.json",
  "days": [
   {
+   "date": "2026-09-15",
+   "path": "archive/2026/2026-09/2026-09-15",
+   "components": 1,
+   "pipelines": 1,
+   "records": 3,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-16",
+   "path": "archive/2026/2026-09/2026-09-16",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-17",
+   "path": "archive/2026/2026-09/2026-09-17",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-18",
+   "path": "archive/2026/2026-09/2026-09-18",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-20",
+   "path": "archive/2026/2026-09/2026-09-20",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 3,
+   "cases": 0,
+   "errorMessages": 11
+  },
+  {
+   "date": "2026-09-21",
+   "path": "archive/2026/2026-09/2026-09-21",
+   "components": 1,
+   "pipelines": 1,
+   "records": 3,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-22",
+   "path": "archive/2026/2026-09/2026-09-22",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-23",
+   "path": "archive/2026/2026-09/2026-09-23",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-24",
+   "path": "archive/2026/2026-09/2026-09-24",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-28",
+   "path": "archive/2026/2026-09/2026-09-28",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-29",
+   "path": "archive/2026/2026-09/2026-09-29",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-09-30",
+   "path": "archive/2026/2026-09/2026-09-30",
+   "components": 1,
+   "pipelines": 1,
+   "records": 1,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-08",
+   "path": "archive/2026/2026-10/2026-10-08",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-09",
+   "path": "archive/2026/2026-10/2026-10-09",
+   "components": 1,
+   "pipelines": 1,
+   "records": 3,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-10",
+   "path": "archive/2026/2026-10/2026-10-10",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-12",
+   "path": "archive/2026/2026-10/2026-10-12",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-13",
+   "path": "archive/2026/2026-10/2026-10-13",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-14",
+   "path": "archive/2026/2026-10/2026-10-14",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-15",
+   "path": "archive/2026/2026-10/2026-10-15",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 4,
+   "cases": 0,
+   "errorMessages": 7
+  },
+  {
+   "date": "2026-10-16",
+   "path": "archive/2026/2026-10/2026-10-16",
+   "components": 1,
+   "pipelines": 1,
+   "records": 3,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-19",
+   "path": "archive/2026/2026-10/2026-10-19",
+   "components": 1,
+   "pipelines": 1,
+   "records": 5,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-20",
+   "path": "archive/2026/2026-10/2026-10-20",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-21",
+   "path": "archive/2026/2026-10/2026-10-21",
+   "components": 1,
+   "pipelines": 1,
+   "records": 3,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-22",
+   "path": "archive/2026/2026-10/2026-10-22",
+   "components": 1,
+   "pipelines": 1,
+   "records": 6,
+   "tasks": 14,
+   "cases": 0,
+   "errorMessages": 32
+  },
+  {
+   "date": "2026-10-23",
+   "path": "archive/2026/2026-10/2026-10-23",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 2,
+   "cases": 0,
+   "errorMessages": 4
+  },
+  {
+   "date": "2026-10-26",
+   "path": "archive/2026/2026-10/2026-10-26",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 2,
+   "cases": 0,
+   "errorMessages": 4
+  },
+  {
+   "date": "2026-10-27",
+   "path": "archive/2026/2026-10/2026-10-27",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-28",
+   "path": "archive/2026/2026-10/2026-10-28",
+   "components": 1,
+   "pipelines": 1,
+   "records": 5,
+   "tasks": 5,
+   "cases": 0,
+   "errorMessages": 10
+  },
+  {
+   "date": "2026-10-29",
+   "path": "archive/2026/2026-10/2026-10-29",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-10-30",
+   "path": "archive/2026/2026-10/2026-10-30",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-11-02",
+   "path": "archive/2026/2026-11/2026-11-02",
+   "components": 1,
+   "pipelines": 1,
+   "records": 4,
+   "tasks": 8,
+   "cases": 0,
+   "errorMessages": 14
+  },
+  {
+   "date": "2026-11-03",
+   "path": "archive/2026/2026-11/2026-11-03",
+   "components": 1,
+   "pipelines": 1,
+   "records": 3,
+   "tasks": 3,
+   "cases": 0,
+   "errorMessages": 7
+  },
+  {
+   "date": "2026-11-04",
+   "path": "archive/2026/2026-11/2026-11-04",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-11-05",
+   "path": "archive/2026/2026-11/2026-11-05",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
+   "date": "2026-11-06",
+   "path": "archive/2026/2026-11/2026-11-06",
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 3,
+   "cases": 0,
+   "errorMessages": 11
+  },
+  {
+   "date": "2026-11-09",
+   "path": "archive/2026/2026-11/2026-11-09",
+   "components": 1,
+   "pipelines": 1,
+   "records": 4,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
+  },
+  {
    "date": "2026-11-10",
    "path": "archive/2026/2026-11/2026-11-10",
-   "components": 15,
-   "pipelines": 56,
-   "records": 92,
-   "tasks": 8,
-   "cases": 6,
-   "errorMessages": 46
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
   },
   {
    "date": "2026-11-11",
    "path": "archive/2026/2026-11/2026-11-11",
-   "components": 15,
-   "pipelines": 56,
-   "records": 92,
-   "tasks": 1,
-   "cases": 2,
-   "errorMessages": 4
+   "components": 1,
+   "pipelines": 1,
+   "records": 4,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
   },
   {
    "date": "2026-11-12",
    "path": "archive/2026/2026-11/2026-11-12",
-   "components": 15,
-   "pipelines": 55,
-   "records": 94,
-   "tasks": 28,
+   "components": 1,
+   "pipelines": 1,
+   "records": 4,
+   "tasks": 0,
    "cases": 0,
-   "errorMessages": 192
+   "errorMessages": 0
   },
   {
    "date": "2026-11-13",
    "path": "archive/2026/2026-11/2026-11-13",
-   "components": 15,
-   "pipelines": 55,
-   "records": 74,
-   "tasks": 27,
-   "cases": 14,
-   "errorMessages": 103
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
   },
   {
    "date": "2026-11-16",
    "path": "archive/2026/2026-11/2026-11-16",
-   "components": 15,
-   "pipelines": 50,
-   "records": 81,
-   "tasks": 54,
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
    "cases": 0,
-   "errorMessages": 203
+   "errorMessages": 0
   },
   {
    "date": "2026-11-17",
    "path": "archive/2026/2026-11/2026-11-17",
-   "components": 15,
-   "pipelines": 49,
-   "records": 96,
-   "tasks": 35,
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
    "cases": 0,
-   "errorMessages": 149
+   "errorMessages": 0
   },
   {
    "date": "2026-11-18",
    "path": "archive/2026/2026-11/2026-11-18",
-   "components": 15,
-   "pipelines": 53,
-   "records": 77,
-   "tasks": 3,
-   "cases": 1,
-   "errorMessages": 29
+   "components": 1,
+   "pipelines": 1,
+   "records": 2,
+   "tasks": 0,
+   "cases": 0,
+   "errorMessages": 0
   }
  ]
 }
