@@ -704,9 +704,11 @@ document.getElementById('mrec').addEventListener('click', function(e){
   if (e.target === this) this.classList.remove('on');
 });
 
-/* 初始化：先探数据根 → 拿归档日清单给筛选条定界 → 挂 onChange 逐日取数 */
+/* 初始化：先探数据根 → 拿归档日清单给筛选条定界 → 挂 onChange 逐日取数。
+   _index.json 的 days 是 {date, path, ...} 对象数组（不是字符串），取 .date */
 probeRoot().then(function(idx){
-  (idx.days || []).forEach(function(d){ DAYS.push(d); });
+  const list = (idx.days || []).map(function(d){ return d.date; }).sort();
+  list.forEach(function(d){ DAYS.push(d); });
   const min = DAYS.length ? DAYS[0] : null;
   const max = DAYS.length ? DAYS[DAYS.length - 1] : null;
   rfInit({min: min, max: max, onChange: loadRange});
