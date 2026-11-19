@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>流水线失败原因智能定位定界 · triton-ascend PR 数据</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --line:#e4e7ec; --line2:#eef0f3;
+  --txt:#1f2328; --dim:#6b7280; --acc:#2563eb;
+  --green:#16a34a; --yellow:#d97706; --red:#dc2626; --gray:#c9ced6;
+  --radius:10px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--txt);
+  font:13px/1.55 "Noto Sans CJK SC","Microsoft YaHei",-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+h1{font-size:21px;margin:0 0 6px;font-weight:600;letter-spacing:.2px;color:#16233a}
+h2{font-size:15px;margin:14px 0 10px;padding-left:10px;border-left:3px solid var(--acc);
+  color:#1c2b45;font-weight:600}
+h3{font-size:13.5px;margin:14px 0 8px;font-weight:600;color:#1c2b45}
+.dim{color:var(--dim)}
+.mono{font-family:Consolas,"Courier New",monospace}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- 页面骨架：白卡 + 标题 + 公共日期筛选（两页共用，跳转时顶部不变） ---------- */
+.wrap{width:min(1560px,94vw);margin:12px auto;background:var(--panel);border-radius:10px;
+  box-shadow:0 1px 6px rgba(16,32,64,.06);padding:18px 30px 20px;
+  min-height:calc(100vh - 24px);display:flex;flex-direction:column}
+p.meta{font-size:12.5px;color:#7c8698;line-height:1.65;margin:0}
+/* 品牌行：两页完全一致，因此它下面的公共筛选条在切页时位置不跳动 */
+.hd{margin:0 0 12px}
+.hd h1{font-size:21px;margin:0 0 5px}
+.hd p.meta{font-size:12.5px}
+/* 公共日期筛选条：系统级全局筛选，整条贴到卡片左右边缘并吸顶（top:0），
+   首页与二级页共用同一份 DOM + 同一位置（品牌行之下、页面自身标题之上），
+   切页、滚动都不动，语义始终是「整个系统的数据筛选」。 */
+.toolbar{position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  margin:0 -30px 14px;padding:8px 30px;background:#fff;
+  border-top:1px solid var(--line2);border-bottom:1px solid var(--line);
+  box-shadow:0 2px 8px rgba(16,32,64,.05)}
+.toolbar .lb{font-size:12.5px;color:#4a5668;font-weight:600;white-space:nowrap}
+.toolbar .vsep{width:1px;height:16px;background:#e2e8f0;margin:0 2px}
+.toolbar .sp{flex:1 1 auto}
+.seg{display:inline-flex;border:1px solid #d9e0ea;border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;border-right:1px solid #e8edf4;background:#fff;padding:6px 14px;font:inherit;
+  font-size:13px;color:#4a5668;cursor:pointer;line-height:1.3;transition:.15s}
+.seg button:last-child{border-right:0}
+.seg button:hover{background:#eef4ff;color:var(--acc)}
+.seg button.on{background:var(--acc);color:#fff;font-weight:600}
+.dates{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #d9e0ea;
+  border-radius:8px;padding:4px 10px}
+.dates input[type=date]{border:0;outline:0;font:inherit;font-size:12.5px;color:#2b3547;
+  background:transparent;padding:2px 0}
+.dates .dash{color:#c2cad6;font-size:12px}
+.hint{font-size:12px;color:var(--dim);white-space:nowrap}
+.hint b{color:#374151;font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;
+  border-radius:8px;padding:4px 9px;font:inherit;color:#374151;cursor:pointer}
+.chip.on{border-color:#bfd3fe;background:#eff5ff;color:#1d4ed8}
+input[type=text],select{border:1px solid var(--line);border-radius:8px;background:#fff;
+  padding:5px 9px;font:inherit;color:var(--txt);outline:0}
+input[type=text]:focus,select:focus{border-color:#b9cdfb;box-shadow:0 0 0 3px #eaf1ff}
+label.sw{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#374151;cursor:pointer}
+
+/* ---------- 卡片 ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px}
+.card .k{font-size:12px;color:var(--dim)}
+.card .v{font-size:19px;font-weight:600;margin-top:2px;font-variant-numeric:tabular-nums}
+.card .s{font-size:11.5px;color:var(--dim);margin-top:1px}
+
+/* ---------- 表格 ---------- */
+/* 表格容器自适应剩余高度：数据条数变化时高度不变，页面不出现外层滚动条 */
+.tbl-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:auto;flex:1 1 auto;height:auto;min-height:320px}
+.detail .tbl-wrap{height:auto;max-height:none}
+/* 组件级概览表：版式对齐旧报告 table.ov（表头浅蓝底、单元格细右分隔线、行高 7px/14px） */
+table.ov{margin:0;border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
+table.ov thead th{position:sticky;top:0;z-index:3;background:#f4f7fb;color:#3b4a60;font-weight:600;
+  font-size:12.5px;text-align:center;padding:8px 14px;border:0;border-bottom:1px solid #e6ebf2;
+  border-right:1px solid #eef2f7;white-space:nowrap}
+table.ov thead th:last-child{border-right:0}
+table.ov tbody td{padding:7px 14px;line-height:1.45;border:0;border-bottom:1px solid #eef2f7;
+  border-right:1px solid #f5f7fa;background:#fff;vertical-align:middle;text-align:center}
+table.ov tbody td:last-child{border-right:0}
+table.ov tbody tr:hover td{background:#f6faff}
+table.ov .c-name{font-weight:600;color:#1b2739;white-space:nowrap}
+table.ov .c-rate{min-width:120px}
+table.ov .c-num{text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums;color:#2b3547}
+/* 行高由页面脚本按「可用高度 / 行数」算出后写进 --rowh，让数据行刚好铺满表格区：
+   条数少时自动拉高、条数多时回落到紧凑行高，且不会撑出外层滚动条。 */
+table.ov tbody tr{height:var(--rowh,auto)}
+/* 比率单元格：百分比 + 灯点（同旧版 .rate-line） */
+.rate-line{display:inline-flex;align-items:center;gap:8px}
+.rate-line .pct{min-width:52px;font-weight:600;font-variant-numeric:tabular-nums;color:#1b2739}
+.rate-line .dot{margin:0}
+/* 可点击数字（同旧版 .lnk）：只在有待分析流水线时出现，点进二级页看明细。
+   颜色统一用页面链接色 --acc，和正文里的 a 标签、二级页的「查看记录 →」完全一致 */
+.lnk{color:var(--acc);cursor:pointer}
+.lnk:hover{text-decoration:underline}
+td.r,th.r{text-align:right}
+td.c,th.c{text-align:center}
+.nowrap{white-space:nowrap}
+.ell{max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);
+  vertical-align:1px;margin-right:5px}
+.dot.green{background:var(--green)} .dot.yellow{background:var(--yellow)} .dot.red{background:var(--red)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:#f3f4f6;
+  color:#4b5563;border:1px solid var(--line);margin-right:4px;white-space:nowrap}
+.tag.red{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
+.tag.yellow{background:#fffbeb;border-color:#fde68a;color:#92400e}
+.tag.green{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+.tag.blue{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+
+/* ---------- 二级页 ---------- */
+.rec{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px}
+.rec-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 13px;border-bottom:1px solid var(--line2)}
+.rec-hd .bn{font-weight:600;font-size:13.5px}
+.rec-bd{padding:0 13px 12px}
+.rec-sec{margin-top:11px}
+.rec-sec .t{font-size:12px;color:var(--dim);margin-bottom:5px}
+.rec-sec table{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px}
+.rec-sec th{text-align:center;color:#4b5563;font-weight:600;background:#fafbfc;padding:6px 9px;
+  border-bottom:1px solid var(--line);white-space:nowrap;position:static}
+.rec-sec td{padding:6px 9px;border-bottom:1px solid var(--line2);vertical-align:top}
+.empty{color:var(--dim);padding:26px 0;text-align:center}
+.ev-list{display:flex;flex-wrap:wrap;gap:6px}
+.ev{font-size:11.5px;background:#f8fafc;border:1px solid var(--line);border-radius:6px;
+  padding:2px 8px;color:#334155}
+.err-line{background:#fbfbfc;border:1px solid var(--line2);border-radius:7px;padding:7px 9px;
+  margin-bottom:6px;font-size:12px}
+.err-line .src{color:var(--dim);font-size:11px;margin-bottom:2px}
+.err-line pre{margin:0;white-space:pre-wrap;word-break:break-all;font-family:Consolas,"Courier New",monospace;
+  font-size:11.5px;color:#334155}
+.loading{padding:34px 0;text-align:center;color:var(--dim)}
+.err{padding:14px;border:1px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:var(--radius)}
+
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;
+  align-items:center;justify-content:center;padding:24px 16px;overflow:hidden}
+.modal.on{display:flex}
+.modal-box{background:#fff;border-radius:10px;width:min(1280px,96vw);
+  max-height:calc(100vh - 48px);overflow:hidden;
+  padding:16px 20px;box-shadow:0 8px 30px rgba(16,32,64,.2);
+  display:flex;flex-direction:column}
+.modal-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex:0 0 auto;
+  font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line2)}
+.modal-hd button{background:#fff;border:1px solid #ccc;border-radius:6px;padding:3px 12px;cursor:pointer;font:inherit}
+/* 弹窗正文 = 表格区（可滚，吃掉全部剩余高度）+ 脚注（固定不动） */
+#mbody{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+/* 表格独占的滚动容器：纵向滚动条在表格右侧、横向滚动条在表格下方，弹窗本身不滚 */
+.mtbl{flex:1 1 auto;min-height:0;overflow:auto}
+.mtbl table.rca{margin:0}
+/* 表头吸顶：表格内滚动时列名始终可见 */
+.mtbl table.rca thead th{position:sticky;top:0;z-index:2;background:#f7f9fc;text-align:center;
+  box-shadow:inset 0 -1px 0 #e3e6ea,inset 0 1px 0 #e3e6ea}
+.mrec-note{margin-top:6px;color:#999;font-size:12px;flex:0 0 auto}
+/* ---------- 弹窗内的通用表格（同旧报告 table.rca） ---------- */
+table.rca{table-layout:fixed;width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 4px}
+table.rca th,table.rca td{border:1px solid #e3e6ea;padding:7px 9px;text-align:left;
+  vertical-align:top;line-height:1.55;word-break:break-word;overflow-wrap:anywhere}
+table.rca th{background:#f7f9fc;font-weight:600;white-space:nowrap;color:#3b4a60;text-align:center}
+table.rca tbody tr:nth-child(even) td{background:#fafbfc}
+/* 弹窗表格里的长内容列：一律在列宽内换行（长路径/用例名没有空格也能断），
+   绝不横向溢出到相邻列 —— 列宽由 colgroup 固定，行高随内容自然增长 */
+table.rca td.cw{white-space:normal;word-break:break-all;overflow-wrap:anywhere}
+/* 时间列：优先在「日期」和「时刻」之间的空格处折行，不要从毫秒中间断开 */
+table.rca td.cw1{white-space:normal;word-break:normal;overflow-wrap:anywhere}
+/* 居中列：流水线弹窗的后三列（平台 / 版本可用度 / 构建成功率 / 执行记录）
+   —— 数字与短词居中排，长说明仍然留在第一列换行 */
+table.rca td.ctr{text-align:center;white-space:nowrap}
+table.rca td.ctr .rate-line{justify-content:center}
+/* 数字一律不按灯色上色（用户口径）：达标与否只由灯点表达，数字保持正文色 */
+table.rca .pct{color:#1b2739}
+/* 二级弹窗的「← 返回」：只在弹窗里又开了弹窗时出现，标题左对齐并允许省略 */
+.modal-hd .hd-l{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto}
+.modal-hd .hd-l #mttl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal-hd #mback{border-color:#bfd3fe;color:#1d4ed8;white-space:nowrap}
+
+/* PR 页：可以整页滚（数据量不定，不做一屏定高） */
+.wrap{gap:0}
+#back{margin:2px 0 8px;align-self:flex-start}
+h1{font-size:19px;margin:2px 0 10px}
+h1 .sub{font-size:12px;font-weight:400;color:#8a93a3;margin-left:10px}
+/* 汇总卡：一行流式小卡（数值 + 标签） */
+.cards{display:flex;flex-wrap:wrap;gap:10px;margin:2px 0 4px}
+.cards .c{flex:0 0 auto;min-width:108px;background:#f7f9fc;border:1px solid var(--line2);
+  border-radius:8px;padding:8px 14px}
+.cards .c b{display:block;font-size:17px;font-weight:600;color:#16233a;line-height:1.5}
+.cards .c span{display:block;font-size:11.5px;color:#7c8698}
+/* 区块头（浅蓝底，与二级页 h3 同款） */
+h3.pr-h{font-size:15px;font-weight:600;color:#16233a;line-height:1.6;
+  margin:16px 0 8px;padding:8px 12px;background:#f0f5ff;border-radius:6px}
+/* 两张表：定高内部滚动，页面其余部分不跳 */
+.pr-tbl{flex:1 1 320px;min-height:260px;overflow:auto;border:1px solid var(--line2);border-radius:8px}
+.pr-tbl table.rca{margin:0}
+.pr-tbl table.rca thead th{position:sticky;top:0;z-index:2;background:#f7f9fc;text-align:center}
+.pr-tbl table.rca td.ctr{text-align:center}
+table.rca a.lnk{color:var(--acc);text-decoration:none}
+table.rca a.lnk:hover{text-decoration:underline}
+.tnote{flex:0 0 auto;font-size:11.5px;color:#7c8698;line-height:1.65;margin:9px 0 0}
+.ok{color:#0a7d33;font-weight:600}
+.bad{color:#c0392b;font-weight:600}
+.dim{color:#9aa3af}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd">
+  <h1>流水线失败原因智能定位定界</h1>
+  <p class="meta" id="hsub">夜间流水线失败根因 · 口径：执行结束时间</p>
+</div>
+  <div class="toolbar" id="rf">
+  <span class="lb">统计区间</span>
+  <div class="seg" id="rf-seg">
+    <button type="button" data-range="prev">昨天</button>
+    <button type="button" data-range="7">近 7 天</button>
+    <button type="button" data-range="30">近 30 天</button>
+    <button type="button" data-range="90">近 90 天</button>
+  </div>
+  <span class="vsep"></span>
+  <div class="dates">
+    <input type="date" id="rf-from">
+    <span class="dash">~</span>
+    <input type="date" id="rf-to">
+  </div>
+  <span class="sp"></span>
+  <span class="hint" id="rf-hint" title="按执行结束时间归属日期（结束时间在 [start 00:00:00, end 23:59:59] 内的执行计入该日期）"></span>
+  
+</div>
+  <a class="chip" href="index.html" id="back">← 返回总览</a>
+  <h1>triton-ascend PR CI 数据 <span class="sub">数据源：pod-history-api（每日 8 点采集昨日数据）</span></h1>
+  <div class="cards" id="cards"></div>
+  <h3 class="pr-h">每日汇总</h3>
+  <div class="tbl-wrap pr-tbl">
+    <table class="rca" id="dayTbl">
+      <thead><tr>
+        <th>日期</th>
+        <th>PR 数</th>
+        <th>Job 数</th>
+        <th>失败 Job</th>
+        <th>Job 成功率</th>
+        <th>平均执行时长</th>
+        <th>平均排队时长</th>
+        <th>最大排队时长</th>
+        <th>NPU 卡时</th>
+        <th>当日版本可用</th>
+      </tr></thead>
+      <tbody id="dayTb"><tr><td colspan="10" class="loading">正在读取归档…</td></tr></tbody>
+    </table>
+  </div>
+  <h3 class="pr-h">PR 明细（区间内按 PR + 工作流聚合）</h3>
+  <div class="tbl-wrap pr-tbl">
+    <table class="rca" id="prTbl">
+      <thead><tr>
+        <th>PR</th>
+        <th>工作流</th>
+        <th>活跃天</th>
+        <th>Job 数</th>
+        <th>失败 Job</th>
+        <th>执行时长（合计 / 均值）</th>
+        <th>排队时长（均值 / 最大）</th>
+        <th>NPU 卡时</th>
+        <th>首次开始</th>
+        <th>Jobs</th>
+      </tr></thead>
+      <tbody id="prTb"><tr><td colspan="10" class="loading">正在读取归档…</td></tr></tbody>
+    </table>
+  </div>
+  <div class="tnote" id="tnote"></div>
+</div>
+<div class="modal" id="mrec">
+  <div class="modal-box">
+    <div class="modal-hd"><div class="hd-l"><span id="mttl"></span></div><button type="button" id="mclose">关闭</button></div>
+    <div id="mbody"><div class="mtbl"><table class="rca" id="jobTbl"></table></div></div>
+  </div>
+</div>
+<script>
+const WD_CAL = ["2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09", "2026-11-10", "2026-11-11", "2026-11-12", "2026-11-13", "2026-11-16", "2026-11-17", "2026-11-18", "2026-11-19"];
+
+/* ==== 公共日期筛选组件（唯一来源 lib/ui.py，口径 = 执行结束时间）==== */
+const RF_FIELD = "pipelineRunEndtime";
+const rfState = {min:null, max:null, prev:null, seg:null, onChange:null};
+
+function rfYmd(d){const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+function rfShift(ymd, days){const d=new Date(ymd+'T00:00:00');d.setDate(d.getDate()+days);return rfYmd(d);}
+/* 区间内工作日数（周一~周五）。只是**兜底**：真正的法定工作日（含节假日/调休补班）
+   由第 9 步把 lib/workdays.py 算出的日历注入成 WD_CAL，见下面的 wdInRange()。 */
+function rfWorkdays(f, t){
+  if (!f || !t) return 0;
+  let d = new Date(f + 'T00:00:00'), end = new Date(t + 'T00:00:00'), n = 0;
+  while (d <= end && n < 4000){
+    const w = d.getDay();
+    if (w !== 0 && w !== 6) n++;
+    d.setDate(d.getDate() + 1);
+  }
+  return n;
+}
+/* 区间内「法定工作日数」。现在只用于顶部「工作日 N 天」的展示与老归档兜底：
+   版本可用度的分母已改成「该流水线有执行记录的天数」（见 vaDenOf），不再用工作日数。
+   WD_CAL 由第 9 步注入（lib/workdays.build_workday_set 的结果，含节假日与调休补班），
+   与后端 step_2/step_7 的工作日历同源；只有区间超出日历覆盖范围
+   （早于归档首日 / 晚于今天）时才退回周一~周五估算。 */
+function wdInRange(f, t){
+  if (!f || !t) return 0;
+  const cal = (typeof WD_CAL !== 'undefined' && WD_CAL && WD_CAL.length) ? WD_CAL : null;
+  if (cal && f >= cal[0] && t <= cal[cal.length - 1]){
+    let n = 0;
+    for (let i = 0; i < cal.length; i++){ const d = cal[i]; if (d >= f && d <= t) n++; }
+    return n;
+  }
+  return rfWorkdays(f, t);
+}
+/* 「这条流水线在这里到底跑没跑过」的唯一判据：runsInPeriod 是第 7 步按区间运行数写死的，
+   0 就是一次都没跑（RAGSDK / VisionSDK 这类只有看板配置、从没执行过的流水线）。
+   为什么必须判：归档对「区间内无运行」的流水线会退回看板值（历史上是 0.0），
+   那个 0 表示「压根没跑」而不是「跑了但不可用」；一旦被当成算出过的比率收进平均值，
+   「无执行记录」就会被统计成 0.00%（用户反馈过两次）。老归档缺该字段时放行。 */
+function ranInPeriod(pl){
+  const v = pl ? pl.runsInPeriod : null;
+  if (v === null || v === undefined || v === '') return true;
+  return Number(v) > 0;
+}
+/* 版本可用度的**分母**（统一口径，用户确认）：分母 = 该流水线在区间内**有执行记录的天数**
+   （逐日归档 vaDetail.daysInPeriod 累加：当天没启动 / 没跑过、以及当天只有 canceled 运行的，
+   都不进分母）。流水线当日没启动 → 当日不计入版本可用度，所以「只在 2 天跑过的流水线」
+   不会拿 5 个法定工作日当分母（那等于把「没跑」当成「不可用」）。
+   daysN 为该口径的逐日累加值；只有老归档缺 vaDetail（daysN=0）时才退回区间法定工作日数 wdN 兜底。
+   rateRule 仅保留给调用点用，不再区分口径（openlibing 与社区同一套算法）。 */
+function vaDenOf(rateRule, daysN, wdN){
+  const n = Number(daysN) || 0;
+  return n > 0 ? n : wdN;
+}
+/* 流水线身份键：**不能只用流水线名**。同一个组件下可能有两平台完全重名的流水线
+   （openUBMC 的 Nightly-CI-Version-pipeline_openUBMC 同时存在于 codearts 与 gitcode），
+   只按名字聚合会把两条并成一条：组件级比率变成其中一条的值、执行记录被并组、
+   某条的数据看起来「并到另一条名下」。一律按「组件|pipelineId」认身份，
+   老归档没有 pipelineId 才退回短名（= 归档目录名）。 */
+function plKeyOf(pl){
+  pl = pl || {};
+  return String(pl.component || '') + '|' + String(pl.pipelineId || pl.pipeline || '');
+}
+/* 撞名兜底短名的展示：同组件下重名时兜底短名带「~6 位哈希」（openUBMC~c43117），
+   哈希对用户没有意义 —— 展示时把后缀换成平台名（openUBMC~c43117 → openUBMC-gitcode），
+   两条同名流水线一眼能区分。只改展示，短名本身（归档目录名 / key / recordId）一律不动。 */
+function plDisp(p){
+  const s = String((p || {}).pipeline || '');
+  const plat = String((p || {}).platform || '');
+  return (plat && /~[0-9a-f]{6}$/i.test(s)) ? (s.replace(/~[0-9a-f]{6}$/i, '') + '-' + plat) : s;
+}
+/* 二级页/弹窗手里只有逐日归档条目（ctx.dirs，每条带 pl.vaDetail）：
+   按**流水线身份**把「有执行记录的天数」加出来，作为版本可用度的分母（全部组件同一口径）。
+   键必须和调用方的身份键（plKeyOf）完全一致，否则同名流水线会互相覆盖累计值。 */
+function vaDaysDenByPipe(ctx){
+  const m = {};
+  ((ctx || {}).dirs || []).forEach(function(d){
+    const pl = (d || {}).pl || {};
+    const k = plKeyOf(pl);
+    if (!k || k === '|') return;
+    m[k] = (m[k] || 0) + (Number(((pl.vaDetail || {}).daysInPeriod)) || 0);
+  });
+  return m;
+}
+function rfClamp(v){return (v && rfState.min && v<rfState.min) ? rfState.min : ((v && rfState.max && v>rfState.max) ? rfState.max : v);}
+
+/* 快捷段 → 实际区间：7/30/90 以归档最大日为右端，左端不早于归档最小日（数据不足时自动收缩）；
+   「昨天」是唯一的例外 —— 它永远是「真实今天减一天」那一天，不吸附归档最大日、不跳过非工作日，
+   那天没跑数（周末/节假日）就由页面把指标显示成 -- */
+function rfSegRange(r){
+  const max = rfState.max || rfYmd(new Date());
+  if (r === 'prev'){ const p = rfState.prev || rfShift(rfYmd(new Date()), -1); return {f: p, t: p}; }
+  const n = Number(r);
+  if (!n) return null;
+  let f = rfShift(max, -(n - 1));
+  if (rfState.min && f < rfState.min) f = rfState.min;
+  return {f: f, t: max};
+}
+
+function rfInit(opts){
+  opts = opts || {};
+  rfState.min = opts.min || null;
+  rfState.max = opts.max || null;
+  /* 「昨天」的锚点 = 真实今天减一天，不做任何夹取。
+     以前这里会把昨天吸附到「归档最大日」，于是周末/节假日点「昨天」，
+     看到的其实是上一个工作日的备份数据 —— 看起来就像页面自动跳过了工作日。
+     现在昨天就是昨天：那天没有归档，指标就显示 --（不再拿别的日子顶替）。 */
+  rfState.prev = rfShift(rfYmd(new Date()), -1);
+  rfState.onChange = opts.onChange || null;   /* 不接上 onChange，页面就永远不会按区间取数 */
+  const fromEl = document.getElementById('rf-from');
+  const toEl   = document.getElementById('rf-to');
+  if (rfState.min) { fromEl.min = rfState.min; toEl.min = rfState.min; }
+  /* 日期框上界放到「今天」（而不是归档最大日）：归档还没落到昨天时，
+     昨天也必须能在日历里选中，选中后由页面显示 -- */
+  const cap = (rfState.max && rfState.max > rfYmd(new Date())) ? rfState.max : rfYmd(new Date());
+  fromEl.max = cap; toEl.max = cap;
+
+  const qs = new URLSearchParams(location.search);
+  /* 打开页面时的区间口径（用户口径）：**默认就是「近 7 天」**，只有从本页跳转过来的
+     链接带了 from/to 才沿用（首页↔二级页来回切时区间不跳变）。
+     以前这里会优先读 localStorage 里上次选的区间：打开页面看到的常常是旧区间
+     （历史遗留的「全部」、上次手选的日期），而不是近 7 天。现在不再读 localStorage。 */
+  const def = rfSegRange('7') || {f: rfState.min, t: rfState.max};
+  let from, to;
+  if (qs.get('from') && qs.get('to')){
+    from = qs.get('from'); to = qs.get('to');
+  } else {
+    from = def.f; to = def.t;
+  }
+  /* 只兜最小日：右端不再夹到归档最大日，否则「昨天」会被悄悄换成别的日子 */
+  if (rfState.min && from < rfState.min) from = rfState.min;
+  if (from > to) from = to;
+  fromEl.value = from || ''; toEl.value = to || '';
+
+  /* 选中态：seg 只在「当前区间仍是该段算出来的区间」时才算数。
+     原实现的致命问题：paintSeg() 读的是 rfInit 的闭包变量 from/to，初始化后永不更新，
+     所以点任何快捷段，高亮都停在初始那一段（表现为「点了没反应」）。 */
+  let seg = null;
+  function segHit(r, f, t){
+    const rg = rfSegRange(r);
+    return !!rg && rg.f === f && rg.t === t;
+  }
+  function deriveSeg(f, t){
+    if (!f || !t) return null;
+    let hit = null;
+    document.querySelectorAll('#rf-seg button').forEach(function(b){
+      if (hit === null && segHit(b.dataset.range, f, t)) hit = b.dataset.range;
+    });
+    return hit;
+  }
+  function paintSeg(){
+    const f = fromEl.value, t = toEl.value;
+    if (seg && !segHit(seg, f, t)) seg = null;      // 日期被手动改过 → 丢弃旧段
+    const r = seg || deriveSeg(f, t);
+    rfState.seg = r;
+    document.querySelectorAll('#rf-seg button').forEach(function(b){
+      b.classList.toggle('on', b.dataset.range === r);
+    });
+  }
+
+  function commit(){
+    const f = fromEl.value || rfState.min, t = toEl.value || rfState.max;
+    fromEl.value = f || ''; toEl.value = t || '';
+    const u = new URL(location.href); u.searchParams.set('from', f || ''); u.searchParams.set('to', t || '');
+    history.replaceState(null, '', u);
+    paintSeg(); paintHint();
+    if (rfState.onChange) rfState.onChange(f, t);
+  }
+  window.__rfCommit = commit;
+
+  function paintHint(){
+    const f = fromEl.value, t = toEl.value;
+    const el = document.getElementById('rf-hint');
+    if (!f || !t) { if (el) el.textContent = ''; return; }
+    const wd = wdInRange(f, t);
+    /* 单日且不是工作日：明确写清楚「不是跳过工作日，是这天本来就没跑数」 */
+    const idle = (f === t && wd === 0);
+    if (el) el.innerHTML = '当前区间 <b>' + f + '</b> ~ <b>' + t + '</b> ｜ 工作日 ' + wd + ' 天'
+      + (idle ? ' ｜ <span class="dim">非工作日，当日无跑数，指标显示 --</span>' : '');
+  }
+  rfState.paintHint = paintHint;
+
+  document.querySelectorAll('#rf-seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      const rg = rfSegRange(b.dataset.range);
+      if (!rg) return;
+      seg = b.dataset.range;                       // 先记下要选中的段，再由 commit 统一落盘
+      fromEl.value = rg.f; toEl.value = rg.t;
+      commit();
+    });
+  });
+  fromEl.addEventListener('change', function(){ seg = null; if (fromEl.value > toEl.value) toEl.value = fromEl.value; commit(); });
+  toEl.addEventListener('change',   function(){ seg = null; if (toEl.value < fromEl.value) fromEl.value = toEl.value; commit(); });
+  paintSeg(); paintHint();
+  if (rfState.onChange) rfState.onChange(fromEl.value, toEl.value);
+}
+function rfDays(a, b){ const d1=new Date(a+'T00:00:00'), d2=new Date(b+'T00:00:00'); return Math.round((d2-d1)/86400000)+1; }
+function rfIn(ymd){ const f=document.getElementById('rf-from').value, t=document.getElementById('rf-to').value;
+  return !!ymd && ymd >= f && ymd <= t; }
+function rfEsc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+
+/* ================= PR 页：读每日 pr_history.json，按区间聚合 =================
+   数据链：archive/<年>/<年-月>/<日>/Triton_Ascend/pr_history.json（每日一份，collect_pr_daily.py 产出）
+   区间切换 = 逐日 fetch（404 = 当日无 PR 数据，跳过不报错）；版本可用度取同日 _day.json 的
+   pipelines[].vaDetail（component=Triton_Ascend，availDays>0 即当日可用）与区间内最新一天的
+   products[].versionAvailabilityRate（累计值，口径注明「截至该日累计」）。 */
+let ARCH_ROOT = '../';
+const ROOT_CANDIDATES = ['../', './', '../../', '../../../'];
+function probeRoot(){
+  let i = 0;
+  function step(){
+    if (i >= ROOT_CANDIDATES.length)
+      return Promise.reject(new Error('archive/_index.json → HTTP 404（已依次试过：'
+        + ROOT_CANDIDATES.join('  ') + '）'));
+    const cand = ROOT_CANDIDATES[i++];
+    return jget(cand + 'archive/_index.json').then(function(x){
+      ARCH_ROOT = cand; return x;
+    }).catch(function(e){ if (isNotFound(e)) return step(); throw e; });
+  }
+  return step();
+}
+function jget(p){
+  return fetch(p, {cache: 'no-store'}).then(function(r){
+    if (!r.ok) throw new Error(p + ' → HTTP ' + r.status);
+    return r.json();
+  });
+}
+function isNotFound(e){
+  const m = String((e && e.message) || e);
+  return /HTTP 40[34]/.test(m) || /\b(404|ENOENT)\b/.test(m) || /not\s*found/i.test(m);
+}
+function nz(v){ return (v === null || v === undefined || v === '') ? '--' : String(v); }
+/* 秒 -> 人读时长：3723 -> 1h02m，292 -> 4m52s，45 -> 45s，null -> -- */
+function fmtDur(sec){
+  if (sec === null || sec === undefined || isNaN(sec)) return '--';
+  const s = Math.round(Number(sec));
+  if (s < 60) return s + 's';
+  if (s < 3600) return Math.floor(s / 60) + 'm' + String(s % 60).padStart(2, '0') + 's';
+  return Math.floor(s / 3600) + 'h' + String(Math.floor((s % 3600) / 60)).padStart(2, '0') + 'm';
+}
+function dayPath(d){ return 'archive/' + d.slice(0,4) + '/' + d.slice(0,7) + '/' + d; }
+function eachDay(f, t){
+  const out = []; const d = new Date(f + 'T00:00:00'); const end = new Date(t + 'T00:00:00');
+  /* 本地日期逐日推进：不能用 toISOString()（UTC 会把东八区午夜倒回前一天） */
+  function ymd(x){ return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0')
+    + '-' + String(x.getDate()).padStart(2, '0'); }
+  while (d <= end && out.length < 400){ out.push(ymd(d)); d.setDate(d.getDate() + 1); }
+  return out;
+}
+function avg(a){ return a.length ? a.reduce(function(x,y){ return x+y; }, 0) / a.length : null; }
+
+const DAYS = [];          /* _index.json 的归档日（给筛选条定上下界） */
+let JOBS = [];            /* 最近一次区间取回的全部 job（弹窗用） */
+let PR_ROWS = [];         /* 最近一次渲染的 PR 明细行（弹窗按下标取，不做字符串比较） */
+
+/* 逐日取 pr_history.json；同日的 _day.json 顺带取当日版本可用（一并 404 容错） */
+function loadRange(f, t){
+  const dates = eachDay(f, t);
+  Promise.all(dates.map(function(d){
+    return jget(ARCH_ROOT + dayPath(d) + '/Triton_Ascend/pr_history.json')
+      .catch(function(e){ if (!isNotFound(e)) throw e; return null; });
+  })).then(function(docs){
+    render(docs, dates);
+  }).catch(function(e){
+    document.getElementById('dayTb').innerHTML =
+      '<tr><td colspan="10" class="loading">读取失败：' + rfEsc(e.message) + '</td></tr>';
+  });
+}
+
+function render(docs, dates){
+  const jobs = [];
+  const dayRows = [];
+  dates.forEach(function(d, i){
+    const doc = docs[i];
+    if (doc && doc.jobs && doc.jobs.length){
+      doc.jobs.forEach(function(j){ j._date = d; jobs.push(j); });
+      dayRows.push({date: d, s: doc.summary || {}, doc: doc});
+    }
+  });
+  JOBS = jobs;
+  const tb = document.getElementById('dayTb');
+  if (!dayRows.length){
+    tb.innerHTML = '<tr><td colspan="10" class="loading">区间内暂无 PR CI 数据'
+      + '（pr_history.json 由每日采集任务产出，当日无数据或尚未采集都会显示本提示）</td></tr>';
+    document.getElementById('prTb').innerHTML =
+      '<tr><td colspan="10" class="loading">区间内暂无 PR CI 数据</td></tr>';
+    renderCards([], null);
+    return;
+  }
+  /* 每日汇总行（含当日版本可用：vaDetail.availDays>0） */
+  Promise.all(dayRows.map(function(r){
+    return jget(ARCH_ROOT + dayPath(r.date) + '/_day.json').then(function(day){
+      const p = ((day || {}).pipelines || []).filter(function(x){
+        return String(x.component || '') === 'Triton_Ascend';
+      })[0];
+      r.va = p && p.vaDetail ? (p.vaDetail.availDays > 0 ? 'ok' : 'bad') : 'na';
+    }).catch(function(){ r.va = 'na'; });
+  })).then(function(){
+    tb.innerHTML = dayRows.map(function(r){
+      const s = r.s;
+      const ok = s.jobCount ? (1 - (s.failCount || 0) / s.jobCount) : null;
+      const va = r.va === 'ok' ? '<span class="ok">可用</span>'
+               : (r.va === 'bad' ? '<span class="bad">不可用</span>' : '<span class="dim">--</span>');
+      return '<tr>'
+        + '<td>' + r.date + '</td>'
+        + '<td class="ctr">' + nz(s.prCount) + '</td>'
+        + '<td class="ctr">' + nz(s.jobCount) + '</td>'
+        + '<td class="ctr">' + nz(s.failCount) + '</td>'
+        + '<td class="ctr">' + (ok === null ? '--' : (ok * 100).toFixed(1) + '%') + '</td>'
+        + '<td class="ctr">' + fmtDur(s.execSecondsAvg) + '</td>'
+        + '<td class="ctr">' + fmtDur(s.waitSecondsAvg) + '</td>'
+        + '<td class="ctr">' + fmtDur(s.waitSecondsMax) + '</td>'
+        + '<td class="ctr">' + nz(s.cardHours) + '</td>'
+        + '<td class="ctr">' + va + '</td>'
+        + '</tr>';
+    }).join('');
+  });
+
+  /* PR 明细：区间内按 (PR, workflow) 聚合 */
+  const grp = {};
+  jobs.forEach(function(j){
+    if (j.prNumber === null || j.prNumber === undefined) return;   /* 分支触发的没有 PR 号，不入本表 */
+    const k = j.prNumber + '|' + (j.workflow || '');
+    (grp[k] = grp[k] || {pr: j.prNumber, wf: j.workflow || '--', org: j.org, repo: j.repo,
+                         jobs: [], days: {}}).jobs.push(j);
+    grp[k].days[j._date] = 1;
+  });
+  const rows = Object.keys(grp).map(function(k){ return grp[k]; })
+    .sort(function(a, b){
+      const la = a.jobs[0].createdAt || '', lb = b.jobs[0].createdAt || '';
+      return lb.localeCompare(la) || (b.pr - a.pr);
+    });
+  PR_ROWS = rows;
+  document.getElementById('prTb').innerHTML = rows.length ? rows.map(function(r, i){
+    const execs = r.jobs.map(function(j){ return j.execSeconds || 0; });
+    const waits = r.jobs.map(function(j){ return j.waitSeconds; }).filter(function(w){ return w !== null && w !== undefined; });
+    const fails = r.jobs.filter(function(j){ return j.status === 'rejected'; }).length;
+    const gh = 'https://github.com/' + (r.org || 'triton-lang') + '/' + (r.repo || 'triton-ascend') + '/pull/' + r.pr;
+    return '<tr>'
+      + '<td><a class="lnk" href="' + gh + '" target="_blank">#' + r.pr + '</a></td>'
+      + '<td class="cw">' + rfEsc(r.wf) + '</td>'
+      + '<td class="ctr">' + Object.keys(r.days).length + '</td>'
+      + '<td class="ctr"><a class="lnk jobs-lnk" data-i="' + i + '">' + r.jobs.length + ' 个</a></td>'
+      + '<td class="ctr">' + (fails ? '<span class="bad">' + fails + '</span>' : '0') + '</td>'
+      + '<td class="ctr">' + fmtDur(execs.reduce(function(a,b){ return a+b; }, 0)) + ' / ' + fmtDur(avg(execs)) + '</td>'
+      + '<td class="ctr">' + fmtDur(avg(waits)) + ' / ' + fmtDur(waits.length ? Math.max.apply(null, waits) : null) + '</td>'
+      + '<td class="ctr">' + (r.jobs.reduce(function(a,j){ return a + (j.npu || 0) * (j.execSeconds || 0); }, 0) / 3600).toFixed(2) + '</td>'
+      + '<td class="cw1">' + rfEsc(r.jobs[0].createdAt) + '</td>'
+      + '<td class="ctr"><a class="lnk jobs-lnk" data-i="' + i + '">查看</a></td>'
+      + '</tr>';
+  }).join('') : '<tr><td colspan="10" class="loading">区间内没有带 PR 号的 job（分支触发的运行不带 PR 号）</td></tr>';
+
+  renderCards(jobs, dayRows);
+}
+
+/* 汇总卡：PR/Job/成功率/时长/卡时 + 版本可用度（累计值，取区间内最新一天的 _day.json） */
+function renderCards(jobs, dayRows){
+  const el = document.getElementById('cards');
+  const prs = {}; jobs.forEach(function(j){ if (j.prNumber !== null) prs[j.prNumber] = 1; });
+  const execs = jobs.map(function(j){ return j.execSeconds; }).filter(function(v){ return v; });
+  const waits = jobs.map(function(j){ return j.waitSeconds; }).filter(function(v){ return v !== null && v !== undefined; });
+  const fails = jobs.filter(function(j){ return j.status === 'rejected'; }).length;
+  const card = function(v, label){ return '<div class="c"><b>' + v + '</b><span>' + label + '</span></div>'; };
+  let html = card(Object.keys(prs).length, 'PR 数')
+    + card(jobs.length, 'Job 数')
+    + card(fails, '失败 Job')
+    + card(jobs.length ? ((1 - fails / jobs.length) * 100).toFixed(1) + '%' : '--', 'Job 成功率')
+    + card(fmtDur(avg(execs)), '平均执行时长')
+    + card(fmtDur(avg(waits)), '平均排队时长')
+    + card((jobs.reduce(function(a,j){ return a + (j.npu || 0) * (j.execSeconds || 0); }, 0) / 3600).toFixed(2), 'NPU 卡时（小时）');
+  el.innerHTML = html + '<div class="c" id="vaCard"><b>--</b><span>版本可用度</span></div>';
+  if (dayRows && dayRows.length){
+    const last = dayRows[dayRows.length - 1].date;
+    jget(ARCH_ROOT + dayPath(last) + '/_day.json').then(function(day){
+      const p = ((day || {}).products || []).filter(function(x){
+        return String(x.product || '').indexOf('Triton') >= 0;
+      })[0];
+      const c = document.getElementById('vaCard');
+      if (p && c && p.versionAvailabilityRate !== null && p.versionAvailabilityRate !== undefined){
+        c.innerHTML = '<b>' + (p.versionAvailabilityRate * 100).toFixed(1) + '%</b>'
+          + '<span>版本可用度（截至 ' + last + ' 累计）</span>';
+      } else if (c){
+        c.innerHTML = '<b>--</b><span>版本可用度（当日 _day.json 无 Triton 产品）</span>';
+      }
+    }).catch(function(){});
+  }
+}
+
+/* Jobs 弹窗：一个 PR 的全部 job（按下标从 PR_ROWS 取，避免转义后的字符串比较） */
+function showJobs(i){
+  const r = PR_ROWS[i];
+  if (!r) return;
+  const list = r.jobs;
+  document.getElementById('mttl').textContent = '#' + r.pr + ' · ' + r.wf + ' · ' + list.length + ' 个 job';
+  document.getElementById('jobTbl').innerHTML =
+    '<colgroup><col style="width:22%"><col style="width:8%"><col style="width:8%"><col style="width:9%">'
+    + '<col style="width:9%"><col style="width:6%"><col style="width:8%"><col style="width:10%">'
+    + '<col style="width:20%"></colgroup>'
+    + '<thead><tr><th>Job</th><th>日期</th><th>状态</th><th>执行时长</th><th>排队时长</th>'
+    + '<th>NPU</th><th>卡型</th><th>集群</th><th>开始 / 结束（北京时间）</th></tr></thead><tbody>'
+    + list.map(function(j){
+      const bad = j.status === 'rejected';
+      return '<tr>'
+        + '<td class="cw">' + rfEsc(j.job || j.pod || '--') + '</td>'
+        + '<td class="ctr">' + j._date + '</td>'
+        + '<td class="ctr">' + (bad ? '<span class="bad">' : '<span>') + rfEsc(j.status) + '</span></td>'
+        + '<td class="ctr">' + fmtDur(j.execSeconds) + '</td>'
+        + '<td class="ctr">' + fmtDur(j.waitSeconds) + '</td>'
+        + '<td class="ctr">' + nz(j.npu) + '</td>'
+        + '<td class="ctr">' + rfEsc(j.deviceModel || '--') + '</td>'
+        + '<td class="ctr">' + rfEsc(j.cluster || '--') + '</td>'
+        + '<td class="cw1">' + rfEsc(j.createdAt) + '<br>' + rfEsc(j.endedAt) + '</td>'
+        + '</tr>';
+    }).join('') + '</tbody>';
+  document.getElementById('mrec').classList.add('on');
+}
+document.getElementById('mclose').addEventListener('click', function(){
+  document.getElementById('mrec').classList.remove('on');
+});
+document.getElementById('mrec').addEventListener('click', function(e){
+  if (e.target === this) this.classList.remove('on');
+});
+
+/* 初始化：先探数据根 → 拿归档日清单给筛选条定界 → 挂 onChange 逐日取数 */
+probeRoot().then(function(idx){
+  (idx.days || []).forEach(function(d){ DAYS.push(d); });
+  const min = DAYS.length ? DAYS[0] : null;
+  const max = DAYS.length ? DAYS[DAYS.length - 1] : null;
+  rfInit({min: min, max: max, onChange: loadRange});
+}).catch(function(e){
+  document.getElementById('dayTb').innerHTML =
+    '<tr><td colspan="10" class="loading">读取失败：' + rfEsc(e.message) + '</td></tr>';
+  document.getElementById('prTb').innerHTML = '';
+});
+
+/* 统计口径（页面底部，一条一行） */
+(function(){
+  document.getElementById('tnote').innerHTML =
+    '<div class="tn-hd">统计口径</div><ul class="tn-list">'
+    + '<li><b>数据源</b>：pod-history-api（CI job pod 生命周期），每日 8 点采集昨日 00:00~24:00（北京时间）</li>'
+    + '<li><b>执行时长</b>：job pod 存活秒数（ttl_seconds）；<b>排队时长</b>：调度等待（wait_duration）</li>'
+    + '<li><b>失败 Job</b>：pod 状态 rejected；released / expired 均视为跑完（expired = 跑完后被平台清理）</li>'
+    + '<li><b>NPU 卡时</b>：卡数 × 执行秒数 ÷ 3600；分支触发的运行（无 PR 号）不进 PR 明细，只进汇总</li>'
+    + '<li><b>版本可用度</b>：当日可用 = 当天有成功执行且用例通过率 100%（与首页同口径）；'
+        + '汇总卡为截至区间内最新采集日的累计值</li>'
+    + '</ul>';
+})();
+
+</script>
+</body>
+</html>
