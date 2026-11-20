@@ -5,6 +5,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from lib.paths import (ARCHIVE_ROOT, CACHE_DIR, GEN_DIR, HTML_DIR, LIB_DIR,
@@ -148,6 +149,58 @@ def run_page_js(tpl_name, params, out_name, cfg, label=""):
     if isinstance(result, dict) and result.get("ok") is False:
         raise RuntimeError("[%s] %s" % (label or tpl_name, result.get("error")))
     return result
+
+
+def run_ol_hook_collect(date_str, project_id, page_size, cfg, out_name,
+                        label="ol_hook", retries=3):
+    """跑 lib/cdp_ol_collect.js（XHR hook 拦截 + 页面自带鉴权），返回解析后的结果 JSON。
+
+    与 run_page_js 的区别：不在页面里裸 fetch（缺 vben access token 会被 WAF 挂起），
+    而是用 addScriptToEvaluateOnNewDocument 在业务脚本前预装 XHR hook，reload 后让页面
+    自己发起带完整鉴权的请求，hook 再把 ops-overview/main 请求体改写为指定单日并截获响应。
+
+    node 在本机存在间歇 DLL 崩溃（0xC0000135，进程静默退出且不产出文件），因此外层按
+    retries 整体重试；每次驱动内部都有硬截止，单次存活时间短、走同步轮询，规避长 awaitPromise。
+    """
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_file = OUT_DIR / out_name
+    ch = cfg.get("chrome", {})
+    port = str(ch.get("debug_port", 9222))
+    tab = str(ch.get("tab_url_substring", "openlibing"))
+    deadline = int(ch.get("ol_hook_deadline_ms", 12000))
+    driver = LIB_DIR / "cdp_ol_collect.js"
+
+    last_err = ""
+    for attempt in range(1, max(1, retries) + 1):
+        if out_file.exists():
+            out_file.unlink()
+        cmd = ["node", str(driver),
+               "--out", str(out_file), "--port", port, "--tab", tab,
+               "--date", date_str, "--project-id", str(project_id),
+               "--page-size", str(page_size), "--deadline", str(deadline)]
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8",
+                                  errors="replace", cwd=str(SKILL_ROOT),
+                                  timeout=(deadline // 1000) + 45)
+        except subprocess.TimeoutExpired:
+            last_err = "node 进程超时被杀（attempt %d）" % attempt
+            time.sleep(1)
+            continue
+        if out_file.exists():
+            try:
+                result = load_json(out_file)
+            except ValueError as exc:
+                last_err = "结果 JSON 解析失败: %s" % exc
+                time.sleep(1)
+                continue
+            if result.get("ok"):
+                return result
+            last_err = str(result.get("error") or result.get("hookErr") or "hook 未截获 main 响应")
+        else:
+            last_err = (proc.stderr or "").strip()[:400] or \
+                       ("node 退出码 %s 且无产物（疑似 0xC0000135 间歇崩溃）" % proc.returncode)
+        time.sleep(1)
+    raise RuntimeError("[%s] hook 采集重试 %d 次仍失败: %s" % (label, retries, last_err))
 
 
 def chunks(items, size):

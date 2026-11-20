@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triton_Ascend 工程能力看板</title>
+<meta http-equiv="refresh" content="0; url=out/html/index.html">
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+       background:#0f172a;color:#e2e8f0}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:34px 40px;max-width:560px;
+        box-shadow:0 12px 40px rgba(0,0,0,.35)}
+  h1{font-size:19px;margin:0 0 6px;font-weight:650}
+  p{color:#94a3b8;font-size:13.5px;line-height:1.7;margin:0 0 18px}
+  ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  a{color:#7dd3fc;text-decoration:none;font-size:14px;font-weight:550}
+  a:hover{text-decoration:underline}
+  .tag{display:inline-block;font-size:11px;color:#64748b;border:1px solid #334155;border-radius:6px;
+       padding:1px 7px;margin-left:8px;vertical-align:middle}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Triton_Ascend 工程能力看板<span class="tag">openLiBing 原值</span></h1>
+    <p>正在进入静态看板。若未自动跳转，请选择入口：</p>
+    <ul>
+      <li><a href="out/html/index.html">夜间流水线总览（首页） →</a></li>
+      <li><a href="out/html/pr.html">triton-ascend PR 看板（执行/排队时长 · 版本可用度） →</a></li>
+      <li><a href="out/html/detail.html">组件根因明细 →</a></li>
+    </ul>
+  </div>
+  <script>location.replace('out/html/index.html');</script>
+</body>
+</html>

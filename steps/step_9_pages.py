@@ -966,7 +966,7 @@ DETAIL_BODY = (
     '  ' + ui.header() + '\n'
     '  ' + ui.toolbar() + '\n'
     '  <a class="chip" href="' + INDEX_NAME + '" id="back">← 返回总览</a>\n'
-    '  <a class="chip" href="pr.html">triton-ascend PR 数据 →</a>\n'
+    '  <a class="chip" href="pr.html">triton-ascend PR 看板 →</a>\n'
     '  <h1 id="ttl">组件根因明细</h1>\n'
     '  <div class="crumb" id="crumb"></div>\n'
     '  <p class="meta" id="meta">正在读取归档…</p>\n'
@@ -2835,110 +2835,131 @@ def workday_cal(days):
 
 
 # ---------------------------------------------------------------- PR 页（triton-ascend）
-# 数据源不是流水线归档，而是 tools/collect_pr_daily.py 每日从 pod-history-api 采集的
-# archive/<日>/Triton_Ascend/pr_history.json（PR 维度的 CI job：执行时长 / 排队时长 / 卡时 / 成败）。
+# 数据源是 tools/collect_pr_daily.py 每日从 openLiBing eCDashboard（projectId=300130）经 CDP XHR hook
+# 拦截的 archive/<日>/Triton_Ascend/pr_dashboard.json：页面自带鉴权自发请求，hook 改写为单日区间后截获，
+# record 整份为看板返回原值，本页只做呈现，不做任何计算。
 # 页面壳与其他页同源：header + toolbar + 取数脚本，区间切换逐日 fetch、404 容错（那天没采/没数据）。
 PR_NAME = "pr.html"
-PR_TITLE = ui.BRAND_TITLE + " · triton-ascend PR 数据"
+PR_TITLE = ui.BRAND_TITLE + " · triton-ascend PR 看板"
+
+# 看板 record 字段 -> 中文名 / 格式 / 分组 / 官方指标编号。
+# kind: min=分钟原值直接显示, pct=0~1 比率转百分比, num=数值, text=文本。
+# 仅描述「怎么显示原值」，不含任何派生计算；metricCode 对应归档 metricDict 的官方指标字典编号。
+PR_FIELD_SPEC = [
+    ("prDurationP90", "PR 执行时长 P90", "min", "PR 时长与排队", 10002),
+    ("resourceQueueTime", "PR 资源排队时长", "min", "PR 时长与排队", 10010),
+    ("buildQueueP90", "PR 构建资源排队 P90", "min", "PR 时长与排队", 10056),
+    ("dtQueueP90", "PR 测试资源排队 P90", "min", "PR 时长与排队", 10057),
+    ("ttfhwDurationMin", "TTFHW 时长", "min", "PR 时长与排队", 10068),
+    ("targetMinutes", "执行时长阈值（目标分钟）", "num", "PR 时长与排队", None),
+    ("precommitRate", "PR 门禁通过率", "pct", "PR 质量与门禁", None),
+    ("autoFixRate", "自动修复率", "pct", "PR 质量与门禁", None),
+    ("exceptionReviewRate", "例外评审率", "pct", "PR 质量与门禁", None),
+    ("styleVisibleRate", "规范可见率", "pct", "PR 质量与门禁", None),
+    ("ttfhwPassRate", "TTFHW 通过率", "pct", "PR 质量与门禁", 10068),
+    ("nightlyVersionAvailabilityRate", "版本可用度", "pct", "版本可用 / Nightly", 10018),
+    ("nightlyBuildSuccessRate", "Nightly CI 编译成功率", "pct", "版本可用 / Nightly", 10025),
+    ("npuAssignedRate", "NPU 分配率", "pct", "资源消耗", None),
+    ("npuAllAssignedHours", "NPU 分配总时长（小时）", "num", "资源消耗", 10033),
+    ("prNpuUsage", "PR NPU 消耗量", "num", "资源消耗", None),
+    ("prCpuUsage", "PR CPU 消耗量", "num", "资源消耗", None),
+    ("checkRulesTotal", "检查规则总数", "num", "工程计数", None),
+    ("incBuild", "增量构建次数", "text", "工程计数", None),
+    ("fullBuild", "全量构建次数", "text", "工程计数", None),
+    ("utExec", "UT 执行次数", "text", "工程计数", None),
+    ("envPrepare", "环境准备时长", "text", "工程计数", 10049),
+    ("passStatus", "看板灯色", "text", "灯色", None),
+]
+# 每日明细表（宽表）固定展示的核心列：顺序即列序
+PR_DAY_COLUMNS = ["prDurationP90", "buildQueueP90", "dtQueueP90", "resourceQueueTime",
+                  "nightlyVersionAvailabilityRate", "nightlyBuildSuccessRate",
+                  "precommitRate", "npuAssignedRate", "passStatus"]
+# 顶部汇总卡取最新一天的这几个指标
+PR_CARD_FIELDS = ["prDurationP90", "buildQueueP90", "dtQueueP90",
+                  "nightlyVersionAvailabilityRate", "nightlyBuildSuccessRate"]
 
 PR_BODY = (
     '<div class="wrap">\n'
     '  ' + ui.header() + '\n'
     '  ' + ui.toolbar() + '\n'
     '  <a class="chip" href="' + INDEX_NAME + '" id="back">← 返回总览</a>\n'
-    '  <h1>triton-ascend PR CI 数据 <span class="sub">数据源：pod-history-api（每日 8 点采集昨日数据）</span></h1>\n'
+    '  <h1>triton-ascend PR 工程能力看板 '
+    '<span class="sub">数据源：openLiBing eCDashboard（projectId=300130），每日 8 点采集昨日原值，不做二次计算</span></h1>\n'
     '  <div class="cards" id="cards"></div>\n'
-    '  <h3 class="pr-h">每日汇总</h3>\n'
+    '  <h3 class="pr-h">每日核心指标（看板原值）</h3>\n'
     '  <div class="tbl-wrap pr-tbl">\n'
     '    <table class="rca" id="dayTbl">\n'
-    '      <thead><tr>\n'
-    '        <th>日期</th>\n'
-    '        <th>PR 数</th>\n'
-    '        <th>Job 数</th>\n'
-    '        <th>失败 Job</th>\n'
-    '        <th>Job 成功率</th>\n'
-    '        <th>平均执行时长</th>\n'
-    '        <th>平均排队时长</th>\n'
-    '        <th>最大排队时长</th>\n'
-    '        <th>NPU 卡时</th>\n'
-    '        <th>当日版本可用</th>\n'
-    '      </tr></thead>\n'
-    '      <tbody id="dayTb"><tr><td colspan="10" class="loading">正在读取归档…</td></tr></tbody>\n'
+    '      <thead id="dayHead"></thead>\n'
+    '      <tbody id="dayTb"><tr><td class="loading">正在读取归档…</td></tr></tbody>\n'
     '    </table>\n'
     '  </div>\n'
-    '  <h3 class="pr-h">PR 明细（区间内按 PR + 工作流聚合）</h3>\n'
+    '  <h3 class="pr-h">全字段明细（行=看板指标，列=日期，值均为看板原值）</h3>\n'
     '  <div class="tbl-wrap pr-tbl">\n'
-    '    <table class="rca" id="prTbl">\n'
-    '      <thead><tr>\n'
-    '        <th>PR</th>\n'
-    '        <th>工作流</th>\n'
-    '        <th>活跃天</th>\n'
-    '        <th>Job 数</th>\n'
-    '        <th>失败 Job</th>\n'
-    '        <th>执行时长（合计 / 均值）</th>\n'
-    '        <th>排队时长（均值 / 最大）</th>\n'
-    '        <th>NPU 卡时</th>\n'
-    '        <th>首次开始</th>\n'
-    '        <th>Jobs</th>\n'
-    '      </tr></thead>\n'
-    '      <tbody id="prTb"><tr><td colspan="10" class="loading">正在读取归档…</td></tr></tbody>\n'
+    '    <table class="rca" id="fullTbl">\n'
+    '      <thead id="fullHead"></thead>\n'
+    '      <tbody id="fullTb"><tr><td class="loading">正在读取归档…</td></tr></tbody>\n'
     '    </table>\n'
     '  </div>\n'
     '  <div class="tnote" id="tnote"></div>\n'
     '</div>\n'
-    '<div class="modal" id="mrec">\n'
-    '  <div class="modal-box">\n'
-    '    <div class="modal-hd"><div class="hd-l"><span id="mttl"></span></div>'
-    '<button type="button" id="mclose">关闭</button></div>\n'
-    '    <div id="mbody"><div class="mtbl"><table class="rca" id="jobTbl"></table></div></div>\n'
-    '  </div>\n'
-    '</div>'
 )
 
-PR_EXTRA_CSS = SHARED_MODAL_CSS + """
-/* PR 页：可以整页滚（数据量不定，不做一屏定高） */
+PR_EXTRA_CSS = """
+/* PR 看板页：可以整页滚（数据量不定，不做一屏定高）；无弹窗，只保留通用表格样式 */
 .wrap{gap:0}
 #back{margin:2px 0 8px;align-self:flex-start}
 h1{font-size:19px;margin:2px 0 10px}
 h1 .sub{font-size:12px;font-weight:400;color:#8a93a3;margin-left:10px}
-/* 汇总卡：一行流式小卡（数值 + 标签） */
+/* 汇总卡：一行流式小卡（数值 + 标签），取区间内最新归档日 */
 .cards{display:flex;flex-wrap:wrap;gap:10px;margin:2px 0 4px}
-.cards .c{flex:0 0 auto;min-width:108px;background:#f7f9fc;border:1px solid var(--line2);
+.cards .c{flex:0 0 auto;min-width:128px;background:#f7f9fc;border:1px solid var(--line2);
   border-radius:8px;padding:8px 14px}
 .cards .c b{display:block;font-size:17px;font-weight:600;color:#16233a;line-height:1.5}
 .cards .c span{display:block;font-size:11.5px;color:#7c8698}
 /* 区块头（浅蓝底，与二级页 h3 同款） */
 h3.pr-h{font-size:15px;font-weight:600;color:#16233a;line-height:1.6;
   margin:16px 0 8px;padding:8px 12px;background:#f0f5ff;border-radius:6px}
-/* 两张表：定高内部滚动，页面其余部分不跳 */
-.pr-tbl{flex:1 1 320px;min-height:260px;overflow:auto;border:1px solid var(--line2);border-radius:8px}
+/* 两张表：内部滚动，页面其余部分不跳 */
+.pr-tbl{flex:1 1 320px;min-height:240px;overflow:auto;border:1px solid var(--line2);border-radius:8px;margin-bottom:6px}
 .pr-tbl table.rca{margin:0}
-.pr-tbl table.rca thead th{position:sticky;top:0;z-index:2;background:#f7f9fc;text-align:center}
-.pr-tbl table.rca td.ctr{text-align:center}
-table.rca a.lnk{color:var(--acc);text-decoration:none}
-table.rca a.lnk:hover{text-decoration:underline}
+.pr-tbl table.rca thead th{position:sticky;top:0;z-index:2;background:#f7f9fc;text-align:center;white-space:nowrap}
+.pr-tbl table.rca td.ctr{text-align:center;white-space:nowrap}
+.pr-tbl table.rca td.dim{color:#9aa3af;text-align:center}
+.pr-tbl .grp td{background:#eef3ff !important;font-weight:600;color:#274690}
 .tnote{flex:0 0 auto;font-size:11.5px;color:#7c8698;line-height:1.65;margin:9px 0 0}
 .ok{color:#0a7d33;font-weight:600}
 .bad{color:#c0392b;font-weight:600}
 .dim{color:#9aa3af}
+/* 灯色徽标 */
+.tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11.5px;font-weight:600}
+.tag-GREEN{background:#e6f7ec;color:#0a7d33}
+.tag-RED{background:#fdecea;color:#c0392b}
+.tag-YELLOW{background:#fff7e0;color:#b8860b}
+.tag-NA{background:#f0f1f3;color:#9aa3af}
 """
 
 PR_JS = r"""
-/* ================= PR 页：读每日 pr_history.json，按区间聚合 =================
-   数据链：archive/<年>/<年-月>/<日>/Triton_Ascend/pr_history.json（每日一份，collect_pr_daily.py 产出）
-   区间切换 = 逐日 fetch（404 = 当日无 PR 数据，跳过不报错）；版本可用度取同日 _day.json 的
-   pipelines[].vaDetail（component=Triton_Ascend，availDays>0 即当日可用）与区间内最新一天的
-   products[].versionAvailabilityRate（累计值，口径注明「截至该日累计」）。 */
+/* ================= PR 看板页：逐日读 pr_dashboard.json，只渲染看板原值 =================
+   数据链：archive/<年>/<年-月>/<日>/Triton_Ascend/pr_dashboard.json（每日一份，collect_pr_daily.py 产出）
+   归档日清单来自 archive/_pr_index.json（本数据源独立维护，不复用流水线 _index.json）。
+   区间切换 = 逐日 fetch（404 = 当天没采，跳过不报错）；页面只把 record 原值按 FIELD_SPEC 显示，
+   不做任何聚合 / 平均 / 派生计算。比率类（0~1）仅做百分比格式化，分钟类直接显示分钟数。 */
+const FIELD_SPEC = [["prDurationP90", "PR 执行时长 P90", "min", "PR 时长与排队", 10002], ["resourceQueueTime", "PR 资源排队时长", "min", "PR 时长与排队", 10010], ["buildQueueP90", "PR 构建资源排队 P90", "min", "PR 时长与排队", 10056], ["dtQueueP90", "PR 测试资源排队 P90", "min", "PR 时长与排队", 10057], ["ttfhwDurationMin", "TTFHW 时长", "min", "PR 时长与排队", 10068], ["targetMinutes", "执行时长阈值（目标分钟）", "num", "PR 时长与排队", null], ["precommitRate", "PR 门禁通过率", "pct", "PR 质量与门禁", null], ["autoFixRate", "自动修复率", "pct", "PR 质量与门禁", null], ["exceptionReviewRate", "例外评审率", "pct", "PR 质量与门禁", null], ["styleVisibleRate", "规范可见率", "pct", "PR 质量与门禁", null], ["ttfhwPassRate", "TTFHW 通过率", "pct", "PR 质量与门禁", 10068], ["nightlyVersionAvailabilityRate", "版本可用度", "pct", "版本可用 / Nightly", 10018], ["nightlyBuildSuccessRate", "Nightly CI 编译成功率", "pct", "版本可用 / Nightly", 10025], ["npuAssignedRate", "NPU 分配率", "pct", "资源消耗", null], ["npuAllAssignedHours", "NPU 分配总时长（小时）", "num", "资源消耗", 10033], ["prNpuUsage", "PR NPU 消耗量", "num", "资源消耗", null], ["prCpuUsage", "PR CPU 消耗量", "num", "资源消耗", null], ["checkRulesTotal", "检查规则总数", "num", "工程计数", null], ["incBuild", "增量构建次数", "text", "工程计数", null], ["fullBuild", "全量构建次数", "text", "工程计数", null], ["utExec", "UT 执行次数", "text", "工程计数", null], ["envPrepare", "环境准备时长", "text", "工程计数", 10049], ["passStatus", "看板灯色", "text", "灯色", null]];
+const DAY_COLUMNS = ["prDurationP90", "buildQueueP90", "dtQueueP90", "resourceQueueTime", "nightlyVersionAvailabilityRate", "nightlyBuildSuccessRate", "precommitRate", "npuAssignedRate", "passStatus"];
+const CARD_FIELDS = ["prDurationP90", "buildQueueP90", "dtQueueP90", "nightlyVersionAvailabilityRate", "nightlyBuildSuccessRate"];
+const SPEC_BY_KEY = {};
+FIELD_SPEC.forEach(function(s){ SPEC_BY_KEY[s[0]] = {label: s[1], kind: s[2], group: s[3], code: s[4]}; });
+
 let ARCH_ROOT = '../';
 const ROOT_CANDIDATES = ['../', './', '../../', '../../../'];
 function probeRoot(){
   let i = 0;
   function step(){
     if (i >= ROOT_CANDIDATES.length)
-      return Promise.reject(new Error('archive/_index.json → HTTP 404（已依次试过：'
+      return Promise.reject(new Error('archive/_pr_index.json → HTTP 404（已依次试过：'
         + ROOT_CANDIDATES.join('  ') + '）'));
     const cand = ROOT_CANDIDATES[i++];
-    return jget(cand + 'archive/_index.json').then(function(x){
+    return jget(cand + 'archive/_pr_index.json').then(function(x){
       ARCH_ROOT = cand; return x;
     }).catch(function(e){ if (isNotFound(e)) return step(); throw e; });
   }
@@ -2954,200 +2975,123 @@ function isNotFound(e){
   const m = String((e && e.message) || e);
   return /HTTP 40[34]/.test(m) || /\b(404|ENOENT)\b/.test(m) || /not\s*found/i.test(m);
 }
-function nz(v){ return (v === null || v === undefined || v === '') ? '--' : String(v); }
-/* 秒 -> 人读时长：3723 -> 1h02m，292 -> 4m52s，45 -> 45s，null -> -- */
-function fmtDur(sec){
-  if (sec === null || sec === undefined || isNaN(sec)) return '--';
-  const s = Math.round(Number(sec));
-  if (s < 60) return s + 's';
-  if (s < 3600) return Math.floor(s / 60) + 'm' + String(s % 60).padStart(2, '0') + 's';
-  return Math.floor(s / 3600) + 'h' + String(Math.floor((s % 3600) / 60)).padStart(2, '0') + 'm';
-}
 function dayPath(d){ return 'archive/' + d.slice(0,4) + '/' + d.slice(0,7) + '/' + d; }
 function eachDay(f, t){
   const out = []; const d = new Date(f + 'T00:00:00'); const end = new Date(t + 'T00:00:00');
-  /* 本地日期逐日推进：不能用 toISOString()（UTC 会把东八区午夜倒回前一天） */
   function ymd(x){ return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0')
     + '-' + String(x.getDate()).padStart(2, '0'); }
   while (d <= end && out.length < 400){ out.push(ymd(d)); d.setDate(d.getDate() + 1); }
   return out;
 }
-function avg(a){ return a.length ? a.reduce(function(x,y){ return x+y; }, 0) / a.length : null; }
+/* 原值显示：只做单位格式化，绝不改数值。null/undefined/'' -> -- */
+function fmtVal(key, v){
+  if (v === null || v === undefined || v === '') return '<span class="dim">--</span>';
+  const spec = SPEC_BY_KEY[key] || {kind: 'num'};
+  if (key === 'passStatus'){
+    const s = String(v).toUpperCase();
+    return '<span class="tag tag-' + (/^(GREEN|RED|YELLOW)$/.test(s) ? s : 'NA') + '">' + rfEsc(s || '--') + '</span>';
+  }
+  if (spec.kind === 'pct'){
+    const n = Number(v);
+    if (isNaN(n)) return rfEsc(String(v));
+    return (n * 100).toFixed(1) + '%';
+  }
+  if (spec.kind === 'min'){
+    const n = Number(v);
+    if (isNaN(n)) return rfEsc(String(v));
+    return n.toFixed(2) + ' min';
+  }
+  return rfEsc(String(v));
+}
 
-const DAYS = [];          /* _index.json 的归档日（给筛选条定上下界） */
-let JOBS = [];            /* 最近一次区间取回的全部 job（弹窗用） */
-let PR_ROWS = [];         /* 最近一次渲染的 PR 明细行（弹窗按下标取，不做字符串比较） */
+const DAYS = [];          /* _pr_index.json 的归档日（给筛选条定上下界） */
 
-/* 逐日取 pr_history.json；同日的 _day.json 顺带取当日版本可用（一并 404 容错） */
 function loadRange(f, t){
   const dates = eachDay(f, t);
   Promise.all(dates.map(function(d){
-    return jget(ARCH_ROOT + dayPath(d) + '/Triton_Ascend/pr_history.json')
+    return jget(ARCH_ROOT + dayPath(d) + '/Triton_Ascend/pr_dashboard.json')
       .catch(function(e){ if (!isNotFound(e)) throw e; return null; });
   })).then(function(docs){
     render(docs, dates);
   }).catch(function(e){
     document.getElementById('dayTb').innerHTML =
-      '<tr><td colspan="10" class="loading">读取失败：' + rfEsc(e.message) + '</td></tr>';
+      '<tr><td class="loading">读取失败：' + rfEsc(e.message) + '</td></tr>';
+    document.getElementById('fullTb').innerHTML = '';
   });
 }
 
 function render(docs, dates){
-  const jobs = [];
-  const dayRows = [];
+  /* rows: 有归档的日期（升序），每条带看板 record 原值 */
+  const rows = [];
   dates.forEach(function(d, i){
     const doc = docs[i];
-    if (doc && doc.jobs && doc.jobs.length){
-      doc.jobs.forEach(function(j){ j._date = d; jobs.push(j); });
-      dayRows.push({date: d, s: doc.summary || {}, doc: doc});
-    }
+    if (doc && doc.record) rows.push({date: d, record: doc.record, doc: doc});
   });
-  JOBS = jobs;
-  const tb = document.getElementById('dayTb');
-  if (!dayRows.length){
-    tb.innerHTML = '<tr><td colspan="10" class="loading">区间内暂无 PR CI 数据'
-      + '（pr_history.json 由每日采集任务产出，当日无数据或尚未采集都会显示本提示）</td></tr>';
-    document.getElementById('prTb').innerHTML =
-      '<tr><td colspan="10" class="loading">区间内暂无 PR CI 数据</td></tr>';
-    renderCards([], null);
+
+  if (!rows.length){
+    const empty = '<tr><td class="loading">区间内暂无看板归档'
+      + '（pr_dashboard.json 由每日 8 点采集任务产出，当天没采或非工作日都会显示本提示）</td></tr>';
+    document.getElementById('dayTb').innerHTML = empty;
+    document.getElementById('fullTb').innerHTML = empty;
+    document.getElementById('cards').innerHTML = '';
     return;
   }
-  /* 每日汇总行（含当日版本可用：vaDetail.availDays>0） */
-  Promise.all(dayRows.map(function(r){
-    return jget(ARCH_ROOT + dayPath(r.date) + '/_day.json').then(function(day){
-      const p = ((day || {}).pipelines || []).filter(function(x){
-        return String(x.component || '') === 'Triton_Ascend';
-      })[0];
-      r.va = p && p.vaDetail ? (p.vaDetail.availDays > 0 ? 'ok' : 'bad') : 'na';
-    }).catch(function(){ r.va = 'na'; });
-  })).then(function(){
-    tb.innerHTML = dayRows.map(function(r){
-      const s = r.s;
-      const ok = s.jobCount ? (1 - (s.failCount || 0) / s.jobCount) : null;
-      const va = r.va === 'ok' ? '<span class="ok">可用</span>'
-               : (r.va === 'bad' ? '<span class="bad">不可用</span>' : '<span class="dim">--</span>');
-      return '<tr>'
-        + '<td>' + r.date + '</td>'
-        + '<td class="ctr">' + nz(s.prCount) + '</td>'
-        + '<td class="ctr">' + nz(s.jobCount) + '</td>'
-        + '<td class="ctr">' + nz(s.failCount) + '</td>'
-        + '<td class="ctr">' + (ok === null ? '--' : (ok * 100).toFixed(1) + '%') + '</td>'
-        + '<td class="ctr">' + fmtDur(s.execSecondsAvg) + '</td>'
-        + '<td class="ctr">' + fmtDur(s.waitSecondsAvg) + '</td>'
-        + '<td class="ctr">' + fmtDur(s.waitSecondsMax) + '</td>'
-        + '<td class="ctr">' + nz(s.cardHours) + '</td>'
-        + '<td class="ctr">' + va + '</td>'
-        + '</tr>';
-    }).join('');
+
+  renderCards(rows[rows.length - 1]);
+  renderDayTable(rows);
+  renderFullTable(rows);
+}
+
+/* 顶部汇总卡：取区间内「最新一个归档日」的原值，不做跨日平均 */
+function renderCards(latest){
+  const rec = latest.record || {};
+  const card = function(key){
+    const spec = SPEC_BY_KEY[key] || {label: key};
+    const valHtml = (key === 'passStatus')
+      ? fmtVal(key, rec[key])
+      : String(fmtVal(key, rec[key])).replace(/^<span[^>]*>/, '').replace(/<\/span>$/, '');
+    return '<div class="c"><b>' + valHtml + '</b><span>' + rfEsc(spec.label)
+      + '<br>（' + latest.date + '）</span></div>';
+  };
+  document.getElementById('cards').innerHTML = CARD_FIELDS.map(card).join('');
+}
+
+/* 每日核心指标宽表：行=日期，列=DAY_COLUMNS */
+function renderDayTable(rows){
+  const head = '<tr><th>日期</th>' + DAY_COLUMNS.map(function(k){
+    return '<th>' + rfEsc((SPEC_BY_KEY[k] || {label: k}).label) + '</th>';
+  }).join('') + '</tr>';
+  document.getElementById('dayHead').innerHTML = head;
+  const body = rows.map(function(r){
+    return '<tr><td class="ctr">' + r.date + '</td>' + DAY_COLUMNS.map(function(k){
+      return '<td class="ctr">' + fmtVal(k, r.record[k]) + '</td>';
+    }).join('') + '</tr>';
+  }).join('');
+  document.getElementById('dayTb').innerHTML = body;
+}
+
+/* 全字段明细表：行=FIELD_SPEC 指标（按分组插入分组行），列=日期 */
+function renderFullTable(rows){
+  document.getElementById('fullHead').innerHTML = '<tr><th style="min-width:200px">看板指标（官方名）</th>'
+    + rows.map(function(r){ return '<th>' + r.date + '</th>'; }).join('') + '</tr>';
+  let html = '';
+  let lastGroup = null;
+  FIELD_SPEC.forEach(function(spec){
+    const key = spec[0], label = spec[1], group = spec[3], code = spec[4];
+    if (group !== lastGroup){
+      const colspan = rows.length + 1;
+      html += '<tr class="grp"><td colspan="' + colspan + '">' + rfEsc(group) + '</td></tr>';
+      lastGroup = group;
+    }
+    const name = rfEsc(label) + (code ? ' <span class="dim">#' + code + '</span>' : '');
+    html += '<tr><td>' + name + '</td>' + rows.map(function(r){
+      return '<td class="ctr">' + fmtVal(key, r.record[key]) + '</td>';
+    }).join('') + '</tr>';
   });
-
-  /* PR 明细：区间内按 (PR, workflow) 聚合 */
-  const grp = {};
-  jobs.forEach(function(j){
-    if (j.prNumber === null || j.prNumber === undefined) return;   /* 分支触发的没有 PR 号，不入本表 */
-    const k = j.prNumber + '|' + (j.workflow || '');
-    (grp[k] = grp[k] || {pr: j.prNumber, wf: j.workflow || '--', org: j.org, repo: j.repo,
-                         jobs: [], days: {}}).jobs.push(j);
-    grp[k].days[j._date] = 1;
-  });
-  const rows = Object.keys(grp).map(function(k){ return grp[k]; })
-    .sort(function(a, b){
-      const la = a.jobs[0].createdAt || '', lb = b.jobs[0].createdAt || '';
-      return lb.localeCompare(la) || (b.pr - a.pr);
-    });
-  PR_ROWS = rows;
-  document.getElementById('prTb').innerHTML = rows.length ? rows.map(function(r, i){
-    const execs = r.jobs.map(function(j){ return j.execSeconds || 0; });
-    const waits = r.jobs.map(function(j){ return j.waitSeconds; }).filter(function(w){ return w !== null && w !== undefined; });
-    const fails = r.jobs.filter(function(j){ return j.status === 'rejected'; }).length;
-    const gh = 'https://github.com/' + (r.org || 'triton-lang') + '/' + (r.repo || 'triton-ascend') + '/pull/' + r.pr;
-    return '<tr>'
-      + '<td><a class="lnk" href="' + gh + '" target="_blank">#' + r.pr + '</a></td>'
-      + '<td class="cw">' + rfEsc(r.wf) + '</td>'
-      + '<td class="ctr">' + Object.keys(r.days).length + '</td>'
-      + '<td class="ctr"><a class="lnk jobs-lnk" data-i="' + i + '">' + r.jobs.length + ' 个</a></td>'
-      + '<td class="ctr">' + (fails ? '<span class="bad">' + fails + '</span>' : '0') + '</td>'
-      + '<td class="ctr">' + fmtDur(execs.reduce(function(a,b){ return a+b; }, 0)) + ' / ' + fmtDur(avg(execs)) + '</td>'
-      + '<td class="ctr">' + fmtDur(avg(waits)) + ' / ' + fmtDur(waits.length ? Math.max.apply(null, waits) : null) + '</td>'
-      + '<td class="ctr">' + (r.jobs.reduce(function(a,j){ return a + (j.npu || 0) * (j.execSeconds || 0); }, 0) / 3600).toFixed(2) + '</td>'
-      + '<td class="cw1">' + rfEsc(r.jobs[0].createdAt) + '</td>'
-      + '<td class="ctr"><a class="lnk jobs-lnk" data-i="' + i + '">查看</a></td>'
-      + '</tr>';
-  }).join('') : '<tr><td colspan="10" class="loading">区间内没有带 PR 号的 job（分支触发的运行不带 PR 号）</td></tr>';
-
-  renderCards(jobs, dayRows);
+  document.getElementById('fullTb').innerHTML = html;
 }
 
-/* 汇总卡：PR/Job/成功率/时长/卡时 + 版本可用度（累计值，取区间内最新一天的 _day.json） */
-function renderCards(jobs, dayRows){
-  const el = document.getElementById('cards');
-  const prs = {}; jobs.forEach(function(j){ if (j.prNumber !== null) prs[j.prNumber] = 1; });
-  const execs = jobs.map(function(j){ return j.execSeconds; }).filter(function(v){ return v; });
-  const waits = jobs.map(function(j){ return j.waitSeconds; }).filter(function(v){ return v !== null && v !== undefined; });
-  const fails = jobs.filter(function(j){ return j.status === 'rejected'; }).length;
-  const card = function(v, label){ return '<div class="c"><b>' + v + '</b><span>' + label + '</span></div>'; };
-  let html = card(Object.keys(prs).length, 'PR 数')
-    + card(jobs.length, 'Job 数')
-    + card(fails, '失败 Job')
-    + card(jobs.length ? ((1 - fails / jobs.length) * 100).toFixed(1) + '%' : '--', 'Job 成功率')
-    + card(fmtDur(avg(execs)), '平均执行时长')
-    + card(fmtDur(avg(waits)), '平均排队时长')
-    + card((jobs.reduce(function(a,j){ return a + (j.npu || 0) * (j.execSeconds || 0); }, 0) / 3600).toFixed(2), 'NPU 卡时（小时）');
-  el.innerHTML = html + '<div class="c" id="vaCard"><b>--</b><span>版本可用度</span></div>';
-  if (dayRows && dayRows.length){
-    const last = dayRows[dayRows.length - 1].date;
-    jget(ARCH_ROOT + dayPath(last) + '/_day.json').then(function(day){
-      const p = ((day || {}).products || []).filter(function(x){
-        return String(x.product || '').indexOf('Triton') >= 0;
-      })[0];
-      const c = document.getElementById('vaCard');
-      if (p && c && p.versionAvailabilityRate !== null && p.versionAvailabilityRate !== undefined){
-        c.innerHTML = '<b>' + (p.versionAvailabilityRate * 100).toFixed(1) + '%</b>'
-          + '<span>版本可用度（截至 ' + last + ' 累计）</span>';
-      } else if (c){
-        c.innerHTML = '<b>--</b><span>版本可用度（当日 _day.json 无 Triton 产品）</span>';
-      }
-    }).catch(function(){});
-  }
-}
-
-/* Jobs 弹窗：一个 PR 的全部 job（按下标从 PR_ROWS 取，避免转义后的字符串比较） */
-function showJobs(i){
-  const r = PR_ROWS[i];
-  if (!r) return;
-  const list = r.jobs;
-  document.getElementById('mttl').textContent = '#' + r.pr + ' · ' + r.wf + ' · ' + list.length + ' 个 job';
-  document.getElementById('jobTbl').innerHTML =
-    '<colgroup><col style="width:22%"><col style="width:8%"><col style="width:8%"><col style="width:9%">'
-    + '<col style="width:9%"><col style="width:6%"><col style="width:8%"><col style="width:10%">'
-    + '<col style="width:20%"></colgroup>'
-    + '<thead><tr><th>Job</th><th>日期</th><th>状态</th><th>执行时长</th><th>排队时长</th>'
-    + '<th>NPU</th><th>卡型</th><th>集群</th><th>开始 / 结束（北京时间）</th></tr></thead><tbody>'
-    + list.map(function(j){
-      const bad = j.status === 'rejected';
-      return '<tr>'
-        + '<td class="cw">' + rfEsc(j.job || j.pod || '--') + '</td>'
-        + '<td class="ctr">' + j._date + '</td>'
-        + '<td class="ctr">' + (bad ? '<span class="bad">' : '<span>') + rfEsc(j.status) + '</span></td>'
-        + '<td class="ctr">' + fmtDur(j.execSeconds) + '</td>'
-        + '<td class="ctr">' + fmtDur(j.waitSeconds) + '</td>'
-        + '<td class="ctr">' + nz(j.npu) + '</td>'
-        + '<td class="ctr">' + rfEsc(j.deviceModel || '--') + '</td>'
-        + '<td class="ctr">' + rfEsc(j.cluster || '--') + '</td>'
-        + '<td class="cw1">' + rfEsc(j.createdAt) + '<br>' + rfEsc(j.endedAt) + '</td>'
-        + '</tr>';
-    }).join('') + '</tbody>';
-  document.getElementById('mrec').classList.add('on');
-}
-document.getElementById('mclose').addEventListener('click', function(){
-  document.getElementById('mrec').classList.remove('on');
-});
-document.getElementById('mrec').addEventListener('click', function(e){
-  if (e.target === this) this.classList.remove('on');
-});
-
-/* 初始化：先探数据根 → 拿归档日清单给筛选条定界 → 挂 onChange 逐日取数。
-   _index.json 的 days 是 {date, path, ...} 对象数组（不是字符串），取 .date */
+/* 初始化：探数据根 → 读 _pr_index.json 拿 PR 归档日清单给筛选条定界 → 挂 onChange 逐日取数 */
 probeRoot().then(function(idx){
   const list = (idx.days || []).map(function(d){ return d.date; }).sort();
   list.forEach(function(d){ DAYS.push(d); });
@@ -3156,20 +3100,25 @@ probeRoot().then(function(idx){
   rfInit({min: min, max: max, onChange: loadRange});
 }).catch(function(e){
   document.getElementById('dayTb').innerHTML =
-    '<tr><td colspan="10" class="loading">读取失败：' + rfEsc(e.message) + '</td></tr>';
-  document.getElementById('prTb').innerHTML = '';
+    '<tr><td class="loading">读取失败：' + rfEsc(e.message) + '</td></tr>';
+  document.getElementById('fullTb').innerHTML = '';
 });
 
-/* 统计口径（页面底部，一条一行） */
+/* 统计口径（页面底部，一条一行）：全部围绕「看板原值、不二次计算」 */
 (function(){
   document.getElementById('tnote').innerHTML =
-    '<div class="tn-hd">统计口径</div><ul class="tn-list">'
-    + '<li><b>数据源</b>：pod-history-api（CI job pod 生命周期），每日 8 点采集昨日 00:00~24:00（北京时间）</li>'
-    + '<li><b>执行时长</b>：job pod 存活秒数（ttl_seconds）；<b>排队时长</b>：调度等待（wait_duration）</li>'
-    + '<li><b>失败 Job</b>：pod 状态 rejected；released / expired 均视为跑完（expired = 跑完后被平台清理）</li>'
-    + '<li><b>NPU 卡时</b>：卡数 × 执行秒数 ÷ 3600；分支触发的运行（无 PR 号）不进 PR 明细，只进汇总</li>'
-    + '<li><b>版本可用度</b>：当日可用 = 当天有成功执行且用例通过率 100%（与首页同口径）；'
-        + '汇总卡为截至区间内最新采集日的累计值</li>'
+    '<div class="tn-hd">数据说明</div><ul class="tn-list">'
+    + '<li><b>数据源</b>：openLiBing eCDashboard 工程能力运营看板（projectId=300130 Triton_Ascend），'
+    + '每日 8 点经 CDP XHR hook 让页面带自身鉴权发起 ops-overview/main，hook 改写为昨日单日区间'
+    + '（startDate=endDate）后截获原值，全程不额外配置 token</li>'
+    + '<li><b>只呈现不计算</b>：表格与卡片的值均为看板接口返回的原始字段，本页不做任何聚合、平均、'
+    + '加权或派生分析；比率字段（0~1）仅做百分比显示，分钟字段直接显示分钟数</li>'
+    + '<li><b>指标口径</b>：字段中文名后括号内 #编号 对应 openLiBing 官方指标字典 metricCode，'
+    + '权威定义与阈值判档以看板指标字典为准（如 10002=PR执行时长[P90]、10056=PR构建资源排队[P90]、'
+    + '10057=PR测试资源排队[P90]、10018=版本可用度）</li>'
+    + '<li><b>汇总卡</b>：取所选区间内最新一个有归档日期的原值，不跨日合并；'
+    + '当天无归档（周末/节假日/未采集）对应单元格显示 --</li>'
+    + '<li><b>灯色</b>：passStatus 为看板给出的红/黄/绿判档结果，本页原样展示，不重新判档</li>'
     + '</ul>';
 })();
 """
@@ -3191,7 +3140,7 @@ def main():
     # 也就没有第二份文案需要跟着改，口径永远只有 CALIBER_JS 这一处
     det = write_page(HTML_DIR / DETAIL_NAME, DETAIL_TITLE, DETAIL_BODY,
                      DETAIL_JS, DETAIL_EXTRA_CSS, wd_cal)
-    # PR 页：数据源是每日 pr_history.json（pod-history-api 采集），不读 pipeline.json，壳同源
+    # PR 页：数据源是每日 pr_dashboard.json（CDP XHR hook 拦截 openLiBing 看板原值），不读流水线归档，壳同源
     pr = write_page(HTML_DIR / PR_NAME, PR_TITLE, PR_BODY, PR_JS, PR_EXTRA_CSS, wd_cal)
 
     page_doc = doc("step_9_pages", files=[INDEX_NAME, DETAIL_NAME], dayCount=len(days))
@@ -3272,14 +3221,16 @@ def main():
                      "弹窗共 2 个入口（失败用例 / 日志证据）；"
                      "同组分析对比入口已随拆行下线；"
                      "不读 step_6_records.json（单份可达 80KB+），记录正文随该流水线的 pipeline.json 一次取回"},
-            {"name": PR_NAME, "role": "PR 页（triton-ascend PR CI 数据：执行时长 / 排队时长 / 卡时 / 成败）",
-             "reads": ["archive/<年>/<年-月>/<日>/Triton_Ascend/pr_history.json（每日一份，tools/collect_pr_daily.py 产出）",
-                       "archive/<日>/_day.json（当日版本可用 + 区间内最新累计值）"],
-             "fields": ["汇总卡（PR 数 / Job 数 / 失败 Job / Job 成功率 / 平均执行 / 平均排队 / NPU 卡时 / 版本可用度累计）",
-                        "每日汇总（含当日版本可用）", "PR 明细（按 PR + 工作流聚合，PR 号链接 GitHub）", "Jobs 弹窗（job 级明细）"],
-             "note": "数据源为 pod-history-api（CI job pod 生命周期），与流水线归档相互独立；"
-                     "执行时长 = pod 存活秒数，排队时长 = wait_duration，失败 = status rejected"
-                     "（released/expired 均视为跑完）；分支触发的运行无 PR 号，只进每日汇总不进 PR 明细"},
+            {"name": PR_NAME, "role": "PR 页（triton-ascend PR 工程能力看板：执行时长 / 排队时长 / 版本可用度 / 资源消耗等 openLiBing 原值）",
+             "reads": ["archive/<年>/<年-月>/<日>/Triton_Ascend/pr_dashboard.json（每日一份，tools/collect_pr_daily.py 经 CDP XHR hook 拦截 openLiBing eCDashboard 产出）",
+                       "archive/_pr_index.json（PR 归档日清单，独立于流水线 _index.json）"],
+             "fields": ["顶部汇总卡（区间内最新归档日的核心指标原值）",
+                        "每日核心指标宽表（执行/排队/版本可用度/编译成功率/门禁/灯色）",
+                        "全字段明细（行=看板官方指标含 metricCode 编号，列=日期，按分组分区）"],
+             "note": "数据源为 openLiBing eCDashboard（projectId=300130）ops-overview/main 单日接口，"
+                     "由 CDP 预注入 XHR hook 让页面带自身鉴权自发请求、hook 把请求体改写为 startDate=endDate 单日并截获 200 响应；"
+                     "record 整份为看板返回原值，页面只做单位格式化（比率转百分比、分钟直显）不做任何聚合/派生分析；"
+                     "passStatus 灯色为看板判档结果原样展示；归档索引独立维护为 _pr_index.json"},
         ],
         "dataInline": False,
         "caliber": {

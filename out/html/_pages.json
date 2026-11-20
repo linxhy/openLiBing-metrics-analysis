@@ -5,17 +5,17 @@
   "source": "out/archive/（_index.json / _day.json / pipeline.json）",
   "criteria": "只产出静态壳（样式 + 公共日期筛选组件 + 取数脚本）到 out/html/，HTML 内不内嵌任何业务数据；页面运行时按【执行结束时间】区间读取归档 JSON，首页与二级页共用 lib/ui.py 的同一份筛选组件，口径不会分叉",
   "dateField": "pipelineRunEndtime",
-  "generatedAt": "2026-11-19 20:13:08",
+  "generatedAt": "2026-11-20 10:53:40",
   "files": [
    "index.html",
    "detail.html"
   ],
-  "dayCount": 53
+  "dayCount": 54
  },
- "generatedAt": "2026-11-19 20:13:08",
- "dayCount": 53,
+ "generatedAt": "2026-11-20 10:53:40",
+ "dayCount": 54,
  "firstDay": "2026-09-15",
- "lastDay": "2026-11-18",
+ "lastDay": "2026-11-19",
  "shell": {
   "title": "流水线失败原因智能定位定界",
   "subtitle": "夜间流水线失败根因 · 口径：执行结束时间",
@@ -76,18 +76,17 @@
   },
   {
    "name": "pr.html",
-   "role": "PR 页（triton-ascend PR CI 数据：执行时长 / 排队时长 / 卡时 / 成败）",
+   "role": "PR 页（triton-ascend PR 工程能力看板：执行时长 / 排队时长 / 版本可用度 / 资源消耗等 openLiBing 原值）",
    "reads": [
-    "archive/<年>/<年-月>/<日>/Triton_Ascend/pr_history.json（每日一份，tools/collect_pr_daily.py 产出）",
-    "archive/<日>/_day.json（当日版本可用 + 区间内最新累计值）"
+    "archive/<年>/<年-月>/<日>/Triton_Ascend/pr_dashboard.json（每日一份，tools/collect_pr_daily.py 经 CDP XHR hook 拦截 openLiBing eCDashboard 产出）",
+    "archive/_pr_index.json（PR 归档日清单，独立于流水线 _index.json）"
    ],
    "fields": [
-    "汇总卡（PR 数 / Job 数 / 失败 Job / Job 成功率 / 平均执行 / 平均排队 / NPU 卡时 / 版本可用度累计）",
-    "每日汇总（含当日版本可用）",
-    "PR 明细（按 PR + 工作流聚合，PR 号链接 GitHub）",
-    "Jobs 弹窗（job 级明细）"
+    "顶部汇总卡（区间内最新归档日的核心指标原值）",
+    "每日核心指标宽表（执行/排队/版本可用度/编译成功率/门禁/灯色）",
+    "全字段明细（行=看板官方指标含 metricCode 编号，列=日期，按分组分区）"
    ],
-   "note": "数据源为 pod-history-api（CI job pod 生命周期），与流水线归档相互独立；执行时长 = pod 存活秒数，排队时长 = wait_duration，失败 = status rejected（released/expired 均视为跑完）；分支触发的运行无 PR 号，只进每日汇总不进 PR 明细"
+   "note": "数据源为 openLiBing eCDashboard（projectId=300130）ops-overview/main 单日接口，由 CDP 预注入 XHR hook 让页面带自身鉴权自发请求、hook 把请求体改写为 startDate=endDate 单日并截获 200 响应；record 整份为看板返回原值，页面只做单位格式化（比率转百分比、分钟直显）不做任何聚合/派生分析；passStatus 灯色为看板判档结果原样展示；归档索引独立维护为 _pr_index.json"
   }
  ],
  "dataInline": false,
@@ -113,15 +112,15 @@
  "filesWritten": [
   {
    "file": "index.html",
-   "bytes": 74412
+   "bytes": 74426
   },
   {
    "file": "detail.html",
-   "bytes": 136615
+   "bytes": 136629
   },
   {
    "file": "pr.html",
-   "bytes": 42491
+   "bytes": 35808
   }
  ]
 }
