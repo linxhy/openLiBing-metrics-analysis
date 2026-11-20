@@ -32,9 +32,17 @@ h3{font-size:13.5px;margin:14px 0 8px;font-weight:600;color:#1c2b45}
   min-height:calc(100vh - 24px);display:flex;flex-direction:column}
 p.meta{font-size:12.5px;color:#7c8698;line-height:1.65;margin:0}
 /* 品牌行：两页完全一致，因此它下面的公共筛选条在切页时位置不跳动 */
-.hd{margin:0 0 12px}
+.hd{margin:0 0 12px;position:relative}
 .hd h1{font-size:21px;margin:0 0 5px}
 .hd p.meta{font-size:12.5px}
+/* 固定入口角标：绝对定位不占文档流，品牌行高度不变、切页不跳。
+   默认隐藏，仅线上托管（GitHub Pages 等非本机）由 RANGE_JS 加 .show 显示；
+   三页同在 out/html/，href 回退两级即仓库根门面 index.html，不写死域名、兼容任意部署深度。 */
+.site-home{display:none;position:absolute;top:2px;right:0;align-items:center;
+  font-size:12px;font-weight:400;color:var(--acc);background:#eff5ff;border:1px solid #bfd3fe;
+  border-radius:8px;padding:4px 10px;white-space:nowrap}
+.site-home.show{display:inline-flex}
+.site-home:hover{text-decoration:none;background:#e3eeff}
 /* 公共日期筛选条：系统级全局筛选，整条贴到卡片左右边缘并吸顶（top:0），
    首页与二级页共用同一份 DOM + 同一位置（品牌行之下、页面自身标题之上），
    切页、滚动都不动，语义始终是「整个系统的数据筛选」。 */
@@ -212,6 +220,7 @@ footer#foot{flex:0 0 auto;font-size:11.5px;color:#9aa3af;line-height:1.7;margin-
   <div class="hd">
   <h1>流水线失败原因智能定位定界</h1>
   <p class="meta" id="hsub">夜间流水线失败根因 · 口径：执行结束时间</p>
+  <a class="site-home" id="siteHome" href="../../index.html" title="返回站点固定入口（首页导航）">⌂ 站点首页 · 固定入口</a>
 </div>
   <div class="toolbar" id="rf">
   <span class="lb">统计区间</span>
@@ -260,6 +269,19 @@ const WD_CAL = ["2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09
 /* ==== 公共日期筛选组件（唯一来源 lib/ui.py，口径 = 执行结束时间）==== */
 const RF_FIELD = "pipelineRunEndtime";
 const rfState = {min:null, max:null, prev:null, seg:null, onChange:null};
+
+/* 固定入口角标：仅线上托管（GitHub Pages 等非本机访问）才显示；
+   file://（hostname 为空）/ localhost / 127.0.0.1 / ::1 一律隐藏，避免本地预览出现死链。
+   不写死域名：角标 href 用相对路径 ../../index.html，随部署目录自适应回退到站点门面。 */
+(function(){
+  const h = location.hostname || '';
+  const isLocal = (h === '' || h === 'localhost' || h === '127.0.0.1' || h === '::1');
+  if (isLocal) return;
+  document.addEventListener('DOMContentLoaded', function(){
+    const el = document.getElementById('siteHome');
+    if (el) el.classList.add('show');
+  });
+})();
 
 function rfYmd(d){const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
 function rfShift(ymd, days){const d=new Date(ymd+'T00:00:00');d.setDate(d.getDate()+days);return rfYmd(d);}

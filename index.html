@@ -3,33 +3,123 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Triton_Ascend 工程能力看板</title>
-<meta http-equiv="refresh" content="0; url=out/html/index.html">
+<title>Triton_Ascend 工程能力看板 · 固定入口</title>
 <style>
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
        background:#0f172a;color:#e2e8f0}
-  .card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:34px 40px;max-width:560px;
+  .card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:32px 36px;max-width:600px;width:100%;
         box-shadow:0 12px 40px rgba(0,0,0,.35)}
-  h1{font-size:19px;margin:0 0 6px;font-weight:650}
-  p{color:#94a3b8;font-size:13.5px;line-height:1.7;margin:0 0 18px}
-  ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-  a{color:#7dd3fc;text-decoration:none;font-size:14px;font-weight:550}
-  a:hover{text-decoration:underline}
-  .tag{display:inline-block;font-size:11px;color:#64748b;border:1px solid #334155;border-radius:6px;
-       padding:1px 7px;margin-left:8px;vertical-align:middle}
+  h1{font-size:19px;margin:0 0 4px;font-weight:650;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .tag{display:inline-block;font-size:11px;color:#7dd3fc;border:1px solid #334155;border-radius:6px;
+       padding:1px 7px;font-weight:500}
+  p.lead{color:#94a3b8;font-size:13px;line-height:1.7;margin:0 0 18px}
+  .addr{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:12px 14px;margin-bottom:8px}
+  .addr .k{font-size:11.5px;color:#64748b;margin-bottom:6px;letter-spacing:.5px}
+  .addr .row{display:flex;align-items:center;gap:10px}
+  .addr code{flex:1 1 auto;font-family:Consolas,"Courier New",monospace;font-size:13px;color:#7dd3fc;
+       word-break:break-all;line-height:1.5}
+  button.copy{flex:0 0 auto;border:1px solid #3b82f6;background:#1d4ed8;color:#fff;border-radius:8px;
+       padding:6px 14px;font-size:12.5px;cursor:pointer;white-space:nowrap}
+  button.copy:hover{background:#2563eb}
+  button.copy.ok{background:#15803d;border-color:#16a34a}
+  .hint{color:#64748b;font-size:12px;margin:0 0 20px;line-height:1.6}
+  ul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px}
+  li a{display:flex;flex-direction:column;gap:2px;background:#0f172a;border:1px solid #334155;border-radius:10px;
+       padding:12px 16px;color:#e2e8f0}
+  li a:hover{border-color:#3b82f6;text-decoration:none;background:#172033}
+  li a .t{color:#7dd3fc;font-size:14px;font-weight:550}
+  li a .d{color:#7c8aa3;font-size:12px}
+  .foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid #334155;padding-top:16px}
+  .count{color:#94a3b8;font-size:12.5px}
+  .count b{color:#fbbf24;font-variant-numeric:tabular-nums}
+  .foot a.enter{color:#7dd3fc;font-size:13px;font-weight:550}
+  .foot button.cancel{margin-left:auto;background:transparent;border:1px solid #475569;color:#cbd5e1;
+       border-radius:8px;padding:6px 14px;font-size:12.5px;cursor:pointer}
+  .foot button.cancel:hover{border-color:#94a3b8;color:#fff}
 </style>
 </head>
 <body>
   <div class="card">
-    <h1>Triton_Ascend 工程能力看板<span class="tag">openLiBing 原值</span></h1>
-    <p>正在进入静态看板。若未自动跳转，请选择入口：</p>
+    <h1>Triton_Ascend 工程能力看板 <span class="tag">openLiBing 原值</span></h1>
+    <p class="lead">任何电脑 / 手机用浏览器打开下面这个固定地址即可查看，无需登录、不依赖内网，数据随每日 8 点采集自动更新。</p>
+
+    <div class="addr">
+      <div class="k">固定访问地址（可收藏 / 转发）</div>
+      <div class="row">
+        <code id="fixedUrl">读取中…</code>
+        <button type="button" class="copy" id="copyBtn">复制</button>
+      </div>
+    </div>
+    <p class="hint">提示：把这个网址加入浏览器书签，或直接发给同事；打开后可用页面右上角「⌂ 站点首页 · 固定入口」随时回到本页。</p>
+
     <ul>
-      <li><a href="out/html/index.html">夜间流水线总览（首页） →</a></li>
-      <li><a href="out/html/pr.html">triton-ascend PR 看板（执行/排队时长 · 版本可用度） →</a></li>
-      <li><a href="out/html/detail.html">组件根因明细 →</a></li>
+      <li><a href="out/html/index.html">
+        <span class="t">夜间流水线总览（首页） →</span>
+        <span class="d">组件级版本可用度 / 构建成功率 / 待分析流水线，支持按区间筛选与下钻</span>
+      </a></li>
+      <li><a href="out/html/pr.html">
+        <span class="t">triton-ascend PR 看板 →</span>
+        <span class="d">执行 / 排队时长 · 门禁通过率 · 版本可用度 · NPU 资源消耗（看板原值）</span>
+      </a></li>
+      <li><a href="out/html/detail.html">
+        <span class="t">组件根因明细 →</span>
+        <span class="d">逐条失败构建的错误信息、问题分类与 AI 根因 / 修复建议</span>
+      </a></li>
     </ul>
+
+    <div class="foot">
+      <span class="count" id="countLine"><b id="sec">8</b> 秒后自动进入首页</span>
+      <a class="enter" href="out/html/index.html">立即进入 →</a>
+      <button type="button" class="cancel" id="cancelBtn">取消自动跳转</button>
+    </div>
   </div>
-  <script>location.replace('out/html/index.html');</script>
+
+<script>
+(function(){
+  /* 固定地址：优先给「干净」的目录形式（结尾的 index.html 剥掉），不写死域名，随部署环境自适应 */
+  var p = location.pathname || '/';
+  if (/index\.html$/i.test(p)) p = p.replace(/index\.html$/i, '');
+  var fixed = location.origin + p;
+  document.getElementById('fixedUrl').textContent = fixed;
+
+  /* 一键复制：Clipboard API 优先，失败（旧浏览器 / 非安全上下文）退回临时 textarea */
+  var copyBtn = document.getElementById('copyBtn');
+  copyBtn.addEventListener('click', function(){
+    function ok(){ copyBtn.textContent = '已复制'; copyBtn.classList.add('ok');
+      setTimeout(function(){ copyBtn.textContent = '复制'; copyBtn.classList.remove('ok'); }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(fixed).then(ok).catch(fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = fixed; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ok(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+
+  /* 可取消的倒计时自动跳转：让用户先看到固定地址与三个入口，再决定去哪 */
+  var sec = 8, timer = null;
+  var secEl = document.getElementById('sec');
+  var countLine = document.getElementById('countLine');
+  var cancelBtn = document.getElementById('cancelBtn');
+  timer = setInterval(function(){
+    sec -= 1;
+    if (sec <= 0){ clearInterval(timer); location.replace('out/html/index.html'); return; }
+    secEl.textContent = sec;
+  }, 1000);
+  cancelBtn.addEventListener('click', function(){
+    clearInterval(timer); timer = null;
+    countLine.innerHTML = '已取消自动跳转，可从上方入口手动选择';
+    cancelBtn.textContent = '已取消';
+    cancelBtn.disabled = true;
+    cancelBtn.style.opacity = '.6';
+    cancelBtn.style.cursor = 'default';
+  });
+})();
+</script>
 </body>
 </html>
