@@ -1,0 +1,4 @@
+# Windows 批处理必须使用 CRLF：任务计划程序 / cmd.exe 对纯 LF 的多行括号块(if (...))解析不可靠，
+# 会出现计划任务退出码 1 且首条日志都未写出的故障。强制 eol=crlf 防止 git 在提交时转回 LF。
+*.cmd text eol=crlf
+*.bat text eol=crlf
