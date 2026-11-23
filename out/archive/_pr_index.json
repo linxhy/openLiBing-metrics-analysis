@@ -5,12 +5,12 @@
   "source": "https://www.openlibing.com/apps/eCDashboard?projectId=300130",
   "criteria": "每个登记日对应一份 Triton_Ascend/pr_dashboard.json；由 tools/collect_pr_daily.py 每日采集后 upsert，页面运行时读取本索引定日期",
   "dateField": "pipelineRunEndtime",
-  "generatedAt": "2026-11-22 08:00:25"
+  "generatedAt": "2026-11-23 08:00:12"
  },
- "generatedAt": "2026-11-22 08:00:25",
+ "generatedAt": "2026-11-23 08:00:12",
  "projectId": 300130,
  "projectName": "Triton_Ascend",
- "dayCount": 3,
+ "dayCount": 4,
  "days": [
   {
    "date": "2026-11-19",
@@ -29,6 +29,12 @@
    "path": "archive/2026/2026-11/2026-11-21/Triton_Ascend/pr_dashboard.json",
    "bytes": 6278,
    "statDate": "2026-11-21"
+  },
+  {
+   "date": "2026-11-22",
+   "path": "archive/2026/2026-11/2026-11-22/Triton_Ascend/pr_dashboard.json",
+   "bytes": 6278,
+   "statDate": "2026-11-22"
   }
  ]
 }
